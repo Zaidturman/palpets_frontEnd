@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PalPets - منصة العناية بالحيوانات الأليفة</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="container">
+        <a href="index.html" class="logo">
+          <img src="images/logo.png" alt="" />
+        </a>
+
+        <div class="nav-menu">
+          <a href="index.html" class="active">الرئيسية</a>
+          <a href="pages/pets.html">الحيوانات</a>
+          <a href="pages/adoption.html">التبني</a>
+          <a href="pages/lost-found.html">مفقود ومعثور</a>
+          <a href="pages/veterinary.html">الرعاية البيطرية</a>
+          <a href="pages/store.html">المتجر</a>
+        </div>
+
+        <div class="auth-buttons">
+          <a href="pages/login.html" class="btn-login">تسجيل الدخول</a>
+        </div>
+
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+      </div>
+
+      <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">الرئيسية</a>
+        <a href="pages/pets.html">الحيوانات</a>
+        <a href="pages/adoption.html">التبني</a>
+        <a href="pages/lost-found.html">مفقود ومعثور</a>
+        <a href="pages/veterinary.html">الرعاية البيطرية</a>
+        <a href="pages/store.html">المتجر</a>
+        <a href="pages/login.html">تسجيل الدخول</a>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <h2>منصة PalPets للعناية بالحيوانات الأليفة</h2>
+          <p>
+            منصة متكاملة تجمع عشاق الحيوانات الأليفة، المربين، والملاجئ في مكان
+            واحد
+          </p>
+          <div class="hero-buttons">
+            <a href="pages/pets.html" class="btn-primary">استعرض الحيوانات</a>
+            <a href="pages/adoption.html" class="btn-outline">تبني حيوان</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-item">
+            <div class="stat-number" id="petsCount">500+</div>
+            <div class="stat-label">حيوان متاح</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number" id="usersCount">1000+</div>
+            <div class="stat-label">مستخدم نشط</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number" id="vetsCount">50+</div>
+            <div class="stat-label">طبيب بيطري</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number" id="sheltersCount">20+</div>
+            <div class="stat-label">ملجأ</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services">
+      <div class="container">
+        <h2 class="section-title">خدماتنا</h2>
+        <div class="services-grid">
+          <div class="service-card">
+            <div class="service-icon">🐕</div>
+            <h3>بيع وشراء الحيوانات</h3>
+            <p>منصة آمنة لبيع وشراء الحيوانات الأليفة بكل ثقة</p>
+          </div>
+          <div class="service-card">
+            <div class="service-icon">🏠</div>
+            <h3>تبني الحيوانات</h3>
+            <p>ساعد في إيجاد منزل جديد للحيوانات التي تحتاج للرعاية</p>
+          </div>
+          <div class="service-card">
+            <div class="service-icon">🔍</div>
+            <h3>مفقود ومعثور</h3>
+            <p>
+              ساعد في العثور على الحيوانات المفقودة أو الإبلاغ عن حيوانات ضائعة
+            </p>
+          </div>
+          <div class="service-card">
+            <div class="service-icon">🏥</div>
+            <h3>الرعاية البيطرية</h3>
+            <p>تواصل مع أفضل الأطباء البيطريين والعيادات</p>
+          </div>
+          <div class="service-card">
+            <div class="service-icon">🛍️</div>
+            <h3>متجر المستلزمات</h3>
+            <p>كل ما يحتاجه حيوانك الأليف من طعام ومستلزمات</p>
+          </div>
+          <div class="service-card">
+            <div class="service-icon">💉</div>
+            <h3>تذكير بالتطعيمات</h3>
+            <p>نظام تذكير بمواعيد التطعيمات والفحوصات الدورية</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Recent Pets Section -->
+    <section class="services" style="background-color: var(--background)">
+      <div class="container">
+        <h2 class="section-title">آخر الحيوانات المتاحة</h2>
+        <div class="pets-grid" id="recentPets">
+          <!-- سيتم تعبئتها عبر JavaScript -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-section">
+            <h3>عن المنصة</h3>
+            <p>
+              منصة متكاملة للعناية بالحيوانات الأليفة، تجمع عشاق الحيوانات،
+              المربين، والملاجئ في مكان واحد.
+            </p>
+          </div>
+          <div class="footer-section">
+            <h3>روابط سريعة</h3>
+            <ul class="footer-links">
+              <li><a href="index.html">الرئيسية</a></li>
+              <li><a href="pages/pets.html">الحيوانات</a></li>
+              <li><a href="pages/adoption.html">التبني</a></li>
+              <li><a href="pages/lost-found.html">مفقود ومعثور</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>الخدمات</h3>
+            <ul class="footer-links">
+              <li><a href="pages/veterinary.html">الرعاية البيطرية</a></li>
+              <li><a href="pages/store.html">المتجر</a></li>
+              <li><a href="#">التطعيمات</a></li>
+              <li><a href="#">استشارات</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>تواصل معنا</h3>
+            <ul class="footer-links">
+              <li>📞 +972599248391</li>
+              <li>✉️ info@PalPets.com</li>
+              <li>📍 فلسطين</li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>© 2026 PalPets - جميع الحقوق محفوظة</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+      // تحميل آخر الحيوانات
+      document.addEventListener("DOMContentLoaded", function () {
+        loadRecentPets();
+      });
+
+      function loadRecentPets() {
+        const pets = getPets();
+        const recentPets = pets.slice(0, 3);
+        const container = document.getElementById("recentPets");
+
+        container.innerHTML = recentPets
+          .map((pet) => createPetCard(pet))
+          .join("");
+      }
+    </script>
+  </body>
+</html>

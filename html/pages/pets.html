@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>الحيوانات - PalPets</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="container">
+        <a href="../index.html" class="logo">
+          <img src="../images/logo.png" alt="" />
+        </a>
+
+        <div class="nav-menu">
+          <a href="../index.html">الرئيسية</a>
+          <a href="pets.html" class="active">الحيوانات</a>
+          <a href="adoption.html">التبني</a>
+          <a href="lost-found.html">مفقود ومعثور</a>
+          <a href="veterinary.html">الرعاية البيطرية</a>
+          <a href="store.html">المتجر</a>
+        </div>
+
+        <div class="auth-buttons">
+          <a href="login.html" class="btn-login">تسجيل الدخول</a>
+        </div>
+
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+      </div>
+
+      <div class="mobile-menu" id="mobileMenu">
+        <a href="../index.html">الرئيسية</a>
+        <a href="pets.html">الحيوانات</a>
+        <a href="adoption.html">التبني</a>
+        <a href="lost-found.html">مفقود ومعثور</a>
+        <a href="veterinary.html">الرعاية البيطرية</a>
+        <a href="store.html">المتجر</a>
+        <a href="login.html">تسجيل الدخول</a>
+      </div>
+    </nav>
+
+    <!-- Search Section -->
+    <section class="search-section">
+      <div class="container">
+        <h1 class="section-title">الحيوانات المتاحة</h1>
+        <p
+          style="
+            text-align: center;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+          "
+        >
+          تصفح الحيوانات المتاحة للبيع أو التبني
+        </p>
+
+        <!-- Search and Filters -->
+        <div class="search-card">
+          <div class="search-grid">
+            <input
+              type="text"
+              id="searchInput"
+              placeholder="ابحث عن حيوان..."
+              class="search-input"
+              onkeyup="filterPets()"
+            />
+
+            <select
+              id="typeFilter"
+              class="search-input"
+              onchange="filterPets()"
+            >
+              <option value="">جميع الأنواع</option>
+              <option value="dog">كلاب</option>
+              <option value="cat">قطط</option>
+            </select>
+
+            <select
+              id="breedFilter"
+              class="search-input"
+              onchange="filterPets()"
+            >
+              <option value="">جميع السلالات</option>
+              <option value="شيرازي">شيرازي</option>
+              <option value="جيرمن">جيرمن شيبرد</option>
+              <option value="بوميرانيان">بوميرانيان</option>
+            </select>
+
+            <select id="ageFilter" class="search-input" onchange="filterPets()">
+              <option value="">جميع الأعمار</option>
+              <option value="صغير">صغير (أقل من سنة)</option>
+              <option value="بالغ">بالغ (1-7 سنوات)</option>
+              <option value="كبير">كبير (أكثر من 7 سنوات)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Loading Spinner -->
+        <div id="loading" class="spinner" style="display: none"></div>
+
+        <!-- Pets Grid -->
+        <div id="petsGrid" class="pets-grid"></div>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="empty-state" style="display: none">
+          <p>لا توجد حيوانات متاحة حالياً</p>
+          <a href="pets.html" class="btn-secondary">عرض الكل</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-section">
+            <h3>عن المنصة</h3>
+            <p>
+              منصة متكاملة للعناية بالحيوانات الأليفة، تجمع عشاق الحيوانات،
+              المربين، والملاجئ في مكان واحد.
+            </p>
+          </div>
+          <div class="footer-section">
+            <h3>روابط سريعة</h3>
+            <ul class="footer-links">
+              <li><a href="../index.html">الرئيسية</a></li>
+              <li><a href="pets.html">الحيوانات</a></li>
+              <li><a href="adoption.html">التبني</a></li>
+              <li><a href="lost-found.html">مفقود ومعثور</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>الخدمات</h3>
+            <ul class="footer-links">
+              <li><a href="veterinary.html">الرعاية البيطرية</a></li>
+              <li><a href="store.html">المتجر</a></li>
+              <li><a href="#">التطعيمات</a></li>
+              <li><a href="#">استشارات</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>تواصل معنا</h3>
+            <ul class="footer-links">
+              <li>📞 +972599248391</li>
+              <li>✉️ info@PalPets.com</li>
+              <li>📍 فلسطين</li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>© 2026 PalPets - جميع الحقوق محفوظة</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/pets.js"></script>
+    <script>
+      // تهيئة الصفحة
+      document.addEventListener("DOMContentLoaded", function () {
+        displayPets();
+      });
+    </script>
+  </body>
+</html>

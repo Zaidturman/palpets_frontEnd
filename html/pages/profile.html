@@ -1,0 +1,1021 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>الملف الشخصي - PalPets</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/style.css" />
+    <style>
+      .profile-header {
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        color: white;
+        padding: 4rem 0;
+        margin-top: 4rem;
+      }
+
+      .profile-avatar {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        border: 4px solid white;
+        margin-bottom: 1rem;
+      }
+
+      .profile-name {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+
+      .profile-email {
+        opacity: 0.9;
+        margin-bottom: 1rem;
+      }
+
+      .profile-stats {
+        display: flex;
+        gap: 2rem;
+        justify-content: center;
+        margin-top: 2rem;
+      }
+
+      .profile-stat {
+        text-align: center;
+      }
+
+      .profile-stat-number {
+        font-size: 1.5rem;
+        font-weight: 700;
+      }
+
+      .profile-stat-label {
+        opacity: 0.9;
+        font-size: 0.875rem;
+      }
+
+      .profile-tabs {
+        display: flex;
+        gap: 1rem;
+        border-bottom: 2px solid #e5e7eb;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+      }
+
+      .profile-tab {
+        padding: 0.5rem 1.5rem;
+        border: none;
+        background: none;
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--text-light);
+        cursor: pointer;
+        position: relative;
+        transition: color 0.3s;
+      }
+
+      .profile-tab.active {
+        color: var(--primary-color);
+      }
+
+      .profile-tab.active::after {
+        content: "";
+        position: absolute;
+        bottom: -1rem;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background-color: var(--primary-color);
+      }
+
+      .profile-content {
+        padding: 2rem 0;
+      }
+
+      .profile-section {
+        background: white;
+        border-radius: 0.5rem;
+        padding: 2rem;
+        box-shadow: var(--shadow);
+        margin-bottom: 2rem;
+      }
+
+      .section-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .info-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .info-item {
+        margin-bottom: 1rem;
+      }
+
+      .info-label {
+        color: var(--text-light);
+        font-size: 0.875rem;
+        margin-bottom: 0.25rem;
+      }
+
+      .info-value {
+        font-weight: 500;
+      }
+
+      .pets-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+      }
+
+      .pet-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.5rem;
+        transition: background-color 0.3s;
+      }
+
+      .pet-item:hover {
+        background-color: #f8fafc;
+      }
+
+      .pet-avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .pet-info {
+        flex: 1;
+      }
+
+      .pet-name {
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+      }
+
+      .pet-detail {
+        color: var(--text-light);
+        font-size: 0.875rem;
+      }
+
+      .edit-btn {
+        background: none;
+        border: none;
+        color: var(--primary-color);
+        cursor: pointer;
+        font-size: 0.875rem;
+      }
+
+      .edit-btn:hover {
+        text-decoration: underline;
+      }
+
+      .btn-save {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 0.75rem 2rem;
+        border: none;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 600;
+        transition: background-color 0.3s;
+      }
+
+      .btn-save:hover {
+        background-color: #4338ca;
+      }
+
+      .btn-cancel {
+        background-color: #e5e7eb;
+        color: var(--text-dark);
+        padding: 0.75rem 2rem;
+        border: none;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 600;
+        margin-right: 1rem;
+        transition: background-color 0.3s;
+      }
+
+      .btn-cancel:hover {
+        background-color: #d1d5db;
+      }
+
+      .vaccination-card {
+        background-color: #f8fafc;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .vaccination-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.5rem;
+      }
+
+      .vaccination-status {
+        padding: 0.25rem 0.75rem;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        font-weight: 600;
+      }
+
+      .status-completed {
+        background-color: #d1fae5;
+        color: #065f46;
+      }
+
+      .status-pending {
+        background-color: #fee2e2;
+        color: #b91c1c;
+      }
+
+      .status-upcoming {
+        background-color: #fef3c7;
+        color: #92400e;
+      }
+
+      .notification-settings {
+        margin: 1rem 0;
+      }
+
+      .setting-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 0;
+        border-bottom: 1px solid #e5e7eb;
+      }
+
+      .setting-item:last-child {
+        border-bottom: none;
+      }
+
+      /* Toggle Switch */
+      .switch {
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 34px;
+      }
+
+      .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: 0.4s;
+        border-radius: 34px;
+      }
+
+      .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        transition: 0.4s;
+        border-radius: 50%;
+      }
+
+      input:checked + .slider {
+        background-color: var(--primary-color);
+      }
+
+      input:checked + .slider:before {
+        transform: translateX(26px);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="container">
+        <a href="../index.html" class="logo">
+          <img src="../images/logo.png" alt="" />
+        </a>
+
+        <div class="nav-menu">
+          <a href="../index.html">الرئيسية</a>
+          <a href="pets.html">الحيوانات</a>
+          <a href="adoption.html">التبني</a>
+          <a href="lost-found.html">مفقود ومعثور</a>
+          <a href="veterinary.html">الرعاية البيطرية</a>
+          <a href="store.html">المتجر</a>
+        </div>
+
+        <div class="auth-buttons">
+          <a href="login.html" class="btn-login">تسجيل الدخول</a>
+        </div>
+
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+      </div>
+
+      <div class="mobile-menu" id="mobileMenu">
+        <a href="../index.html">الرئيسية</a>
+        <a href="pets.html">الحيوانات</a>
+        <a href="adoption.html">التبني</a>
+        <a href="lost-found.html">مفقود ومعثور</a>
+        <a href="veterinary.html">الرعاية البيطرية</a>
+        <a href="store.html">المتجر</a>
+        <a href="login.html">تسجيل الدخول</a>
+      </div>
+    </nav>
+
+    <!-- Profile Header -->
+    <section class="profile-header">
+      <div class="container" style="text-align: center">
+        <img
+          src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e"
+          alt="Profile"
+          class="profile-avatar"
+        />
+        <h1 class="profile-name" id="profileName">أحمد محمد</h1>
+        <p class="profile-email" id="profileEmail">ahmed@example.com</p>
+        <div class="profile-stats">
+          <div class="profile-stat">
+            <div class="profile-stat-number">3</div>
+            <div class="profile-stat-label">حيوانات أليفة</div>
+          </div>
+          <div class="profile-stat">
+            <div class="profile-stat-number">12</div>
+            <div class="profile-stat-label">طلبات تبني</div>
+          </div>
+          <div class="profile-stat">
+            <div class="profile-stat-number">5</div>
+            <div class="profile-stat-label">منتجات مشتراة</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Profile Content -->
+    <section class="profile-content">
+      <div class="container">
+        <!-- Tabs -->
+        <div class="profile-tabs">
+          <button class="profile-tab active" onclick="switchProfileTab('info')">
+            المعلومات الشخصية
+          </button>
+          <button class="profile-tab" onclick="switchProfileTab('pets')">
+            حيواناتي
+          </button>
+          <button class="profile-tab" onclick="switchProfileTab('adoptions')">
+            طلبات التبني
+          </button>
+          <button
+            class="profile-tab"
+            onclick="switchProfileTab('vaccinations')"
+          >
+            التطعيمات
+          </button>
+          <button class="profile-tab" onclick="switchProfileTab('settings')">
+            الإعدادات
+          </button>
+        </div>
+
+        <!-- Personal Info Tab -->
+        <div id="infoTab" class="profile-section">
+          <div class="section-title">
+            <span>المعلومات الشخصية</span>
+            <button class="edit-btn" onclick="editProfile()">تعديل</button>
+          </div>
+
+          <div class="info-grid">
+            <div>
+              <div class="info-item">
+                <div class="info-label">الاسم الكامل</div>
+                <div class="info-value" id="displayName">أحمد محمد العمري</div>
+              </div>
+              <div class="info-item">
+                <div class="info-label">البريد الإلكتروني</div>
+                <div class="info-value" id="displayEmail">
+                  ahmed@example.com
+                </div>
+              </div>
+              <div class="info-item">
+                <div class="info-label">رقم الهاتف</div>
+                <div class="info-value" id="displayPhone">+966 50 123 4567</div>
+              </div>
+            </div>
+            <div>
+              <div class="info-item">
+                <div class="info-label">المدينة</div>
+                <div class="info-value" id="displayCity">الرياض</div>
+              </div>
+              <div class="info-item">
+                <div class="info-label">العنوان</div>
+                <div class="info-value" id="displayAddress">
+                  حي النزهة، شارع التخصصي
+                </div>
+              </div>
+              <div class="info-item">
+                <div class="info-label">تاريخ التسجيل</div>
+                <div class="info-value">15 يناير 2026</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Edit Profile Form (Hidden by default) -->
+        <div id="editProfileForm" class="profile-section" style="display: none">
+          <div class="section-title">
+            <span>تعديل المعلومات الشخصية</span>
+          </div>
+
+          <form onsubmit="saveProfile(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">الاسم الكامل</label>
+                <input
+                  type="text"
+                  id="editName"
+                  class="form-input"
+                  value="أحمد محمد العمري"
+                />
+              </div>
+              <div class="form-group">
+                <label class="form-label">البريد الإلكتروني</label>
+                <input
+                  type="email"
+                  id="editEmail"
+                  class="form-input"
+                  value="ahmed@example.com"
+                />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">رقم الهاتف</label>
+                <input
+                  type="tel"
+                  id="editPhone"
+                  class="form-input"
+                  value="+966 50 123 4567"
+                />
+              </div>
+              <div class="form-group">
+                <label class="form-label">المدينة</label>
+                <input
+                  type="text"
+                  id="editCity"
+                  class="form-input"
+                  value="الرياض"
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">العنوان</label>
+              <input
+                type="text"
+                id="editAddress"
+                class="form-input"
+                value="حي النزهة، شارع التخصصي"
+              />
+            </div>
+
+            <div style="text-align: left">
+              <button type="button" class="btn-cancel" onclick="cancelEdit()">
+                إلغاء
+              </button>
+              <button type="submit" class="btn-save">حفظ التغييرات</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- My Pets Tab -->
+        <div id="petsTab" class="profile-section" style="display: none">
+          <div class="section-title">
+            <span>حيواناتي الأليفة</span>
+            <button class="edit-btn" onclick="addNewPet()">
+              + إضافة حيوان
+            </button>
+          </div>
+
+          <div class="pets-list" id="petsList"></div>
+        </div>
+
+        <!-- Adoption Requests Tab -->
+        <div id="adoptionsTab" class="profile-section" style="display: none">
+          <div class="section-title">
+            <span>طلبات التبني</span>
+          </div>
+
+          <div id="adoptionRequests"></div>
+        </div>
+
+        <!-- Vaccinations Tab -->
+        <div id="vaccinationsTab" class="profile-section" style="display: none">
+          <div class="section-title">
+            <span>جدول التطعيمات</span>
+          </div>
+
+          <div id="vaccinationsList"></div>
+        </div>
+
+        <!-- Settings Tab -->
+        <div id="settingsTab" class="profile-section" style="display: none">
+          <div class="section-title">
+            <span>الإعدادات</span>
+          </div>
+
+          <div class="notification-settings">
+            <h3 style="margin-bottom: 1rem">إشعارات</h3>
+
+            <div class="setting-item">
+              <div>
+                <div style="font-weight: 600">إشعارات التطعيمات</div>
+                <div style="color: var(--text-light); font-size: 0.875rem">
+                  تذكير بمواعيد التطعيمات
+                </div>
+              </div>
+              <label class="switch">
+                <input
+                  type="checkbox"
+                  checked
+                  onchange="toggleNotification('vaccinations')"
+                />
+                <span class="slider"></span>
+              </label>
+            </div>
+
+            <div class="setting-item">
+              <div>
+                <div style="font-weight: 600">إشعارات الرسائل</div>
+                <div style="color: var(--text-light); font-size: 0.875rem">
+                  عند استلام رسائل جديدة
+                </div>
+              </div>
+              <label class="switch">
+                <input
+                  type="checkbox"
+                  checked
+                  onchange="toggleNotification('messages')"
+                />
+                <span class="slider"></span>
+              </label>
+            </div>
+
+            <div class="setting-item">
+              <div>
+                <div style="font-weight: 600">إشعارات العروض</div>
+                <div style="color: var(--text-light); font-size: 0.875rem">
+                  عروض ومنتجات جديدة
+                </div>
+              </div>
+              <label class="switch">
+                <input
+                  type="checkbox"
+                  onchange="toggleNotification('offers')"
+                />
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <div style="margin-top: 2rem">
+            <h3 style="margin-bottom: 1rem">الأمان</h3>
+            <button
+              class="btn-details"
+              onclick="changePassword()"
+              style="margin-left: 1rem"
+            >
+              تغيير كلمة المرور
+            </button>
+            <button
+              class="btn-contact"
+              onclick="deleteAccount()"
+              style="color: #ef4444; border-color: #ef4444"
+            >
+              حذف الحساب
+            </button>
+          </div>
+
+          <div style="margin-top: 2rem">
+            <button
+              class="btn-details"
+              onclick="logout()"
+              style="background-color: #ef4444"
+            >
+              تسجيل الخروج
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-section">
+            <h3>عن المنصة</h3>
+            <p>
+              منصة متكاملة للعناية بالحيوانات الأليفة، تجمع عشاق الحيوانات،
+              المربين، والملاجئ في مكان واحد.
+            </p>
+          </div>
+          <div class="footer-section">
+            <h3>روابط سريعة</h3>
+            <ul class="footer-links">
+              <li><a href="../index.html">الرئيسية</a></li>
+              <li><a href="pets.html">الحيوانات</a></li>
+              <li><a href="adoption.html">التبني</a></li>
+              <li><a href="lost-found.html">مفقود ومعثور</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>الخدمات</h3>
+            <ul class="footer-links">
+              <li><a href="veterinary.html">الرعاية البيطرية</a></li>
+              <li><a href="store.html">المتجر</a></li>
+              <li><a href="#">التطعيمات</a></li>
+              <li><a href="#">استشارات</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>تواصل معنا</h3>
+            <ul class="footer-links">
+              <li>📞 +972599248391</li>
+              <li>✉️ info@PalPets.com</li>
+              <li>📍 فلسطين</li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>© 2026 PalPets - جميع الحقوق محفوظة</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script>
+      // التحقق من تسجيل الدخول
+      document.addEventListener("DOMContentLoaded", function () {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          window.location.href = "login.html";
+          return;
+        }
+
+        // تحميل بيانات المستخدم
+        loadUserData();
+        loadUserPets();
+        loadAdoptionRequests();
+        loadVaccinations();
+      });
+
+      // تحميل بيانات المستخدم
+      function loadUserData() {
+        const user = JSON.parse(localStorage.getItem("user") || "{}");
+
+        if (user.name) {
+          document.getElementById("profileName").textContent = user.name;
+          document.getElementById("displayName").textContent = user.name;
+        }
+
+        if (user.email) {
+          document.getElementById("profileEmail").textContent = user.email;
+          document.getElementById("displayEmail").textContent = user.email;
+        }
+      }
+
+      // تحميل قائمة الحيوانات
+      function loadUserPets() {
+        const pets = [
+          {
+            id: 1,
+            name: "لولو",
+            type: "cat",
+            breed: "شيرازي",
+            age: "سنتين",
+            image:
+              "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba",
+          },
+          {
+            id: 2,
+            name: "ماكس",
+            type: "dog",
+            breed: "جيرمن شيبرد",
+            age: "3 سنوات",
+            image:
+              "https://images.unsplash.com/photo-1589941013453-ec89f33b5e95",
+          },
+        ];
+
+        const petsList = document.getElementById("petsList");
+
+        petsList.innerHTML = pets
+          .map((pet) => {
+            const typeName = pet.type === "dog" ? "كلب" : "قطة";
+            return `
+                    <div class="pet-item">
+                        <img src="${pet.image}" alt="${pet.name}" class="pet-avatar">
+                        <div class="pet-info">
+                            <div class="pet-name">${pet.name}</div>
+                            <div class="pet-detail">${typeName} - ${pet.breed} - ${pet.age}</div>
+                        </div>
+                        <button class="edit-btn" onclick="editPet(${pet.id})">تعديل</button>
+                    </div>
+                `;
+          })
+          .join("");
+      }
+
+      // تحميل طلبات التبني
+      function loadAdoptionRequests() {
+        const requests = [
+          {
+            id: 1,
+            petName: "شوقي",
+            petImage:
+              "https://images.unsplash.com/photo-1544568100-847a948585b9",
+            date: "2026-02-10",
+            status: "pending",
+            shelter: "ملجأ الرفق بالحيوان",
+          },
+          {
+            id: 2,
+            petName: "نور",
+            petImage:
+              "https://images.unsplash.com/photo-1513360371669-4adf3dd7dff8",
+            date: "2026-02-05",
+            status: "approved",
+            shelter: "جمعية حماية الحيوانات",
+          },
+          {
+            id: 3,
+            petName: "توفي",
+            petImage:
+              "https://images.unsplash.com/photo-1533738363-b7f9aef128ce",
+            date: "2026-01-28",
+            status: "rejected",
+            shelter: "ملجأ الرفق بالحيوان",
+          },
+        ];
+
+        const container = document.getElementById("adoptionRequests");
+
+        container.innerHTML = requests
+          .map((req) => {
+            const statusText =
+              req.status === "pending"
+                ? "قيد المراجعة"
+                : req.status === "approved"
+                  ? "تمت الموافقة"
+                  : "مرفوض";
+            const statusClass =
+              req.status === "pending"
+                ? "status-upcoming"
+                : req.status === "approved"
+                  ? "status-completed"
+                  : "status-pending";
+
+            return `
+                    <div class="vaccination-card">
+                        <div class="vaccination-header">
+                            <div style="display: flex; align-items: center; gap: 1rem;">
+                                <img src="${req.petImage}" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;">
+                                <div>
+                                    <h4 style="margin: 0;">${req.petName}</h4>
+                                    <small>${req.shelter}</small>
+                                </div>
+                            </div>
+                            <span class="vaccination-status ${statusClass}">${statusText}</span>
+                        </div>
+                        <p style="color: var(--text-light); font-size: 0.875rem;">تاريخ التقديم: ${req.date}</p>
+                    </div>
+                `;
+          })
+          .join("");
+      }
+
+      // تحميل جدول التطعيمات
+      function loadVaccinations() {
+        const vaccinations = [
+          {
+            petName: "لولو",
+            vaccine: "تطعيم القطط السنوي",
+            dueDate: "2026-03-15",
+            status: "upcoming",
+          },
+          {
+            petName: "ماكس",
+            vaccine: "تطعيم داء الكلب",
+            dueDate: "2026-02-20",
+            status: "pending",
+          },
+          {
+            petName: "لولو",
+            vaccine: "تطعيم الرباعي",
+            dueDate: "2024-12-10",
+            status: "completed",
+          },
+        ];
+
+        const container = document.getElementById("vaccinationsList");
+
+        container.innerHTML = vaccinations
+          .map((vac) => {
+            const statusText =
+              vac.status === "completed"
+                ? "تم"
+                : vac.status === "pending"
+                  ? "مستحق قريباً"
+                  : "قادم";
+            const statusClass =
+              vac.status === "completed"
+                ? "status-completed"
+                : vac.status === "pending"
+                  ? "status-pending"
+                  : "status-upcoming";
+
+            return `
+                    <div class="vaccination-card">
+                        <div class="vaccination-header">
+                            <div>
+                                <h4 style="margin: 0;">${vac.petName}</h4>
+                                <small>${vac.vaccine}</small>
+                            </div>
+                            <span class="vaccination-status ${statusClass}">${statusText}</span>
+                        </div>
+                        <p style="color: var(--text-light); font-size: 0.875rem;">تاريخ الاستحقاق: ${vac.dueDate}</p>
+                    </div>
+                `;
+          })
+          .join("");
+      }
+
+      // تبديل التبويبات
+      function switchProfileTab(tab) {
+        // إخفاء كل التبويبات
+        document.getElementById("infoTab").style.display = "none";
+        document.getElementById("petsTab").style.display = "none";
+        document.getElementById("adoptionsTab").style.display = "none";
+        document.getElementById("vaccinationsTab").style.display = "none";
+        document.getElementById("settingsTab").style.display = "none";
+
+        // إظهار التبويب المحدد
+        if (tab === "info") {
+          document.getElementById("infoTab").style.display = "block";
+        } else if (tab === "pets") {
+          document.getElementById("petsTab").style.display = "block";
+        } else if (tab === "adoptions") {
+          document.getElementById("adoptionsTab").style.display = "block";
+        } else if (tab === "vaccinations") {
+          document.getElementById("vaccinationsTab").style.display = "block";
+        } else if (tab === "settings") {
+          document.getElementById("settingsTab").style.display = "block";
+        }
+
+        // تحديث التبويب النشط
+        document
+          .querySelectorAll(".profile-tab")
+          .forEach((t) => t.classList.remove("active"));
+        event.target.classList.add("active");
+      }
+
+      // تعديل الملف الشخصي
+      function editProfile() {
+        document.getElementById("infoTab").style.display = "none";
+        document.getElementById("editProfileForm").style.display = "block";
+      }
+
+      // حفظ التعديلات
+      function saveProfile(event) {
+        event.preventDefault();
+
+        const name = document.getElementById("editName").value;
+        const email = document.getElementById("editEmail").value;
+        const phone = document.getElementById("editPhone").value;
+        const city = document.getElementById("editCity").value;
+        const address = document.getElementById("editAddress").value;
+
+        // تحديث العرض
+        document.getElementById("profileName").textContent = name;
+        document.getElementById("profileEmail").textContent = email;
+        document.getElementById("displayName").textContent = name;
+        document.getElementById("displayEmail").textContent = email;
+        document.getElementById("displayPhone").textContent = phone;
+        document.getElementById("displayCity").textContent = city;
+        document.getElementById("displayAddress").textContent = address;
+
+        // حفظ في localStorage
+        const user = JSON.parse(localStorage.getItem("user") || "{}");
+        user.name = name;
+        user.email = email;
+        localStorage.setItem("user", JSON.stringify(user));
+
+        cancelEdit();
+        showNotification("تم حفظ التغييرات بنجاح");
+      }
+
+      // إلغاء التعديل
+      function cancelEdit() {
+        document.getElementById("infoTab").style.display = "block";
+        document.getElementById("editProfileForm").style.display = "none";
+      }
+
+      // إضافة حيوان جديد
+      function addNewPet() {
+        alert("سيتم فتح نموذج إضافة حيوان جديد");
+      }
+
+      // تعديل حيوان
+      function editPet(petId) {
+        alert(`تعديل بيانات الحيوان رقم ${petId}`);
+      }
+
+      // تغيير كلمة المرور
+      function changePassword() {
+        alert("سيتم فتح نافذة تغيير كلمة المرور");
+      }
+
+      // حذف الحساب
+      function deleteAccount() {
+        if (
+          confirm("هل أنت متأكد من حذف الحساب؟ لا يمكن التراجع عن هذا الإجراء")
+        ) {
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
+          window.location.href = "../index.html";
+        }
+      }
+
+      // تبديل الإشعارات
+      function toggleNotification(type) {
+        console.log(`تم تغيير إشعارات ${type}`);
+      }
+
+      // تسجيل الخروج
+      function logout() {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        window.location.href = "../index.html";
+      }
+
+      // إظهار الإشعارات
+      function showNotification(message) {
+        const notification = document.createElement("div");
+        notification.style.cssText = `
+                position: fixed;
+                top: 80px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: var(--primary-color);
+                color: white;
+                padding: 1rem 2rem;
+                border-radius: 0.5rem;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+                z-index: 1001;
+                animation: slideDown 0.3s ease;
+            `;
+        notification.textContent = message;
+
+        document.body.appendChild(notification);
+
+        setTimeout(() => {
+          notification.remove();
+        }, 3000);
+      }
+    </script>
+  </body>
+</html>
