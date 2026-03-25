@@ -10,193 +10,67 @@
       href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
     <link rel="stylesheet" href="../css/style.css" />
     <style>
-      .clinic-card {
-        background: white;
-        border-radius: 0.5rem;
-        overflow: hidden;
-        box-shadow: var(--shadow);
-        transition: transform 0.3s;
-      }
-
-      .clinic-card:hover {
-        transform: translateY(-5px);
-      }
-
-      .clinic-image {
-        width: 100%;
-        height: 200px;
-        object-fit: cover;
-      }
-
-      .clinic-info {
-        padding: 1.5rem;
-      }
-
-      .clinic-name {
-        font-size: 1.25rem;
-        font-weight: 600;
-        margin-bottom: 0.5rem;
-      }
-
-      .clinic-specialty {
-        color: var(--primary-color);
-        font-size: 0.875rem;
-        margin-bottom: 1rem;
-      }
-
-      .clinic-details {
-        margin: 1rem 0;
-        color: var(--text-light);
-      }
-
-      .clinic-details p {
-        margin: 0.5rem 0;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-      }
-
-      .rating {
-        color: #fbbf24;
-        margin: 0.5rem 0;
-      }
-
-      .rating span {
-        color: var(--text-light);
-        margin-right: 0.5rem;
-      }
-
-      .working-hours {
-        background-color: #f8fafc;
-        padding: 1rem;
-        border-radius: 0.5rem;
-        margin: 1rem 0;
-      }
-
-      .working-hours h4 {
-        margin-bottom: 0.5rem;
-        color: var(--text-dark);
-      }
-
-      .working-hours p {
-        color: var(--text-light);
-        font-size: 0.875rem;
-      }
-
       .emergency-banner {
         background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
         color: white;
         padding: 1.5rem;
         border-radius: 0.5rem;
         display: flex;
-        align-items: center;
         justify-content: space-between;
+        align-items: center;
         margin-bottom: 2rem;
       }
-
-      .emergency-banner h3 {
-        font-size: 1.5rem;
-        margin: 0;
-      }
-
-      .emergency-banner p {
-        opacity: 0.9;
-      }
-
       .emergency-number {
         font-size: 2rem;
         font-weight: bold;
-        direction: ltr;
       }
-
       .vaccination-schedule {
-        background-color: white;
+        background: white;
         padding: 2rem;
         border-radius: 0.5rem;
         box-shadow: var(--shadow);
       }
-
       .schedule-table {
         width: 100%;
         border-collapse: collapse;
-        margin-top: 1rem;
       }
-
       .schedule-table th {
-        background-color: var(--primary-color);
+        background: var(--primary-color);
         color: white;
-        padding: 0.75rem;
-        text-align: right;
+        padding: 1rem;
       }
-
       .schedule-table td {
         padding: 0.75rem;
         border-bottom: 1px solid #e5e7eb;
       }
-
-      .schedule-table tr:hover {
-        background-color: #f8fafc;
-      }
-
-      .appointment-form {
-        background-color: white;
-        padding: 2rem;
+      .clinic-card {
+        background: white;
         border-radius: 0.5rem;
+        overflow: hidden;
         box-shadow: var(--shadow);
-        margin-top: 2rem;
       }
-
-      .form-row {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 1rem;
-        margin-bottom: 1rem;
+      .clinic-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
       }
-
-      .time-slots {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-        margin: 1rem 0;
-      }
-
-      .time-slot {
-        padding: 0.5rem 1rem;
-        border: 1px solid #e5e7eb;
-        border-radius: 0.5rem;
-        cursor: pointer;
-        transition: all 0.3s;
-      }
-
-      .time-slot:hover {
-        background-color: var(--primary-color);
-        color: white;
-        border-color: var(--primary-color);
-      }
-
-      .time-slot.selected {
-        background-color: var(--primary-color);
-        color: white;
-        border-color: var(--primary-color);
-      }
-
-      .time-slot.disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-        background-color: #f3f4f6;
+      .clinic-info {
+        padding: 1.5rem;
       }
     </style>
   </head>
   <body>
-    <!-- Navbar -->
     <nav class="navbar">
       <div class="container">
         <a href="../index.html" class="logo">
-          <img src="../images/logo.png" alt="" />
+          <img src="../images/logo.png" alt="PalPets" />
         </a>
-
         <div class="nav-menu">
           <a href="../index.html">الرئيسية</a>
           <a href="pets.html">الحيوانات</a>
@@ -205,26 +79,12 @@
           <a href="veterinary.html" class="active">الرعاية البيطرية</a>
           <a href="store.html">المتجر</a>
         </div>
-
-        <div class="auth-buttons">
-          <a href="login.html" class="btn-login">تسجيل الدخول</a>
-        </div>
-
+        <div class="auth-buttons"></div>
         <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
-      </div>
-
-      <div class="mobile-menu" id="mobileMenu">
-        <a href="../index.html">الرئيسية</a>
-        <a href="pets.html">الحيوانات</a>
-        <a href="adoption.html">التبني</a>
-        <a href="lost-found.html">مفقود ومعثور</a>
-        <a href="veterinary.html">الرعاية البيطرية</a>
-        <a href="store.html">المتجر</a>
-        <a href="login.html">تسجيل الدخول</a>
       </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Hero -->
     <section
       class="hero"
       style="background: linear-gradient(135deg, #10b981 0%, #059669 100%)"
@@ -233,86 +93,120 @@
         <div class="hero-content">
           <h2>الرعاية البيطرية</h2>
           <p>أفضل الأطباء والعيادات البيطرية لرعاية حيوانك الأليف</p>
-          <div class="hero-buttons">
-            <a href="#clinics" class="btn-primary">ابحث عن عيادة</a>
-            <a href="#appointment" class="btn-outline">احجز موعد</a>
-          </div>
         </div>
       </div>
     </section>
 
-    <!-- Emergency Banner -->
-    <section class="services" style="padding-top: 2rem">
-      <div class="container">
-        <div class="emergency-banner">
-          <div>
-            <h3>🚨 طوارئ بيطرية 24/7</h3>
-            <p>خدمة الطوارئ متاحة على مدار الساعة</p>
-          </div>
-          <div class="emergency-number">📞 920012345</div>
+    <!-- Emergency -->
+    <div class="container">
+      <div class="emergency-banner">
+        <div>
+          <h3>🚨 طوارئ بيطرية 24/7</h3>
+          <p>خدمة الطوارئ متاحة على مدار الساعة</p>
         </div>
+        <div class="emergency-number">📞 920012345</div>
       </div>
-    </section>
+    </div>
 
-    <!-- Search Section -->
-    <section id="clinics" class="services">
-      <div class="container">
-        <h2 class="section-title">البحث عن عيادات بيطرية</h2>
+    <!-- Tabs -->
+    <div class="container">
+      <div class="tabs">
+        <button class="tab active" onclick="showTab('clinics')">
+          العيادات
+        </button>
+        <button class="tab" onclick="showTab('doctors')">الأطباء</button>
+        <button class="tab" onclick="showTab('appointments')">المواعيد</button>
+      </div>
+    </div>
 
-        <div class="search-card">
-          <div class="search-grid">
-            <input
-              type="text"
-              id="searchInput"
-              placeholder="ابحث عن عيادة أو طبيب..."
-              class="search-input"
-              onkeyup="filterClinics()"
-            />
-
-            <select
-              id="cityFilter"
-              class="search-input"
-              onchange="filterClinics()"
-            >
-              <option value="">جميع المدن</option>
-              <option value="riyadh">الرياض</option>
-              <option value="jeddah">جدة</option>
-              <option value="dammam">الدمام</option>
-              <option value="makkah">مكة المكرمة</option>
-            </select>
-
-            <select
-              id="specialtyFilter"
-              class="search-input"
-              onchange="filterClinics()"
-            >
-              <option value="">جميع التخصصات</option>
-              <option value="general">طب عام</option>
-              <option value="surgery">جراحة</option>
-              <option value="dentistry">أسنان</option>
-              <option value="dermatology">جلدية</option>
-            </select>
-
-            <select
-              id="ratingFilter"
-              class="search-input"
-              onchange="filterClinics()"
-            >
-              <option value="">جميع التقييمات</option>
-              <option value="4">أكثر من 4 نجوم</option>
-              <option value="3">أكثر من 3 نجوم</option>
-            </select>
+    <!-- Clinics Tab -->
+    <div id="clinicsTab" class="tab-content active">
+      <section class="services">
+        <div class="container">
+          <!-- Filters -->
+          <div class="search-card">
+            <div class="search-grid">
+              <input
+                type="text"
+                id="clinicSearch"
+                placeholder="ابحث عن عيادة..."
+                class="search-input"
+              />
+              <select id="cityFilter" class="search-input">
+                <option value="">جميع المدن</option>
+              </select>
+              <select id="specialtyFilter" class="search-input">
+                <option value="">جميع التخصصات</option>
+              </select>
+              <button class="btn-primary" onclick="loadClinics()">بحث</button>
+            </div>
           </div>
-        </div>
 
-        <!-- Clinics Grid -->
-        <div
-          id="clinicsGrid"
-          class="services-grid"
-          style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr))"
-        ></div>
-      </div>
-    </section>
+          <!-- Clinics Grid -->
+          <div id="clinicsGrid" class="services-grid"></div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Doctors Tab -->
+    <div id="doctorsTab" class="tab-content">
+      <section class="services">
+        <div class="container">
+          <div id="doctorsGrid" class="services-grid"></div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Appointments Tab -->
+    <div id="appointmentsTab" class="tab-content">
+      <section class="services">
+        <div class="container">
+          <div class="form-card">
+            <h3>حجز موعد</h3>
+            <form id="appointmentForm" onsubmit="bookAppointment(event)">
+              <div class="form-row">
+                <div class="form-group">
+                  <label>العيادة</label>
+                  <select id="appClinic" class="form-input" required></select>
+                </div>
+                <div class="form-group">
+                  <label>الطبيب</label>
+                  <select id="appDoctor" class="form-input" required></select>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>الخدمة</label>
+                  <select id="appService" class="form-input" required></select>
+                </div>
+                <div class="form-group">
+                  <label>اسم الحيوان</label>
+                  <input
+                    type="text"
+                    id="appPetName"
+                    class="form-input"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>التاريخ</label>
+                  <input type="date" id="appDate" class="form-input" required />
+                </div>
+                <div class="form-group">
+                  <label>الوقت</label>
+                  <input type="time" id="appTime" class="form-input" required />
+                </div>
+              </div>
+              <button type="submit" class="btn-submit">حجز الموعد</button>
+            </form>
+          </div>
+
+          <div id="userAppointments"></div>
+        </div>
+      </section>
+    </div>
 
     <!-- Vaccination Schedule -->
     <section class="services" style="background-color: white">
@@ -325,524 +219,236 @@
                 <th>العمر</th>
                 <th>الكلاب</th>
                 <th>القطط</th>
-                <th>ملاحظات</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>6-8 أسابيع</td>
-                <td>تطعيم الجراء الأول</td>
-                <td>تطعيم القطط الأول</td>
-                <td>تطعيم ضد الأمراض الأساسية</td>
-              </tr>
-              <tr>
-                <td>10-12 أسبوع</td>
-                <td>التطعيم الثاني</td>
-                <td>التطعيم الثاني</td>
-                <td>تعزيز المناعة</td>
-              </tr>
-              <tr>
-                <td>14-16 أسبوع</td>
-                <td>التطعيم الثالث + داء الكلب</td>
-                <td>التطعيم الثالث + داء الكلب</td>
-                <td>آخر تطعيمات مرحلة الجرو</td>
-              </tr>
-              <tr>
-                <td>سنة</td>
-                <td>تطعيم سنوي شامل</td>
-                <td>تطعيم سنوي شامل</td>
-                <td>مراجعة شاملة</td>
-              </tr>
-              <tr>
-                <td>كل سنة</td>
-                <td>تطعيم سنوي</td>
-                <td>تطعيم سنوي</td>
-                <td>فحص دوري وتطعيمات منشطة</td>
-              </tr>
-            </tbody>
+            <tbody id="vaccinationTable"></tbody>
           </table>
         </div>
       </div>
     </section>
 
-    <!-- Appointment Form -->
-    <section id="appointment" class="services">
-      <div class="container">
-        <h2 class="section-title">حجز موعد</h2>
-        <div class="appointment-form">
-          <form id="appointmentForm" onsubmit="bookAppointment(event)">
-            <div class="form-row">
-              <div class="form-group">
-                <label class="form-label">اسم العيادة</label>
-                <select id="clinicSelect" class="form-input" required>
-                  <option value="">اختر العيادة</option>
-                  <option value="1">عيادة الحيوان السعيد - الرياض</option>
-                  <option value="2">مجمع العيادات البيطرية - جدة</option>
-                  <option value="3">مركز رعاية الحيوان - الدمام</option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label class="form-label">نوع الخدمة</label>
-                <select id="serviceSelect" class="form-input" required>
-                  <option value="">اختر الخدمة</option>
-                  <option value="checkup">كشف عام</option>
-                  <option value="vaccination">تطعيم</option>
-                  <option value="surgery">جراحة</option>
-                  <option value="emergency">طوارئ</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="form-row">
-              <div class="form-group">
-                <label class="form-label">نوع الحيوان</label>
-                <select id="petTypeSelect" class="form-input" required>
-                  <option value="">اختر النوع</option>
-                  <option value="dog">كلب</option>
-                  <option value="cat">قطة</option>
-                  <option value="bird">طائر</option>
-                  <option value="other">أخرى</option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label class="form-label">عمر الحيوان</label>
-                <input
-                  type="text"
-                  id="petAge"
-                  class="form-input"
-                  placeholder="مثال: سنتين"
-                  required
-                />
-              </div>
-            </div>
-
-            <div class="form-row">
-              <div class="form-group">
-                <label class="form-label">التاريخ</label>
-                <input
-                  type="date"
-                  id="appointmentDate"
-                  class="form-input"
-                  min="2026-02-16"
-                  required
-                />
-              </div>
-
-              <div class="form-group">
-                <label class="form-label">الوقت المتاح</label>
-                <div class="time-slots" id="timeSlots">
-                  <span class="time-slot" onclick="selectTimeSlot(this)"
-                    >09:00</span
-                  >
-                  <span class="time-slot" onclick="selectTimeSlot(this)"
-                    >10:00</span
-                  >
-                  <span class="time-slot" onclick="selectTimeSlot(this)"
-                    >11:00</span
-                  >
-                  <span class="time-slot" onclick="selectTimeSlot(this)"
-                    >13:00</span
-                  >
-                  <span class="time-slot" onclick="selectTimeSlot(this)"
-                    >14:00</span
-                  >
-                  <span class="time-slot" onclick="selectTimeSlot(this)"
-                    >15:00</span
-                  >
-                  <span class="time-slot" onclick="selectTimeSlot(this)"
-                    >16:00</span
-                  >
-                  <span class="time-slot disabled">محجوز</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label">ملاحظات إضافية</label>
-              <textarea
-                id="notes"
-                class="form-input"
-                rows="3"
-                placeholder="أي معلومات إضافية..."
-              ></textarea>
-            </div>
-
-            <button type="submit" class="btn-submit">تأكيد الحجز</button>
-          </form>
-        </div>
-      </div>
-    </section>
-
-    <!-- Health Tips -->
-    <section class="services" style="background-color: white">
-      <div class="container">
-        <h2 class="section-title">نصائح صحية</h2>
-        <div class="services-grid">
-          <div class="service-card">
-            <div class="service-icon">🥩</div>
-            <h3>التغذية السليمة</h3>
-            <p>
-              اختر الطعام المناسب لعمر وحجم حيوانك، وتجنب إطعامه الطعام البشري
-            </p>
-          </div>
-          <div class="service-card">
-            <div class="service-icon">💧</div>
-            <h3>شرب الماء</h3>
-            <p>تأكد من توفر ماء نظيف ونقي لحيوانك طوال الوقت</p>
-          </div>
-          <div class="service-card">
-            <div class="service-icon">🏃</div>
-            <h3>النشاط البدني</h3>
-            <p>خصص وقتاً يومياً للعب والحركة، خاصة للكلاب التي تحتاج للنشاط</p>
-          </div>
-          <div class="service-card">
-            <div class="service-icon">🪥</div>
-            <h3>العناية بالأسنان</h3>
-            <p>نظف أسنان حيوانك بانتظام واستخدم ألعاب المضغ المناسبة</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="container">
-        <div class="footer-grid">
-          <div class="footer-section">
-            <h3>عن المنصة</h3>
-            <p>
-              منصة متكاملة للعناية بالحيوانات الأليفة، تجمع عشاق الحيوانات،
-              المربين، والملاجئ في مكان واحد.
-            </p>
-          </div>
-          <div class="footer-section">
-            <h3>روابط سريعة</h3>
-            <ul class="footer-links">
-              <li><a href="../index.html">الرئيسية</a></li>
-              <li><a href="pets.html">الحيوانات</a></li>
-              <li><a href="adoption.html">التبني</a></li>
-              <li><a href="lost-found.html">مفقود ومعثور</a></li>
-            </ul>
-          </div>
-          <div class="footer-section">
-            <h3>الخدمات</h3>
-            <ul class="footer-links">
-              <li><a href="veterinary.html">الرعاية البيطرية</a></li>
-              <li><a href="store.html">المتجر</a></li>
-              <li><a href="#">التطعيمات</a></li>
-              <li><a href="#">استشارات</a></li>
-            </ul>
-          </div>
-          <div class="footer-section">
-            <h3>تواصل معنا</h3>
-            <ul class="footer-links">
-              <li>📞 +972599248391</li>
-              <li>✉️ info@PalPets.com</li>
-              <li>📍 فلسطين</li>
-            </ul>
-          </div>
-        </div>
-        <div class="footer-bottom">
-          <p>© 2026 PalPets - جميع الحقوق محفوظة</p>
-        </div>
-      </div>
-    </footer>
-
-    <script src="../js/main.js"></script>
+    <script src="../js/api.js"></script>
     <script>
-      // بيانات العيادات
-      function getClinics() {
-        return [
-          {
-            id: 1,
-            name: "عيادة الحيوان السعيد",
-            image:
-              "https://images.unsplash.com/photo-1629909613654-28e377c37b09",
-            specialty: "طب عام وجراحة",
-            city: "riyadh",
-            address: "حي العليا، شارع التخصصي، الرياض",
-            phone: "0112345678",
-            emergency: "0501234567",
-            rating: 4.5,
-            reviews: 128,
-            workingHours: "السبت - الخميس: 9ص - 9م",
-            doctors: ["د. أحمد العمري", "د. سارة الغامدي"],
-          },
-          {
-            id: 2,
-            name: "مجمع العيادات البيطرية المتطورة",
-            image:
-              "https://images.unsplash.com/photo-1584982751601-97dcc096659c",
-            specialty: "جراحة متقدمة وعناية مركزة",
-            city: "jeddah",
-            address: "حي الروضة، شارع فلسطين، جدة",
-            phone: "0123456789",
-            emergency: "0509876543",
-            rating: 4.8,
-            reviews: 256,
-            workingHours: "24 ساعة - طوال أيام الأسبوع",
-            doctors: ["د. محمد القحطاني", "د. فاطمة الزهراني"],
-          },
-          {
-            id: 3,
-            name: "مركز رعاية الحيوان الشامل",
-            image:
-              "https://images.unsplash.com/photo-1584982751601-97dcc096659c",
-            specialty: "طب عام وأسنان",
-            city: "dammam",
-            address: "حي الشاطئ، الدمام",
-            phone: "0133456789",
-            emergency: "0556789123",
-            rating: 4.3,
-            reviews: 89,
-            workingHours: "السبت - الخميس: 8ص - 8م",
-            doctors: ["د. خالد الدوسري"],
-          },
-          {
-            id: 4,
-            name: "عيادة بيطري الحيوان الأليف",
-            image:
-              "https://images.unsplash.com/photo-1629909613654-28e377c37b09",
-            specialty: "جلدية وتغذية",
-            city: "riyadh",
-            address: "حي النزهة، الرياض",
-            phone: "0119876543",
-            emergency: "0567891234",
-            rating: 4.2,
-            reviews: 67,
-            workingHours: "السبت - الأربعاء: 9ص - 6م",
-            doctors: ["د. نورة السديري"],
-          },
-          {
-            id: 5,
-            name: "عيادة الرحمة البيطرية",
-            image:
-              "https://images.unsplash.com/photo-1584982751601-97dcc096659c",
-            specialty: "طب عام وطوارئ",
-            city: "makkah",
-            address: "حي العزيزية، مكة",
-            phone: "0128765432",
-            emergency: "0501122334",
-            rating: 4.0,
-            reviews: 45,
-            workingHours: "السبت - الخميس: 10ص - 10م",
-            doctors: ["د. أسامة فلاتة"],
-          },
-        ];
+      let currentTab = "clinics";
+      let cities = [];
+
+      // Show tab
+      function showTab(tab) {
+        currentTab = tab;
+        document
+          .querySelectorAll(".tab")
+          .forEach((t) => t.classList.remove("active"));
+        document
+          .querySelectorAll(".tab-content")
+          .forEach((c) => c.classList.remove("active"));
+
+        event.target.classList.add("active");
+        document.getElementById(tab + "Tab").classList.add("active");
+
+        if (tab === "clinics") loadClinics();
+        if (tab === "doctors") loadDoctors();
+        if (tab === "appointments") {
+          loadClinicsForAppointment();
+          if (getToken()) loadUserAppointments();
+        }
       }
 
-      // عرض العيادات
-      function displayClinics() {
+      // Load clinics
+      async function loadClinics() {
+        showLoading();
+
+        try {
+          const search = document.getElementById("clinicSearch")?.value || "";
+          const city = document.getElementById("cityFilter")?.value || "";
+
+          let url = "/veterinary/clinics/";
+          const params = new URLSearchParams();
+          if (search) params.append("search", search);
+          if (city) params.append("city", city);
+          if (params.toString()) url += "?" + params.toString();
+
+          const response = await apiCall(url, "GET", null, false);
+          const clinics = response.results || response || [];
+
+          displayClinics(clinics);
+          extractCities(clinics);
+        } catch (error) {
+          console.error("Error loading clinics:", error);
+        } finally {
+          hideLoading();
+        }
+      }
+
+      // Display clinics
+      function displayClinics(clinics) {
         const grid = document.getElementById("clinicsGrid");
-        const clinics = getClinics();
 
         grid.innerHTML = clinics
-          .map((clinic) => {
-            const cityName =
-              clinic.city === "riyadh"
-                ? "الرياض"
-                : clinic.city === "jeddah"
-                  ? "جدة"
-                  : clinic.city === "dammam"
-                    ? "الدمام"
-                    : "مكة المكرمة";
-
-            return `
-                    <div class="clinic-card">
-                        <img src="${clinic.image}" alt="${clinic.name}" class="clinic-image">
-                        <div class="clinic-info">
-                            <h3 class="clinic-name">${clinic.name}</h3>
-                            <div class="clinic-specialty">${clinic.specialty}</div>
-                            
-                            <div class="rating">
-                                ${getStars(clinic.rating)}
-                                <span>(${clinic.reviews} تقييم)</span>
-                            </div>
-                            
-                            <div class="clinic-details">
-                                <p>📍 ${clinic.address}</p>
-                                <p>📞 ${clinic.phone}</p>
-                                <p>🚑 ${clinic.emergency}</p>
-                                <p>🕒 ${clinic.workingHours}</p>
-                            </div>
-                            
-                            <div class="working-hours">
-                                <h4>الأطباء</h4>
-                                ${clinic.doctors.map((doc) => `<p>👨‍⚕️ ${doc}</p>`).join("")}
-                            </div>
-                            
-                            <div style="display: flex; gap: 0.5rem;">
-                                <button onclick="bookClinic(${clinic.id})" class="btn-details" style="flex: 1;">احجز موعد</button>
-                                <button onclick="callClinic('${clinic.phone}')" class="btn-contact" style="flex: 1;">اتصل</button>
-                            </div>
-                        </div>
+          .map(
+            (clinic) => `
+                <div class="clinic-card">
+                    <img src="${clinic.logo || "https://via.placeholder.com/400x200"}" class="clinic-image">
+                    <div class="clinic-info">
+                        <h3>${clinic.name}</h3>
+                        <p>⭐ ${clinic.rating || 0} (${clinic.reviews_count || 0} تقييم)</p>
+                        <p>📍 ${clinic.city} - ${clinic.address}</p>
+                        <p>📞 ${clinic.phone}</p>
+                        ${clinic.emergency_service ? "<p>🚑 خدمة طوارئ 24/7</p>" : ""}
+                        <button class="btn-details" onclick="viewClinic(${clinic.id})">عرض التفاصيل</button>
                     </div>
-                `;
-          })
+                </div>
+            `,
+          )
           .join("");
       }
 
-      // توليد النجوم للتقييم
-      function getStars(rating) {
-        let stars = "";
-        for (let i = 1; i <= 5; i++) {
-          if (i <= Math.floor(rating)) {
-            stars += "★";
-          } else if (i - 0.5 <= rating) {
-            stars += "½";
-          } else {
-            stars += "☆";
-          }
-        }
-        return stars;
+      // Extract cities for filter
+      function extractCities(clinics) {
+        cities = [...new Set(clinics.map((c) => c.city))];
+        const select = document.getElementById("cityFilter");
+        select.innerHTML =
+          '<option value="">جميع المدن</option>' +
+          cities.map((c) => `<option value="${c}">${c}</option>`).join("");
       }
 
-      // فلترة العيادات
-      function filterClinics() {
-        const searchQuery =
-          document.getElementById("searchInput")?.value.toLowerCase() || "";
-        const cityFilter = document.getElementById("cityFilter")?.value || "";
-        const specialtyFilter =
-          document.getElementById("specialtyFilter")?.value || "";
-        const ratingFilter =
-          document.getElementById("ratingFilter")?.value || "";
+      // Load doctors
+      async function loadDoctors() {
+        showLoading();
 
-        const allClinics = getClinics();
+        try {
+          const response = await apiCall(
+            "/veterinary/doctors/",
+            "GET",
+            null,
+            false,
+          );
+          const doctors = response.results || response || [];
 
-        const filteredClinics = allClinics.filter((clinic) => {
-          if (
-            searchQuery &&
-            !clinic.name.toLowerCase().includes(searchQuery) &&
-            !clinic.doctors.some((doc) =>
-              doc.toLowerCase().includes(searchQuery),
-            )
-          ) {
-            return false;
+          displayDoctors(doctors);
+        } catch (error) {
+          console.error("Error loading doctors:", error);
+        } finally {
+          hideLoading();
+        }
+      }
+
+      // Display doctors
+      function displayDoctors(doctors) {
+        const grid = document.getElementById("doctorsGrid");
+
+        grid.innerHTML = doctors
+          .map(
+            (doc) => `
+                <div class="service-card">
+                    <img src="${doc.profile_image || "https://via.placeholder.com/200"}" 
+                         style="width: 100%; height: 200px; object-fit: cover; border-radius: 0.5rem;">
+                    <h3>د. ${doc.name}</h3>
+                    <p>${doc.title}</p>
+                    <p>⭐ ${doc.rating || 0} (${doc.reviews_count || 0} تقييم)</p>
+                    <p>📞 ${doc.phone}</p>
+                    <p>${doc.experience_years} سنوات خبرة</p>
+                    <button class="btn-details" onclick="viewDoctor(${doc.id})">عرض التفاصيل</button>
+                </div>
+            `,
+          )
+          .join("");
+      }
+
+      // Load clinics for appointment
+      async function loadClinicsForAppointment() {
+        try {
+          const response = await apiCall(
+            "/veterinary/clinics/",
+            "GET",
+            null,
+            false,
+          );
+          const clinics = response.results || response || [];
+
+          const select = document.getElementById("appClinic");
+          select.innerHTML =
+            '<option value="">اختر العيادة</option>' +
+            clinics
+              .map((c) => `<option value="${c.id}">${c.name}</option>`)
+              .join("");
+        } catch (error) {
+          console.error("Error loading clinics:", error);
+        }
+      }
+
+      // Load doctors for selected clinic
+      document
+        .getElementById("appClinic")
+        ?.addEventListener("change", async function (e) {
+          if (e.target.value) {
+            try {
+              const response = await apiCall(
+                `/veterinary/doctors/?clinic=${e.target.value}`,
+                "GET",
+                null,
+                false,
+              );
+              const doctors = response.results || response || [];
+
+              const select = document.getElementById("appDoctor");
+              select.innerHTML =
+                '<option value="">اختر الطبيب</option>' +
+                doctors
+                  .map((d) => `<option value="${d.id}">د. ${d.name}</option>`)
+                  .join("");
+            } catch (error) {
+              console.error("Error loading doctors:", error);
+            }
           }
-
-          if (cityFilter && clinic.city !== cityFilter) {
-            return false;
-          }
-
-          if (
-            specialtyFilter &&
-            !clinic.specialty.toLowerCase().includes(specialtyFilter)
-          ) {
-            return false;
-          }
-
-          if (ratingFilter && clinic.rating < parseInt(ratingFilter)) {
-            return false;
-          }
-
-          return true;
         });
 
-        const grid = document.getElementById("clinicsGrid");
-        grid.innerHTML = filteredClinics
-          .map((clinic) => {
-            const cityName =
-              clinic.city === "riyadh"
-                ? "الرياض"
-                : clinic.city === "jeddah"
-                  ? "جدة"
-                  : clinic.city === "dammam"
-                    ? "الدمام"
-                    : "مكة المكرمة";
-
-            return `
-                    <div class="clinic-card">
-                        <img src="${clinic.image}" alt="${clinic.name}" class="clinic-image">
-                        <div class="clinic-info">
-                            <h3 class="clinic-name">${clinic.name}</h3>
-                            <div class="clinic-specialty">${clinic.specialty}</div>
-                            
-                            <div class="rating">
-                                ${getStars(clinic.rating)}
-                                <span>(${clinic.reviews} تقييم)</span>
-                            </div>
-                            
-                            <div class="clinic-details">
-                                <p>📍 ${clinic.address}</p>
-                                <p>📞 ${clinic.phone}</p>
-                                <p>🚑 ${clinic.emergency}</p>
-                                <p>🕒 ${clinic.workingHours}</p>
-                            </div>
-                            
-                            <div style="display: flex; gap: 0.5rem;">
-                                <button onclick="bookClinic(${clinic.id})" class="btn-details" style="flex: 1;">احجز موعد</button>
-                                <button onclick="callClinic('${clinic.phone}')" class="btn-contact" style="flex: 1;">اتصل</button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-          })
-          .join("");
-      }
-
-      // حجز عيادة
-      function bookClinic(clinicId) {
-        const isLoggedIn = localStorage.getItem("token");
-        if (isLoggedIn) {
-          document
-            .getElementById("appointment")
-            .scrollIntoView({ behavior: "smooth" });
-          document.getElementById("clinicSelect").value = clinicId;
-        } else {
-          if (
-            confirm(
-              "يجب تسجيل الدخول أولاً. هل تريد الانتقال إلى صفحة تسجيل الدخول؟",
-            )
-          ) {
-            window.location.href = "login.html";
-          }
-        }
-      }
-
-      // الاتصال بالعيادة
-      function callClinic(phone) {
-        alert(`رقم العيادة: ${phone}`);
-      }
-
-      // اختيار موعد
-      function selectTimeSlot(element) {
-        if (!element.classList.contains("disabled")) {
-          document.querySelectorAll(".time-slot").forEach((slot) => {
-            slot.classList.remove("selected");
-          });
-          element.classList.add("selected");
-        }
-      }
-
-      // حجز موعد
-      function bookAppointment(event) {
+      // Book appointment
+      async function bookAppointment(event) {
         event.preventDefault();
+        if (!requireAuth()) return;
 
-        const clinic = document.getElementById("clinicSelect");
-        const service = document.getElementById("serviceSelect");
-        const petType = document.getElementById("petTypeSelect");
-        const date = document.getElementById("appointmentDate");
-        const selectedTime = document.querySelector(".time-slot.selected");
+        const formData = {
+          clinic: document.getElementById("appClinic").value,
+          doctor: document.getElementById("appDoctor").value,
+          service: document.getElementById("appService").value,
+          pet_name: document.getElementById("appPetName").value,
+          appointment_date: document.getElementById("appDate").value,
+          appointment_time: document.getElementById("appTime").value,
+        };
 
-        if (!selectedTime) {
-          alert("الرجاء اختيار موعد");
-          return;
+        showLoading();
+
+        try {
+          await apiCall("/veterinary/appointments/", "POST", formData);
+          showNotification("تم حجز الموعد بنجاح", "success");
+          loadUserAppointments();
+        } catch (error) {
+          showNotification(error.message || "حدث خطأ في الحجز", "error");
+        } finally {
+          hideLoading();
         }
-
-        alert(
-          `تم حجز موعدكم بنجاح في ${clinic.options[clinic.selectedIndex].text} يوم ${date.value} الساعة ${selectedTime.textContent}`,
-        );
       }
 
-      // تهيئة الصفحة
-      document.addEventListener("DOMContentLoaded", function () {
-        displayClinics();
+      // Load user appointments
+      async function loadUserAppointments() {
+        try {
+          const response = await apiCall(
+            "/veterinary/appointments/",
+            "GET",
+            null,
+            false,
+          );
+          const appointments = response.results || response || [];
 
-        // تعيين الحد الأدنى للتاريخ
-        const today = new Date().toISOString().split("T")[0];
-        document.getElementById("appointmentDate").min = today;
+          displayUserAppointments(appointments);
+        } catch (error) {
+          console.error("Error loading appointments:", error);
+        }
+      }
+
+      // Initialize
+      document.addEventListener("DOMContentLoaded", () => {
+        loadClinics();
       });
     </script>
   </body>

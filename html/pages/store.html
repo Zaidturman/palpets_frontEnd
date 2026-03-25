@@ -10,6 +10,10 @@
       href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
     <link rel="stylesheet" href="../css/style.css" />
     <style>
       .product-card {
@@ -17,34 +21,17 @@
         border-radius: 0.5rem;
         overflow: hidden;
         box-shadow: var(--shadow);
-        transition: all 0.3s;
+        transition: transform 0.3s;
         position: relative;
       }
-
       .product-card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
       }
-
       .product-image {
         width: 100%;
         height: 200px;
         object-fit: cover;
       }
-
-      .product-badge {
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-        background: var(--accent-color);
-        color: white;
-        padding: 0.25rem 0.75rem;
-        border-radius: 9999px;
-        font-size: 0.75rem;
-        font-weight: 600;
-        z-index: 1;
-      }
-
       .product-sale-badge {
         position: absolute;
         top: 1rem;
@@ -53,52 +40,38 @@
         color: white;
         padding: 0.25rem 0.75rem;
         border-radius: 9999px;
-        font-size: 0.75rem;
+        font-size: 0.875rem;
         font-weight: 600;
         z-index: 1;
       }
-
       .product-info {
         padding: 1.5rem;
       }
-
       .product-category {
         color: var(--primary-color);
         font-size: 0.875rem;
         margin-bottom: 0.5rem;
       }
-
       .product-name {
         font-size: 1.125rem;
         font-weight: 600;
         margin-bottom: 0.5rem;
       }
-
       .product-price {
         font-size: 1.25rem;
         font-weight: 700;
         color: var(--primary-color);
-        margin: 0.5rem 0;
       }
-
       .product-old-price {
         font-size: 0.875rem;
         color: var(--text-light);
         text-decoration: line-through;
         margin-right: 0.5rem;
       }
-
       .product-rating {
         color: #fbbf24;
         margin: 0.5rem 0;
-        font-size: 0.875rem;
       }
-
-      .product-rating span {
-        color: var(--text-light);
-        margin-right: 0.5rem;
-      }
-
       .category-tabs {
         display: flex;
         flex-wrap: wrap;
@@ -106,7 +79,6 @@
         justify-content: center;
         margin: 2rem 0;
       }
-
       .category-tab {
         padding: 0.5rem 1.5rem;
         border: 1px solid #e5e7eb;
@@ -115,19 +87,12 @@
         transition: all 0.3s;
         background: white;
       }
-
-      .category-tab:hover {
-        background: var(--primary-color);
-        color: white;
-        border-color: var(--primary-color);
-      }
-
+      .category-tab:hover,
       .category-tab.active {
         background: var(--primary-color);
         color: white;
         border-color: var(--primary-color);
       }
-
       .cart-sidebar {
         position: fixed;
         top: 0;
@@ -141,70 +106,9 @@
         padding: 2rem;
         overflow-y: auto;
       }
-
       .cart-sidebar.open {
         left: 0;
       }
-
-      .cart-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 2rem;
-      }
-
-      .cart-item {
-        display: flex;
-        gap: 1rem;
-        padding: 1rem 0;
-        border-bottom: 1px solid #e5e7eb;
-      }
-
-      .cart-item-image {
-        width: 60px;
-        height: 60px;
-        border-radius: 0.5rem;
-        object-fit: cover;
-      }
-
-      .cart-item-details {
-        flex: 1;
-      }
-
-      .cart-item-name {
-        font-weight: 600;
-        margin-bottom: 0.25rem;
-      }
-
-      .cart-item-price {
-        color: var(--primary-color);
-        font-weight: 600;
-      }
-
-      .cart-item-quantity {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        margin-top: 0.5rem;
-      }
-
-      .quantity-btn {
-        width: 24px;
-        height: 24px;
-        border: 1px solid #e5e7eb;
-        background: white;
-        border-radius: 4px;
-        cursor: pointer;
-      }
-
-      .cart-total {
-        margin: 2rem 0;
-        padding: 1rem 0;
-        border-top: 2px solid #e5e7eb;
-        font-size: 1.25rem;
-        font-weight: 700;
-      }
-
       .cart-overlay {
         position: fixed;
         top: 0;
@@ -215,11 +119,9 @@
         display: none;
         z-index: 999;
       }
-
       .cart-overlay.active {
         display: block;
       }
-
       .cart-icon {
         position: fixed;
         bottom: 2rem;
@@ -237,7 +139,6 @@
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         z-index: 99;
       }
-
       .cart-count {
         position: absolute;
         top: -5px;
@@ -251,9 +152,27 @@
         align-items: center;
         justify-content: center;
         font-size: 0.75rem;
-        font-weight: 600;
       }
-
+      .cart-item {
+        display: flex;
+        gap: 1rem;
+        padding: 1rem 0;
+        border-bottom: 1px solid #e5e7eb;
+      }
+      .cart-item-image {
+        width: 60px;
+        height: 60px;
+        border-radius: 0.5rem;
+        object-fit: cover;
+      }
+      .quantity-btn {
+        width: 24px;
+        height: 24px;
+        border: 1px solid #e5e7eb;
+        background: white;
+        border-radius: 4px;
+        cursor: pointer;
+      }
       @media (max-width: 640px) {
         .cart-sidebar {
           width: 100%;
@@ -263,13 +182,11 @@
     </style>
   </head>
   <body>
-    <!-- Navbar -->
     <nav class="navbar">
       <div class="container">
         <a href="../index.html" class="logo">
-          <img src="../images/logo.png" alt="" />
+          <img src="../images/logo.png" alt="PalPets" />
         </a>
-
         <div class="nav-menu">
           <a href="../index.html">الرئيسية</a>
           <a href="pets.html">الحيوانات</a>
@@ -278,26 +195,12 @@
           <a href="veterinary.html">الرعاية البيطرية</a>
           <a href="store.html" class="active">المتجر</a>
         </div>
-
-        <div class="auth-buttons">
-          <a href="login.html" class="btn-login">تسجيل الدخول</a>
-        </div>
-
+        <div class="auth-buttons"></div>
         <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
-      </div>
-
-      <div class="mobile-menu" id="mobileMenu">
-        <a href="../index.html">الرئيسية</a>
-        <a href="pets.html">الحيوانات</a>
-        <a href="adoption.html">التبني</a>
-        <a href="lost-found.html">مفقود ومعثور</a>
-        <a href="veterinary.html">الرعاية البيطرية</a>
-        <a href="store.html">المتجر</a>
-        <a href="login.html">تسجيل الدخول</a>
       </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Hero -->
     <section
       class="hero"
       style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%)"
@@ -317,21 +220,6 @@
           <button class="category-tab active" onclick="filterProducts('all')">
             الكل
           </button>
-          <button class="category-tab" onclick="filterProducts('food')">
-            طعام
-          </button>
-          <button class="category-tab" onclick="filterProducts('toys')">
-            ألعاب
-          </button>
-          <button class="category-tab" onclick="filterProducts('accessories')">
-            إكسسوارات
-          </button>
-          <button class="category-tab" onclick="filterProducts('health')">
-            عناية صحية
-          </button>
-          <button class="category-tab" onclick="filterProducts('beds')">
-            أسرة وبيوت
-          </button>
         </div>
 
         <!-- Search and Filters -->
@@ -342,14 +230,9 @@
               id="searchInput"
               placeholder="ابحث عن منتج..."
               class="search-input"
-              onkeyup="filterProducts()"
             />
 
-            <select
-              id="sortFilter"
-              class="search-input"
-              onchange="filterProducts()"
-            >
+            <select id="sortFilter" class="search-input">
               <option value="">ترتيب حسب</option>
               <option value="price-asc">السعر: من الأقل للأعلى</option>
               <option value="price-desc">السعر: من الأعلى للأقل</option>
@@ -357,16 +240,19 @@
               <option value="newest">الأحدث</option>
             </select>
 
-            <select
-              id="priceFilter"
-              class="search-input"
-              onchange="filterProducts()"
-            >
+            <select id="priceFilter" class="search-input">
               <option value="">جميع الأسعار</option>
-              <option value="0-50">أقل من 50 شيكل</option>
-              <option value="50-100">50 - 100 شيكل</option>
-              <option value="100-200">100 - 200 شيكل</option>
-              <option value="200+">أكثر من 200 شيكل</option>
+              <option value="0-50">أقل من 50 ₪</option>
+              <option value="50-100">50 - 100 ₪</option>
+              <option value="100-200">100 - 200 ₪</option>
+              <option value="200+">أكثر من 200 ₪</option>
+            </select>
+
+            <select id="petTypeFilter" class="search-input">
+              <option value="">جميع الحيوانات</option>
+              <option value="dog">كلاب</option>
+              <option value="cat">قطط</option>
+              <option value="bird">طيور</option>
             </select>
           </div>
         </div>
@@ -377,31 +263,48 @@
           class="services-grid"
           style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr))"
         ></div>
+
+        <!-- Loading -->
+        <div id="loading" class="spinner" style="display: none"></div>
+
+        <!-- Pagination -->
+        <div id="pagination" class="pagination">
+          <button class="btn-prev" onclick="prevPage()" id="prevBtn">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+          <span id="pageInfo">صفحة 1 من 1</span>
+          <button class="btn-next" onclick="nextPage()" id="nextBtn">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+        </div>
       </div>
     </section>
 
     <!-- Cart Sidebar -->
     <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
     <div class="cart-sidebar" id="cartSidebar">
-      <div class="cart-header">
+      <div
+        class="cart-header"
+        style="
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 2rem;
+        "
+      >
         <h2>سلة التسوق</h2>
         <button
           onclick="toggleCart()"
-          style="
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-          "
+          style="background: none; border: none; font-size: 1.5rem"
         >
           ✕
         </button>
       </div>
-
       <div id="cartItems"></div>
-
-      <div class="cart-total" id="cartTotal">الإجمالي: 0 شيكل</div>
-
+      <div
+        class="cart-total"
+        id="cartTotal"
+        style="font-size: 1.25rem; font-weight: bold; margin: 1rem 0"
+      ></div>
       <button class="btn-submit" onclick="checkout()" style="width: 100%">
         إتمام الشراء
       </button>
@@ -413,291 +316,132 @@
       <span class="cart-count" id="cartCount">0</span>
     </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="container">
-        <div class="footer-grid">
-          <div class="footer-section">
-            <h3>عن المنصة</h3>
-            <p>
-              منصة متكاملة للعناية بالحيوانات الأليفة، تجمع عشاق الحيوانات،
-              المربين، والملاجئ في مكان واحد.
-            </p>
-          </div>
-          <div class="footer-section">
-            <h3>روابط سريعة</h3>
-            <ul class="footer-links">
-              <li><a href="../index.html">الرئيسية</a></li>
-              <li><a href="pets.html">الحيوانات</a></li>
-              <li><a href="adoption.html">التبني</a></li>
-              <li><a href="lost-found.html">مفقود ومعثور</a></li>
-            </ul>
-          </div>
-          <div class="footer-section">
-            <h3>الخدمات</h3>
-            <ul class="footer-links">
-              <li><a href="veterinary.html">الرعاية البيطرية</a></li>
-              <li><a href="store.html">المتجر</a></li>
-              <li><a href="#">التطعيمات</a></li>
-              <li><a href="#">استشارات</a></li>
-            </ul>
-          </div>
-          <div class="footer-section">
-            <h3>تواصل معنا</h3>
-            <ul class="footer-links">
-              <li>📞 +972599248391</li>
-              <li>✉️ info@PalPets.com</li>
-              <li>📍 فلسطين</li>
-            </ul>
-          </div>
-        </div>
-        <div class="footer-bottom">
-          <p>© 2026 PalPets - جميع الحقوق محفوظة</p>
-        </div>
+    <!-- Product Modal -->
+    <div id="productModal" class="modal">
+      <div class="modal-content" style="max-width: 800px">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div id="productDetails"></div>
       </div>
-    </footer>
+    </div>
 
-    <script src="../js/main.js"></script>
+    <script src="../js/api.js"></script>
     <script>
-      // سلة التسوق
-      let cart = [];
+      let currentPage = 1;
+      let totalPages = 1;
+      let categories = [];
+      let cart = JSON.parse(localStorage.getItem("cart") || "[]");
+      let currentProducts = [];
 
-      // بيانات المنتجات
-      function getProducts() {
-        return [
-          // طعام
-          {
-            id: 1,
-            name: "طعام جاف للكلاب - 20 كجم",
-            category: "food",
-            subcategory: "dog",
-            price: 250,
-            oldPrice: 300,
-            rating: 4.5,
-            reviews: 128,
-            image:
-              "https://images.unsplash.com/photo-1568640347023-a616a30bc3bd",
-            description:
-              "طعام متكامل للكلاب البالغة، غني بالبروتينات والفيتامينات",
-            inStock: true,
-          },
-          {
-            id: 2,
-            name: "طعام رطب للقطط - 12 علبة",
-            category: "food",
-            subcategory: "cat",
-            price: 120,
-            rating: 4.3,
-            reviews: 89,
-            image:
-              "https://images.unsplash.com/photo-1589924691995-400dc3e8ceb4",
-            description: "طعام رطب شهي للقطط، بنكهة الدجاج",
-            inStock: true,
-          },
-          {
-            id: 3,
-            name: "وجبات خفيفة للكلاب",
-            category: "food",
-            subcategory: "dog",
-            price: 45,
-            oldPrice: 60,
-            rating: 4.2,
-            reviews: 67,
-            image:
-              "https://images.unsplash.com/photo-1601758174114-e711c0cbaa69",
-            description: "وجبات خفيفة صحية ولذيذة للكلاب",
-            inStock: true,
-            sale: true,
-          },
+      // Load categories
+      async function loadCategories() {
+        try {
+          const response = await apiCall(
+            "/store/categories/",
+            "GET",
+            null,
+            false,
+          );
+          categories = response.results || response || [];
 
-          // ألعاب
-          {
-            id: 4,
-            name: "كرة تفاعلية للكلاب",
-            category: "toys",
-            subcategory: "dog",
-            price: 85,
-            rating: 4.6,
-            reviews: 156,
-            image:
-              "https://images.unsplash.com/photo-1576201836106-db1758fd1c97",
-            description: "كرة ذكية تقفز عشوائياً لتحفيز الكلب على اللعب",
-            inStock: true,
-          },
-          {
-            id: 5,
-            name: "مضرب ألعاب للقطط",
-            category: "toys",
-            subcategory: "cat",
-            price: 35,
-            rating: 4.4,
-            reviews: 92,
-            image: "https://images.unsplash.com/photo-1545249390-6bdfa286032f",
-            description: "مضرب مع ريش ملون لتحفيز القطط على اللعب",
-            inStock: true,
-          },
-          {
-            id: 6,
-            name: "ألعاب مضغ للكلاب",
-            category: "toys",
-            subcategory: "dog",
-            price: 55,
-            rating: 4.1,
-            reviews: 45,
-            image:
-              "https://images.unsplash.com/photo-1575425186775-b8de9a427e67",
-            description: "مجموعة ألعاب مضغ آمنة للكلاب",
-            inStock: true,
-          },
-
-          // إكسسوارات
-          {
-            id: 7,
-            name: "طوق جلدي فاخر",
-            category: "accessories",
-            subcategory: "dog",
-            price: 120,
-            rating: 4.7,
-            reviews: 203,
-            image: "https://images.unsplash.com/photo-1543076447-215ad9ba6923",
-            description: "طوق جلدي طبيعي مع حلقة معدنية قوية",
-            inStock: true,
-          },
-          {
-            id: 8,
-            name: "مقود قابل للطي",
-            category: "accessories",
-            subcategory: "dog",
-            price: 95,
-            oldPrice: 120,
-            rating: 4.3,
-            reviews: 78,
-            image:
-              "https://images.unsplash.com/photo-1575425186775-b8de9a427e67",
-            description: "مقود تلسكوبي بطول 5 أمتار",
-            inStock: true,
-          },
-          {
-            id: 9,
-            name: "طوق مع جرس للقطط",
-            category: "accessories",
-            subcategory: "cat",
-            price: 45,
-            rating: 4.2,
-            reviews: 67,
-            image: "https://images.unsplash.com/photo-1543076447-215ad9ba6923",
-            description: "طوق ناعم مع جرس صغير لتعقب القطة",
-            inStock: true,
-          },
-
-          // عناية صحية
-          {
-            id: 10,
-            name: "شامبو للكلاب والقطط",
-            category: "health",
-            price: 65,
-            rating: 4.5,
-            reviews: 145,
-            image:
-              "https://images.unsplash.com/photo-1583945855455-8e3a1a9a5b3e",
-            description: "شامبو طبيعي للحيوانات الأليفة، لطيف على الجلد",
-            inStock: true,
-          },
-          {
-            id: 11,
-            name: "مزيل رائحة الفم",
-            category: "health",
-            price: 45,
-            rating: 4.1,
-            reviews: 56,
-            image:
-              "https://images.unsplash.com/photo-1583945855455-8e3a1a9a5b3e",
-            description: "بخاخ منعش للفم، يحافظ على صحة الأسنان",
-            inStock: true,
-          },
-          {
-            id: 12,
-            name: "مقص أظافر احترافي",
-            category: "health",
-            price: 85,
-            oldPrice: 100,
-            rating: 4.4,
-            reviews: 89,
-            image:
-              "https://images.unsplash.com/photo-1583945855455-8e3a1a9a5b3e",
-            description: "مقص أظافر آمن وسهل الاستخدام",
-            inStock: true,
-            sale: true,
-          },
-
-          // أسرة وبيوت
-          {
-            id: 13,
-            name: "سرير فخم للكلاب - كبير",
-            category: "beds",
-            subcategory: "dog",
-            price: 350,
-            rating: 4.8,
-            reviews: 234,
-            image: "https://images.unsplash.com/photo-1543076447-215ad9ba6923",
-            description: "سرير مريح مع حشوة إسفنجية عالية الكثافة",
-            inStock: true,
-          },
-          {
-            id: 14,
-            name: "بيت للقطط - طابقين",
-            category: "beds",
-            subcategory: "cat",
-            price: 280,
-            rating: 4.6,
-            reviews: 167,
-            image: "https://images.unsplash.com/photo-1543076447-215ad9ba6923",
-            description: "بيت متكامل للقطط مع أعمدة خدش وألعاب",
-            inStock: true,
-          },
-          {
-            id: 15,
-            name: "وسادة سفر للحيوانات",
-            category: "beds",
-            price: 120,
-            rating: 4.2,
-            reviews: 78,
-            image: "https://images.unsplash.com/photo-1543076447-215ad9ba6923",
-            description: "وسادة مريحة للاستخدام في السيارة أو السفر",
-            inStock: true,
-          },
-        ];
+          const tabs = document.getElementById("categoryTabs");
+          tabs.innerHTML =
+            '<button class="category-tab active" onclick="filterProducts(\'all\')">الكل</button>' +
+            categories
+              .map(
+                (c) =>
+                  `<button class="category-tab" onclick="filterProducts(${c.id})">${c.name}</button>`,
+              )
+              .join("");
+        } catch (error) {
+          console.error("Error loading categories:", error);
+        }
       }
 
-      // عرض المنتجات
-      function displayProducts(products = getProducts()) {
+      // Load products
+      async function loadProducts() {
+        showLoading();
+
+        try {
+          const category =
+            document
+              .querySelector(".category-tab.active")
+              ?.getAttribute("onclick")
+              ?.match(/\d+/)?.[0] || "";
+          const search = document.getElementById("searchInput").value;
+          const sort = document.getElementById("sortFilter").value;
+          const price = document.getElementById("priceFilter").value;
+          const petType = document.getElementById("petTypeFilter").value;
+
+          let url = `/store/?page=${currentPage}`;
+          if (category) url += `&category=${category}`;
+          if (search) url += `&search=${search}`;
+          if (petType) url += `&pet_type=${petType}`;
+
+          // Price filter
+          if (price) {
+            const [min, max] = price.split("-");
+            if (max) {
+              url += `&min_price=${min}&max_price=${max}`;
+            } else if (price === "200+") {
+              url += `&min_price=200`;
+            }
+          }
+
+          const response = await apiCall(url, "GET", null, false);
+
+          currentProducts = response.results || response || [];
+          totalPages = Math.ceil(
+            (response.count || currentProducts.length) / 10,
+          );
+
+          displayProducts(currentProducts);
+          updatePagination();
+        } catch (error) {
+          console.error("Error loading products:", error);
+        } finally {
+          hideLoading();
+        }
+      }
+
+      // Display products
+      function displayProducts(products) {
         const grid = document.getElementById("productsGrid");
+
+        if (products.length === 0) {
+          grid.innerHTML = '<p class="text-center">لا توجد منتجات متاحة</p>';
+          return;
+        }
 
         grid.innerHTML = products
           .map((product) => {
-            const categoryName = getCategoryName(product.category);
-            const rating = getStars(product.rating);
+            const finalPrice = product.discount_price || product.price;
+            const discount = product.discount_price
+              ? Math.round(
+                  ((product.price - product.discount_price) / product.price) *
+                    100,
+                )
+              : 0;
 
             return `
                     <div class="product-card">
-                        ${product.sale ? '<span class="product-sale-badge">خصم</span>' : ""}
-                        <img src="${product.image}" alt="${product.name}" class="product-image">
+                        ${discount > 0 ? `<span class="product-sale-badge">-${discount}%</span>` : ""}
+                        <img src="${product.primary_image || "https://via.placeholder.com/300x200"}" alt="${product.name}" class="product-image">
                         <div class="product-info">
-                            <div class="product-category">${categoryName}</div>
+                            <div class="product-category">${product.category_name || "عام"}</div>
                             <h3 class="product-name">${product.name}</h3>
                             
                             <div class="product-rating">
-                                ${rating}
-                                <span>(${product.reviews})</span>
+                                ${getStars(product.average_rating || 0)}
+                                <span>(${product.reviews_count || 0})</span>
                             </div>
                             
                             <div class="product-price">
-                                ${product.price}  شيكل
-                                ${product.oldPrice ? `<span class="product-old-price">${product.oldPrice}  شيكل</span>` : ""}
+                                ${finalPrice} ₪
+                                ${product.discount_price ? `<span class="product-old-price">${product.price} ₪</span>` : ""}
                             </div>
                             
                             <p style="color: var(--text-light); font-size: 0.875rem; margin: 0.5rem 0;">
-                                ${product.description}
+                                ${product.short_description || product.description?.substring(0, 100) + "..."}
                             </p>
                             
                             <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
@@ -715,105 +459,89 @@
           .join("");
       }
 
-      // الحصول على اسم الفئة
-      function getCategoryName(category) {
-        const categories = {
-          food: "طعام",
-          toys: "ألعاب",
-          accessories: "إكسسوارات",
-          health: "عناية صحية",
-          beds: "أسرة وبيوت",
-        };
-        return categories[category] || category;
+      // Generate stars
+      function getStars(rating) {
+        let stars = "";
+        for (let i = 1; i <= 5; i++) {
+          if (i <= Math.floor(rating)) {
+            stars += "★";
+          } else if (i - 0.5 <= rating) {
+            stars += "½";
+          } else {
+            stars += "☆";
+          }
+        }
+        return stars;
       }
 
-      // فلترة المنتجات
-      function filterProducts(category = "all") {
-        // تحديث التبويبات
-        document.querySelectorAll(".category-tab").forEach((tab) => {
-          tab.classList.remove("active");
-          if (
-            tab.textContent.includes(
-              category === "all" ? "الكل" : getCategoryName(category),
-            )
-          ) {
-            tab.classList.add("active");
-          }
-        });
-
-        const searchQuery =
-          document.getElementById("searchInput")?.value.toLowerCase() || "";
-        const sortFilter = document.getElementById("sortFilter")?.value || "";
-        const priceFilter = document.getElementById("priceFilter")?.value || "";
-
-        let products = getProducts();
-
-        // فلترة حسب الفئة
-        if (category !== "all") {
-          products = products.filter((p) => p.category === category);
-        }
-
-        // فلترة حسب البحث
-        if (searchQuery) {
-          products = products.filter(
-            (p) =>
-              p.name.toLowerCase().includes(searchQuery) ||
-              p.description.toLowerCase().includes(searchQuery),
-          );
-        }
-
-        // فلترة حسب السعر
-        if (priceFilter) {
-          const [min, max] = priceFilter.split("-");
-          if (max) {
-            products = products.filter(
-              (p) => p.price >= parseInt(min) && p.price <= parseInt(max),
-            );
-          } else if (min === "200+") {
-            products = products.filter((p) => p.price >= 200);
-          }
-        }
-
-        // ترتيب
-        if (sortFilter) {
-          switch (sortFilter) {
-            case "price-asc":
-              products.sort((a, b) => a.price - b.price);
-              break;
-            case "price-desc":
-              products.sort((a, b) => b.price - a.price);
-              break;
-            case "rating":
-              products.sort((a, b) => b.rating - a.rating);
-              break;
-          }
-        }
-
-        displayProducts(products);
+      // Filter products
+      function filterProducts(category) {
+        document
+          .querySelectorAll(".category-tab")
+          .forEach((tab) => tab.classList.remove("active"));
+        event.target.classList.add("active");
+        currentPage = 1;
+        loadProducts();
       }
 
-      // إضافة للسلة
+      // View product details
+      async function viewProduct(id) {
+        showLoading();
+
+        try {
+          const product = await apiCall(`/store/${id}/`, "GET", null, false);
+
+          const modal = document.getElementById("productModal");
+          const details = document.getElementById("productDetails");
+
+          details.innerHTML = `
+                    <div style="display: flex; gap: 20px;">
+                        <div style="flex: 1;">
+                            <img src="${product.primary_image || "https://via.placeholder.com/400"}" style="width: 100%; border-radius: 10px;">
+                        </div>
+                        <div style="flex: 1;">
+                            <h2>${product.name}</h2>
+                            <p>${product.description}</p>
+                            
+                            <table class="details-table">
+                                <tr><th>السعر:</th><td>${product.final_price} ₪ ${product.discount_price ? `<span style="text-decoration: line-through; color: #999;">${product.price} ₪</span>` : ""}</td></tr>
+                                <tr><th>التصنيف:</th><td>${product.category_name}</td></tr>
+                                <tr><th>العلامة التجارية:</th><td>${product.brand || "غير محدد"}</td></tr>
+                                <tr><th>الكمية المتوفرة:</th><td>${product.quantity}</td></tr>
+                                <tr><th>التقييم:</th><td>${getStars(product.average_rating || 0)} (${product.reviews_count || 0} تقييم)</td></tr>
+                            </table>
+                            
+                            <div style="margin-top: 20px;">
+                                <button class="btn-primary" onclick="addToCart(${product.id})">🛒 أضف للسلة</button>
+                                <button class="btn-secondary" onclick="addToWishlist(${product.id})">❤️ أضف للمفضلة</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+          modal.style.display = "block";
+        } catch (error) {
+          showNotification("حدث خطأ في تحميل التفاصيل", "error");
+        } finally {
+          hideLoading();
+        }
+      }
+
+      // Add to cart
       function addToCart(productId) {
-        const isLoggedIn = localStorage.getItem("token");
-        if (!isLoggedIn) {
-          if (
-            confirm(
-              "يجب تسجيل الدخول أولاً. هل تريد الانتقال إلى صفحة تسجيل الدخول؟",
-            )
-          ) {
-            window.location.href = "login.html";
-          }
-          return;
-        }
+        const product = currentProducts.find((p) => p.id === productId);
+        if (!product) return;
 
-        const product = getProducts().find((p) => p.id === productId);
         const existingItem = cart.find((item) => item.id === productId);
 
         if (existingItem) {
           existingItem.quantity += 1;
         } else {
           cart.push({
-            ...product,
+            id: product.id,
+            name: product.name,
+            price: product.discount_price || product.price,
+            image: product.primary_image,
             quantity: 1,
           });
         }
@@ -822,17 +550,18 @@
         showNotification("تمت إضافة المنتج إلى السلة");
       }
 
-      // تحديث السلة
+      // Update cart
       function updateCart() {
+        localStorage.setItem("cart", JSON.stringify(cart));
+
         const cartItems = document.getElementById("cartItems");
         const cartCount = document.getElementById("cartCount");
         const cartTotal = document.getElementById("cartTotal");
 
         if (cart.length === 0) {
-          cartItems.innerHTML =
-            '<p style="text-align: center; color: var(--text-light);">السلة فارغة</p>';
+          cartItems.innerHTML = '<p class="text-center">السلة فارغة</p>';
           cartCount.textContent = "0";
-          cartTotal.innerHTML = "الإجمالي: 0  شيكل";
+          cartTotal.innerHTML = "الإجمالي: 0 ₪";
           return;
         }
 
@@ -846,10 +575,10 @@
 
             return `
                     <div class="cart-item">
-                        <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+                        <img src="${item.image || "https://via.placeholder.com/60"}" class="cart-item-image">
                         <div class="cart-item-details">
                             <div class="cart-item-name">${item.name}</div>
-                            <div class="cart-item-price">${item.price}  شيكل</div>
+                            <div class="cart-item-price">${item.price} ₪</div>
                             <div class="cart-item-quantity">
                                 <button class="quantity-btn" onclick="updateQuantity(${item.id}, ${item.quantity - 1})">-</button>
                                 <span>${item.quantity}</span>
@@ -863,10 +592,10 @@
           .join("");
 
         cartCount.textContent = itemCount;
-        cartTotal.innerHTML = `الإجمالي: ${total}  شيكل`;
+        cartTotal.innerHTML = `الإجمالي: ${total} ₪`;
       }
 
-      // تحديث الكمية
+      // Update quantity
       function updateQuantity(productId, newQuantity) {
         if (newQuantity < 1) {
           removeFromCart(productId);
@@ -880,80 +609,87 @@
         }
       }
 
-      // حذف من السلة
+      // Remove from cart
       function removeFromCart(productId) {
         cart = cart.filter((item) => item.id !== productId);
         updateCart();
         showNotification("تم حذف المنتج من السلة");
       }
 
-      // إظهار إشعار
-      function showNotification(message) {
-        const notification = document.createElement("div");
-        notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                left: 50%;
-                transform: translateX(-50%);
-                background: var(--primary-color);
-                color: white;
-                padding: 1rem 2rem;
-                border-radius: 0.5rem;
-                box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-                z-index: 1001;
-                animation: slideDown 0.3s ease;
-            `;
-        notification.textContent = message;
-
-        document.body.appendChild(notification);
-
-        setTimeout(() => {
-          notification.remove();
-        }, 3000);
-      }
-
-      // فتح/إغلاق السلة
+      // Toggle cart
       function toggleCart() {
-        const sidebar = document.getElementById("cartSidebar");
-        const overlay = document.getElementById("cartOverlay");
-
-        sidebar.classList.toggle("open");
-        overlay.classList.toggle("active");
+        document.getElementById("cartSidebar").classList.toggle("open");
+        document.getElementById("cartOverlay").classList.toggle("active");
       }
 
-      // إتمام الشراء
+      // Checkout
       function checkout() {
+        if (!requireAuth()) return;
+
         if (cart.length === 0) {
           alert("السلة فارغة");
           return;
         }
 
-        alert("سيتم تحويلك إلى صفحة الدفع الآمن");
+        // TODO: Redirect to checkout page
+        alert("سيتم تحويلك إلى صفحة إتمام الطلب");
       }
 
-      // عرض تفاصيل المنتج
-      function viewProduct(productId) {
-        const product = getProducts().find((p) => p.id === productId);
-        alert(
-          `تفاصيل ${product.name}:\n${product.description}\nالسعر: ${product.price}  شيكل`,
-        );
-      }
-
-      // تهيئة الصفحة
-      document.addEventListener("DOMContentLoaded", function () {
-        displayProducts();
-
-        // تحميل السلة من localStorage إذا وجدت
-        const savedCart = localStorage.getItem("cart");
-        if (savedCart) {
-          cart = JSON.parse(savedCart);
-          updateCart();
+      // Pagination
+      function prevPage() {
+        if (currentPage > 1) {
+          currentPage--;
+          loadProducts();
         }
+      }
+
+      function nextPage() {
+        if (currentPage < totalPages) {
+          currentPage++;
+          loadProducts();
+        }
+      }
+
+      function updatePagination() {
+        document.getElementById("pageInfo").textContent =
+          `صفحة ${currentPage} من ${totalPages}`;
+        document.getElementById("prevBtn").disabled = currentPage === 1;
+        document.getElementById("nextBtn").disabled =
+          currentPage === totalPages;
+      }
+
+      function closeModal() {
+        document.getElementById("productModal").style.display = "none";
+      }
+
+      // Event listeners
+      document.getElementById("searchInput").addEventListener("input", () => {
+        currentPage = 1;
+        loadProducts();
       });
 
-      // حفظ السلة قبل إغلاق الصفحة
-      window.addEventListener("beforeunload", function () {
-        localStorage.setItem("cart", JSON.stringify(cart));
+      document.getElementById("sortFilter").addEventListener("change", () => {
+        currentPage = 1;
+        loadProducts();
+      });
+
+      document.getElementById("priceFilter").addEventListener("change", () => {
+        currentPage = 1;
+        loadProducts();
+      });
+
+      document
+        .getElementById("petTypeFilter")
+        .addEventListener("change", () => {
+          currentPage = 1;
+          loadProducts();
+        });
+
+      // Initialize
+      document.addEventListener("DOMContentLoaded", () => {
+        loadCategories();
+        loadProducts();
+        updateCart();
       });
     </script>
   </body>

@@ -10,6 +10,10 @@
       href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
     <link rel="stylesheet" href="../css/style.css" />
     <style>
       .profile-header {
@@ -22,7 +26,6 @@
         padding: 4rem 0;
         margin-top: 4rem;
       }
-
       .profile-avatar {
         width: 120px;
         height: 120px;
@@ -30,39 +33,12 @@
         border: 4px solid white;
         margin-bottom: 1rem;
       }
-
-      .profile-name {
-        font-size: 2rem;
-        font-weight: 700;
-        margin-bottom: 0.5rem;
-      }
-
-      .profile-email {
-        opacity: 0.9;
-        margin-bottom: 1rem;
-      }
-
       .profile-stats {
         display: flex;
         gap: 2rem;
         justify-content: center;
         margin-top: 2rem;
       }
-
-      .profile-stat {
-        text-align: center;
-      }
-
-      .profile-stat-number {
-        font-size: 1.5rem;
-        font-weight: 700;
-      }
-
-      .profile-stat-label {
-        opacity: 0.9;
-        font-size: 0.875rem;
-      }
-
       .profile-tabs {
         display: flex;
         gap: 1rem;
@@ -70,7 +46,6 @@
         margin-bottom: 2rem;
         padding-bottom: 1rem;
       }
-
       .profile-tab {
         padding: 0.5rem 1.5rem;
         border: none;
@@ -79,28 +54,11 @@
         font-weight: 600;
         color: var(--text-light);
         cursor: pointer;
-        position: relative;
-        transition: color 0.3s;
       }
-
       .profile-tab.active {
         color: var(--primary-color);
+        border-bottom: 2px solid var(--primary-color);
       }
-
-      .profile-tab.active::after {
-        content: "";
-        position: absolute;
-        bottom: -1rem;
-        left: 0;
-        right: 0;
-        height: 2px;
-        background-color: var(--primary-color);
-      }
-
-      .profile-content {
-        padding: 2rem 0;
-      }
-
       .profile-section {
         background: white;
         border-radius: 0.5rem;
@@ -108,42 +66,26 @@
         box-shadow: var(--shadow);
         margin-bottom: 2rem;
       }
-
-      .section-title {
-        font-size: 1.25rem;
-        font-weight: 600;
-        margin-bottom: 1.5rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-
       .info-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         gap: 1.5rem;
       }
-
       .info-item {
         margin-bottom: 1rem;
       }
-
       .info-label {
         color: var(--text-light);
         font-size: 0.875rem;
-        margin-bottom: 0.25rem;
       }
-
       .info-value {
         font-weight: 500;
       }
-
       .pets-list {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         gap: 1rem;
       }
-
       .pet-item {
         display: flex;
         align-items: center;
@@ -151,145 +93,24 @@
         padding: 1rem;
         border: 1px solid #e5e7eb;
         border-radius: 0.5rem;
-        transition: background-color 0.3s;
       }
-
-      .pet-item:hover {
-        background-color: #f8fafc;
-      }
-
       .pet-avatar {
         width: 50px;
         height: 50px;
         border-radius: 50%;
         object-fit: cover;
       }
-
-      .pet-info {
-        flex: 1;
-      }
-
-      .pet-name {
-        font-weight: 600;
-        margin-bottom: 0.25rem;
-      }
-
-      .pet-detail {
-        color: var(--text-light);
-        font-size: 0.875rem;
-      }
-
-      .edit-btn {
-        background: none;
-        border: none;
-        color: var(--primary-color);
-        cursor: pointer;
-        font-size: 0.875rem;
-      }
-
-      .edit-btn:hover {
-        text-decoration: underline;
-      }
-
-      .btn-save {
-        background-color: var(--primary-color);
-        color: white;
-        padding: 0.75rem 2rem;
-        border: none;
-        border-radius: 0.5rem;
-        cursor: pointer;
-        font-size: 1rem;
-        font-weight: 600;
-        transition: background-color 0.3s;
-      }
-
-      .btn-save:hover {
-        background-color: #4338ca;
-      }
-
-      .btn-cancel {
-        background-color: #e5e7eb;
-        color: var(--text-dark);
-        padding: 0.75rem 2rem;
-        border: none;
-        border-radius: 0.5rem;
-        cursor: pointer;
-        font-size: 1rem;
-        font-weight: 600;
-        margin-right: 1rem;
-        transition: background-color 0.3s;
-      }
-
-      .btn-cancel:hover {
-        background-color: #d1d5db;
-      }
-
-      .vaccination-card {
-        background-color: #f8fafc;
-        border-radius: 0.5rem;
-        padding: 1rem;
-        margin-bottom: 1rem;
-      }
-
-      .vaccination-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 0.5rem;
-      }
-
-      .vaccination-status {
-        padding: 0.25rem 0.75rem;
-        border-radius: 9999px;
-        font-size: 0.75rem;
-        font-weight: 600;
-      }
-
-      .status-completed {
-        background-color: #d1fae5;
-        color: #065f46;
-      }
-
-      .status-pending {
-        background-color: #fee2e2;
-        color: #b91c1c;
-      }
-
-      .status-upcoming {
-        background-color: #fef3c7;
-        color: #92400e;
-      }
-
-      .notification-settings {
-        margin: 1rem 0;
-      }
-
-      .setting-item {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 1rem 0;
-        border-bottom: 1px solid #e5e7eb;
-      }
-
-      .setting-item:last-child {
-        border-bottom: none;
-      }
-
-      /* Toggle Switch */
       .switch {
         position: relative;
         display: inline-block;
         width: 60px;
         height: 34px;
       }
-
       .switch input {
         opacity: 0;
         width: 0;
         height: 0;
       }
-
       .slider {
         position: absolute;
         cursor: pointer;
@@ -301,7 +122,6 @@
         transition: 0.4s;
         border-radius: 34px;
       }
-
       .slider:before {
         position: absolute;
         content: "";
@@ -313,24 +133,20 @@
         transition: 0.4s;
         border-radius: 50%;
       }
-
       input:checked + .slider {
         background-color: var(--primary-color);
       }
-
       input:checked + .slider:before {
         transform: translateX(26px);
       }
     </style>
   </head>
   <body>
-    <!-- Navbar -->
     <nav class="navbar">
       <div class="container">
         <a href="../index.html" class="logo">
-          <img src="../images/logo.png" alt="" />
+          <img src="../images/logo.png" alt="PalPets" />
         </a>
-
         <div class="nav-menu">
           <a href="../index.html">الرئيسية</a>
           <a href="pets.html">الحيوانات</a>
@@ -339,47 +155,29 @@
           <a href="veterinary.html">الرعاية البيطرية</a>
           <a href="store.html">المتجر</a>
         </div>
-
-        <div class="auth-buttons">
-          <a href="login.html" class="btn-login">تسجيل الدخول</a>
-        </div>
-
+        <div class="auth-buttons"></div>
         <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
-      </div>
-
-      <div class="mobile-menu" id="mobileMenu">
-        <a href="../index.html">الرئيسية</a>
-        <a href="pets.html">الحيوانات</a>
-        <a href="adoption.html">التبني</a>
-        <a href="lost-found.html">مفقود ومعثور</a>
-        <a href="veterinary.html">الرعاية البيطرية</a>
-        <a href="store.html">المتجر</a>
-        <a href="login.html">تسجيل الدخول</a>
       </div>
     </nav>
 
     <!-- Profile Header -->
     <section class="profile-header">
       <div class="container" style="text-align: center">
-        <img
-          src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e"
-          alt="Profile"
-          class="profile-avatar"
-        />
-        <h1 class="profile-name" id="profileName">أحمد محمد</h1>
-        <p class="profile-email" id="profileEmail">ahmed@example.com</p>
+        <img src="" alt="Profile" class="profile-avatar" id="profileAvatar" />
+        <h1 class="profile-name" id="profileName"></h1>
+        <p class="profile-email" id="profileEmail"></p>
         <div class="profile-stats">
           <div class="profile-stat">
-            <div class="profile-stat-number">3</div>
+            <div class="profile-stat-number" id="petsCount">0</div>
             <div class="profile-stat-label">حيوانات أليفة</div>
           </div>
           <div class="profile-stat">
-            <div class="profile-stat-number">12</div>
+            <div class="profile-stat-number" id="adoptionsCount">0</div>
             <div class="profile-stat-label">طلبات تبني</div>
           </div>
           <div class="profile-stat">
-            <div class="profile-stat-number">5</div>
-            <div class="profile-stat-label">منتجات مشتراة</div>
+            <div class="profile-stat-number" id="ordersCount">0</div>
+            <div class="profile-stat-label">طلبات شراء</div>
           </div>
         </div>
       </div>
@@ -390,221 +188,162 @@
       <div class="container">
         <!-- Tabs -->
         <div class="profile-tabs">
-          <button class="profile-tab active" onclick="switchProfileTab('info')">
+          <button class="profile-tab active" onclick="switchTab('info')">
             المعلومات الشخصية
           </button>
-          <button class="profile-tab" onclick="switchProfileTab('pets')">
+          <button class="profile-tab" onclick="switchTab('pets')">
             حيواناتي
           </button>
-          <button class="profile-tab" onclick="switchProfileTab('adoptions')">
+          <button class="profile-tab" onclick="switchTab('adoptions')">
             طلبات التبني
           </button>
-          <button
-            class="profile-tab"
-            onclick="switchProfileTab('vaccinations')"
-          >
-            التطعيمات
+          <button class="profile-tab" onclick="switchTab('listings')">
+            إعلاناتي
           </button>
-          <button class="profile-tab" onclick="switchProfileTab('settings')">
+          <button class="profile-tab" onclick="switchTab('settings')">
             الإعدادات
           </button>
         </div>
 
-        <!-- Personal Info Tab -->
+        <!-- Info Tab -->
         <div id="infoTab" class="profile-section">
-          <div class="section-title">
-            <span>المعلومات الشخصية</span>
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              margin-bottom: 2rem;
+            "
+          >
+            <h2>المعلومات الشخصية</h2>
             <button class="edit-btn" onclick="editProfile()">تعديل</button>
           </div>
 
-          <div class="info-grid">
-            <div>
-              <div class="info-item">
-                <div class="info-label">الاسم الكامل</div>
-                <div class="info-value" id="displayName">أحمد محمد العمري</div>
-              </div>
-              <div class="info-item">
-                <div class="info-label">البريد الإلكتروني</div>
-                <div class="info-value" id="displayEmail">
-                  ahmed@example.com
-                </div>
-              </div>
-              <div class="info-item">
-                <div class="info-label">رقم الهاتف</div>
-                <div class="info-value" id="displayPhone">+966 50 123 4567</div>
-              </div>
-            </div>
-            <div>
-              <div class="info-item">
-                <div class="info-label">المدينة</div>
-                <div class="info-value" id="displayCity">الرياض</div>
-              </div>
-              <div class="info-item">
-                <div class="info-label">العنوان</div>
-                <div class="info-value" id="displayAddress">
-                  حي النزهة، شارع التخصصي
-                </div>
-              </div>
-              <div class="info-item">
-                <div class="info-label">تاريخ التسجيل</div>
-                <div class="info-value">15 يناير 2026</div>
-              </div>
-            </div>
-          </div>
+          <div class="info-grid" id="profileInfo"></div>
         </div>
 
-        <!-- Edit Profile Form (Hidden by default) -->
+        <!-- Edit Profile Form -->
         <div id="editProfileForm" class="profile-section" style="display: none">
-          <div class="section-title">
-            <span>تعديل المعلومات الشخصية</span>
-          </div>
-
+          <h2 style="margin-bottom: 2rem">تعديل المعلومات الشخصية</h2>
           <form onsubmit="saveProfile(event)">
             <div class="form-row">
               <div class="form-group">
-                <label class="form-label">الاسم الكامل</label>
+                <label>الاسم الأول</label>
                 <input
                   type="text"
-                  id="editName"
+                  id="editFirstName"
                   class="form-input"
-                  value="أحمد محمد العمري"
+                  required
                 />
               </div>
               <div class="form-group">
-                <label class="form-label">البريد الإلكتروني</label>
+                <label>الاسم الأخير</label>
                 <input
-                  type="email"
-                  id="editEmail"
+                  type="text"
+                  id="editLastName"
                   class="form-input"
-                  value="ahmed@example.com"
+                  required
                 />
               </div>
             </div>
-
-            <div class="form-row">
-              <div class="form-group">
-                <label class="form-label">رقم الهاتف</label>
-                <input
-                  type="tel"
-                  id="editPhone"
-                  class="form-input"
-                  value="+966 50 123 4567"
-                />
-              </div>
-              <div class="form-group">
-                <label class="form-label">المدينة</label>
-                <input
-                  type="text"
-                  id="editCity"
-                  class="form-input"
-                  value="الرياض"
-                />
-              </div>
-            </div>
-
             <div class="form-group">
-              <label class="form-label">العنوان</label>
+              <label>البريد الإلكتروني</label>
+              <input type="email" id="editEmail" class="form-input" required />
+            </div>
+            <div class="form-group">
+              <label>رقم الهاتف</label>
+              <input type="tel" id="editPhone" class="form-input" required />
+            </div>
+            <div class="form-group">
+              <label>الموقع</label>
+              <input type="text" id="editLocation" class="form-input" />
+            </div>
+            <div class="form-group">
+              <label>الصورة الشخصية</label>
               <input
-                type="text"
-                id="editAddress"
+                type="file"
+                id="editAvatar"
                 class="form-input"
-                value="حي النزهة، شارع التخصصي"
+                accept="image/*"
               />
             </div>
-
-            <div style="text-align: left">
-              <button type="button" class="btn-cancel" onclick="cancelEdit()">
-                إلغاء
-              </button>
-              <button type="submit" class="btn-save">حفظ التغييرات</button>
-            </div>
+            <button type="submit" class="btn-primary">حفظ التغييرات</button>
+            <button type="button" class="btn-secondary" onclick="cancelEdit()">
+              إلغاء
+            </button>
           </form>
         </div>
 
-        <!-- My Pets Tab -->
+        <!-- Pets Tab -->
         <div id="petsTab" class="profile-section" style="display: none">
-          <div class="section-title">
-            <span>حيواناتي الأليفة</span>
-            <button class="edit-btn" onclick="addNewPet()">
-              + إضافة حيوان
-            </button>
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              margin-bottom: 2rem;
+            "
+          >
+            <h2>حيواناتي الأليفة</h2>
+            <button class="edit-btn" onclick="addPet()">+ إضافة حيوان</button>
           </div>
-
-          <div class="pets-list" id="petsList"></div>
+          <div id="myPetsList" class="pets-list"></div>
         </div>
 
-        <!-- Adoption Requests Tab -->
+        <!-- Adoptions Tab -->
         <div id="adoptionsTab" class="profile-section" style="display: none">
-          <div class="section-title">
-            <span>طلبات التبني</span>
-          </div>
-
-          <div id="adoptionRequests"></div>
+          <h2 style="margin-bottom: 2rem">طلبات التبني</h2>
+          <div id="adoptionRequestsList"></div>
         </div>
 
-        <!-- Vaccinations Tab -->
-        <div id="vaccinationsTab" class="profile-section" style="display: none">
-          <div class="section-title">
-            <span>جدول التطعيمات</span>
-          </div>
-
-          <div id="vaccinationsList"></div>
+        <!-- Listings Tab -->
+        <div id="listingsTab" class="profile-section" style="display: none">
+          <h2 style="margin-bottom: 2rem">إعلاناتي</h2>
+          <div id="myListingsList"></div>
         </div>
 
         <!-- Settings Tab -->
         <div id="settingsTab" class="profile-section" style="display: none">
-          <div class="section-title">
-            <span>الإعدادات</span>
-          </div>
+          <h2 style="margin-bottom: 2rem">الإعدادات</h2>
 
           <div class="notification-settings">
-            <h3 style="margin-bottom: 1rem">إشعارات</h3>
-
+            <h3>الإشعارات</h3>
             <div class="setting-item">
               <div>
-                <div style="font-weight: 600">إشعارات التطعيمات</div>
-                <div style="color: var(--text-light); font-size: 0.875rem">
-                  تذكير بمواعيد التطعيمات
-                </div>
+                <div>إشعارات التطعيمات</div>
+                <small>تذكير بمواعيد التطعيمات</small>
               </div>
               <label class="switch">
                 <input
                   type="checkbox"
-                  checked
-                  onchange="toggleNotification('vaccinations')"
+                  id="notifyVaccinations"
+                  onchange="updateSettings('notify_vaccinations')"
                 />
                 <span class="slider"></span>
               </label>
             </div>
-
             <div class="setting-item">
               <div>
-                <div style="font-weight: 600">إشعارات الرسائل</div>
-                <div style="color: var(--text-light); font-size: 0.875rem">
-                  عند استلام رسائل جديدة
-                </div>
+                <div>إشعارات الرسائل</div>
+                <small>عند استلام رسائل جديدة</small>
               </div>
               <label class="switch">
                 <input
                   type="checkbox"
-                  checked
-                  onchange="toggleNotification('messages')"
+                  id="notifyMessages"
+                  onchange="updateSettings('notify_messages')"
                 />
                 <span class="slider"></span>
               </label>
             </div>
-
             <div class="setting-item">
               <div>
-                <div style="font-weight: 600">إشعارات العروض</div>
-                <div style="color: var(--text-light); font-size: 0.875rem">
-                  عروض ومنتجات جديدة
-                </div>
+                <div>إشعارات العروض</div>
+                <small>عروض ومنتجات جديدة</small>
               </div>
               <label class="switch">
                 <input
                   type="checkbox"
-                  onchange="toggleNotification('offers')"
+                  id="notifyOffers"
+                  onchange="updateSettings('notify_offers')"
                 />
                 <span class="slider"></span>
               </label>
@@ -612,7 +351,7 @@
           </div>
 
           <div style="margin-top: 2rem">
-            <h3 style="margin-bottom: 1rem">الأمان</h3>
+            <h3>الأمان</h3>
             <button
               class="btn-details"
               onclick="changePassword()"
@@ -623,7 +362,7 @@
             <button
               class="btn-contact"
               onclick="deleteAccount()"
-              style="color: #ef4444; border-color: #ef4444"
+              style="color: #ef4444"
             >
               حذف الحساب
             </button>
@@ -642,380 +381,479 @@
       </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="container">
-        <div class="footer-grid">
-          <div class="footer-section">
-            <h3>عن المنصة</h3>
-            <p>
-              منصة متكاملة للعناية بالحيوانات الأليفة، تجمع عشاق الحيوانات،
-              المربين، والملاجئ في مكان واحد.
-            </p>
+    <!-- Add Pet Modal -->
+    <div id="addPetModal" class="modal">
+      <div class="modal-content" style="max-width: 600px">
+        <span class="close" onclick="closeAddPetModal()">&times;</span>
+        <h2>إضافة حيوان جديد</h2>
+        <form onsubmit="submitAddPet(event)">
+          <div class="form-group">
+            <label>اسم الحيوان</label>
+            <input type="text" id="petName" class="form-input" required />
           </div>
-          <div class="footer-section">
-            <h3>روابط سريعة</h3>
-            <ul class="footer-links">
-              <li><a href="../index.html">الرئيسية</a></li>
-              <li><a href="pets.html">الحيوانات</a></li>
-              <li><a href="adoption.html">التبني</a></li>
-              <li><a href="lost-found.html">مفقود ومعثور</a></li>
-            </ul>
+          <div class="form-group">
+            <label>نوع الحيوان</label>
+            <select id="petType" class="form-input" required></select>
           </div>
-          <div class="footer-section">
-            <h3>الخدمات</h3>
-            <ul class="footer-links">
-              <li><a href="veterinary.html">الرعاية البيطرية</a></li>
-              <li><a href="store.html">المتجر</a></li>
-              <li><a href="#">التطعيمات</a></li>
-              <li><a href="#">استشارات</a></li>
-            </ul>
+          <div class="form-group">
+            <label>السلالة</label>
+            <select id="petBreed" class="form-input"></select>
           </div>
-          <div class="footer-section">
-            <h3>تواصل معنا</h3>
-            <ul class="footer-links">
-              <li>📞 +972599248391</li>
-              <li>✉️ info@PalPets.com</li>
-              <li>📍 فلسطين</li>
-            </ul>
+          <div class="form-row">
+            <div class="form-group">
+              <label>العمر (سنوات)</label>
+              <input
+                type="number"
+                id="petAgeYears"
+                class="form-input"
+                value="0"
+              />
+            </div>
+            <div class="form-group">
+              <label>العمر (أشهر)</label>
+              <input
+                type="number"
+                id="petAgeMonths"
+                class="form-input"
+                value="0"
+              />
+            </div>
           </div>
-        </div>
-        <div class="footer-bottom">
-          <p>© 2026 PalPets - جميع الحقوق محفوظة</p>
-        </div>
+          <div class="form-group">
+            <label>الجنس</label>
+            <select id="petGender" class="form-input" required>
+              <option value="male">ذكر</option>
+              <option value="female">أنثى</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>الوصف</label>
+            <textarea
+              id="petDescription"
+              class="form-input"
+              rows="4"
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label>صورة الحيوان</label>
+            <input
+              type="file"
+              id="petImage"
+              class="form-input"
+              accept="image/*"
+            />
+          </div>
+          <button type="submit" class="btn-submit">إضافة</button>
+        </form>
       </div>
-    </footer>
+    </div>
 
-    <script src="../js/main.js"></script>
+    <script src="../js/api.js"></script>
     <script>
-      // التحقق من تسجيل الدخول
-      document.addEventListener("DOMContentLoaded", function () {
-        const token = localStorage.getItem("token");
-        if (!token) {
-          window.location.href = "login.html";
-          return;
-        }
+      // Check authentication
+      if (!requireAuth()) {
+        window.location.href = "login.html";
+      }
 
-        // تحميل بيانات المستخدم
-        loadUserData();
-        loadUserPets();
-        loadAdoptionRequests();
-        loadVaccinations();
-      });
+      let userData = null;
+      let petTypes = [];
 
-      // تحميل بيانات المستخدم
-      function loadUserData() {
-        const user = JSON.parse(localStorage.getItem("user") || "{}");
+      // Load user profile
+      async function loadProfile() {
+        showLoading();
 
-        if (user.name) {
-          document.getElementById("profileName").textContent = user.name;
-          document.getElementById("displayName").textContent = user.name;
-        }
+        try {
+          userData = await apiCall("/auth/profile/");
 
-        if (user.email) {
-          document.getElementById("profileEmail").textContent = user.email;
-          document.getElementById("displayEmail").textContent = user.email;
+          // Update header
+          document.getElementById("profileName").textContent =
+            `${userData.first_name || ""} ${userData.last_name || ""}`.trim() ||
+            userData.username;
+          document.getElementById("profileEmail").textContent = userData.email;
+          document.getElementById("profileAvatar").src =
+            userData.profile_image ||
+            `https://ui-avatars.com/api/?name=${userData.first_name || "U"}+${userData.last_name || ""}&background=4f46e5&color=fff&size=120`;
+
+          // Display info
+          displayProfileInfo();
+
+          // Load stats
+          loadUserStats();
+        } catch (error) {
+          console.error("Error loading profile:", error);
+          showNotification("حدث خطأ في تحميل الملف الشخصي", "error");
+        } finally {
+          hideLoading();
         }
       }
 
-      // تحميل قائمة الحيوانات
-      function loadUserPets() {
-        const pets = [
-          {
-            id: 1,
-            name: "لولو",
-            type: "cat",
-            breed: "شيرازي",
-            age: "سنتين",
-            image:
-              "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba",
-          },
-          {
-            id: 2,
-            name: "ماكس",
-            type: "dog",
-            breed: "جيرمن شيبرد",
-            age: "3 سنوات",
-            image:
-              "https://images.unsplash.com/photo-1589941013453-ec89f33b5e95",
-          },
-        ];
-
-        const petsList = document.getElementById("petsList");
-
-        petsList.innerHTML = pets
-          .map((pet) => {
-            const typeName = pet.type === "dog" ? "كلب" : "قطة";
-            return `
-                    <div class="pet-item">
-                        <img src="${pet.image}" alt="${pet.name}" class="pet-avatar">
-                        <div class="pet-info">
-                            <div class="pet-name">${pet.name}</div>
-                            <div class="pet-detail">${typeName} - ${pet.breed} - ${pet.age}</div>
-                        </div>
-                        <button class="edit-btn" onclick="editPet(${pet.id})">تعديل</button>
+      // Display profile info
+      function displayProfileInfo() {
+        const infoDiv = document.getElementById("profileInfo");
+        infoDiv.innerHTML = `
+                <div>
+                    <div class="info-item">
+                        <div class="info-label">الاسم الكامل</div>
+                        <div class="info-value">${userData.first_name || ""} ${userData.last_name || ""}</div>
                     </div>
-                `;
-          })
-          .join("");
-      }
-
-      // تحميل طلبات التبني
-      function loadAdoptionRequests() {
-        const requests = [
-          {
-            id: 1,
-            petName: "شوقي",
-            petImage:
-              "https://images.unsplash.com/photo-1544568100-847a948585b9",
-            date: "2026-02-10",
-            status: "pending",
-            shelter: "ملجأ الرفق بالحيوان",
-          },
-          {
-            id: 2,
-            petName: "نور",
-            petImage:
-              "https://images.unsplash.com/photo-1513360371669-4adf3dd7dff8",
-            date: "2026-02-05",
-            status: "approved",
-            shelter: "جمعية حماية الحيوانات",
-          },
-          {
-            id: 3,
-            petName: "توفي",
-            petImage:
-              "https://images.unsplash.com/photo-1533738363-b7f9aef128ce",
-            date: "2026-01-28",
-            status: "rejected",
-            shelter: "ملجأ الرفق بالحيوان",
-          },
-        ];
-
-        const container = document.getElementById("adoptionRequests");
-
-        container.innerHTML = requests
-          .map((req) => {
-            const statusText =
-              req.status === "pending"
-                ? "قيد المراجعة"
-                : req.status === "approved"
-                  ? "تمت الموافقة"
-                  : "مرفوض";
-            const statusClass =
-              req.status === "pending"
-                ? "status-upcoming"
-                : req.status === "approved"
-                  ? "status-completed"
-                  : "status-pending";
-
-            return `
-                    <div class="vaccination-card">
-                        <div class="vaccination-header">
-                            <div style="display: flex; align-items: center; gap: 1rem;">
-                                <img src="${req.petImage}" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;">
-                                <div>
-                                    <h4 style="margin: 0;">${req.petName}</h4>
-                                    <small>${req.shelter}</small>
-                                </div>
-                            </div>
-                            <span class="vaccination-status ${statusClass}">${statusText}</span>
-                        </div>
-                        <p style="color: var(--text-light); font-size: 0.875rem;">تاريخ التقديم: ${req.date}</p>
+                    <div class="info-item">
+                        <div class="info-label">البريد الإلكتروني</div>
+                        <div class="info-value">${userData.email}</div>
                     </div>
-                `;
-          })
-          .join("");
-      }
-
-      // تحميل جدول التطعيمات
-      function loadVaccinations() {
-        const vaccinations = [
-          {
-            petName: "لولو",
-            vaccine: "تطعيم القطط السنوي",
-            dueDate: "2026-03-15",
-            status: "upcoming",
-          },
-          {
-            petName: "ماكس",
-            vaccine: "تطعيم داء الكلب",
-            dueDate: "2026-02-20",
-            status: "pending",
-          },
-          {
-            petName: "لولو",
-            vaccine: "تطعيم الرباعي",
-            dueDate: "2024-12-10",
-            status: "completed",
-          },
-        ];
-
-        const container = document.getElementById("vaccinationsList");
-
-        container.innerHTML = vaccinations
-          .map((vac) => {
-            const statusText =
-              vac.status === "completed"
-                ? "تم"
-                : vac.status === "pending"
-                  ? "مستحق قريباً"
-                  : "قادم";
-            const statusClass =
-              vac.status === "completed"
-                ? "status-completed"
-                : vac.status === "pending"
-                  ? "status-pending"
-                  : "status-upcoming";
-
-            return `
-                    <div class="vaccination-card">
-                        <div class="vaccination-header">
-                            <div>
-                                <h4 style="margin: 0;">${vac.petName}</h4>
-                                <small>${vac.vaccine}</small>
-                            </div>
-                            <span class="vaccination-status ${statusClass}">${statusText}</span>
-                        </div>
-                        <p style="color: var(--text-light); font-size: 0.875rem;">تاريخ الاستحقاق: ${vac.dueDate}</p>
+                    <div class="info-item">
+                        <div class="info-label">رقم الهاتف</div>
+                        <div class="info-value">${userData.phone_number || "غير محدد"}</div>
                     </div>
-                `;
-          })
-          .join("");
+                </div>
+                <div>
+                    <div class="info-item">
+                        <div class="info-label">نوع الحساب</div>
+                        <div class="info-value">${userData.user_type_display}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">الموقع</div>
+                        <div class="info-value">${userData.location || "غير محدد"}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">تاريخ التسجيل</div>
+                        <div class="info-value">${formatDate(userData.date_joined)}</div>
+                    </div>
+                </div>
+            `;
       }
 
-      // تبديل التبويبات
-      function switchProfileTab(tab) {
-        // إخفاء كل التبويبات
-        document.getElementById("infoTab").style.display = "none";
-        document.getElementById("petsTab").style.display = "none";
-        document.getElementById("adoptionsTab").style.display = "none";
-        document.getElementById("vaccinationsTab").style.display = "none";
-        document.getElementById("settingsTab").style.display = "none";
+      // Load user stats
+      async function loadUserStats() {
+        try {
+          const pets = await apiCall(
+            "/animals/?created_by=" + userData.id,
+            "GET",
+            null,
+            false,
+          );
+          document.getElementById("petsCount").textContent =
+            pets?.count || pets?.length || 0;
 
-        // إظهار التبويب المحدد
-        if (tab === "info") {
-          document.getElementById("infoTab").style.display = "block";
-        } else if (tab === "pets") {
-          document.getElementById("petsTab").style.display = "block";
-        } else if (tab === "adoptions") {
-          document.getElementById("adoptionsTab").style.display = "block";
-        } else if (tab === "vaccinations") {
-          document.getElementById("vaccinationsTab").style.display = "block";
-        } else if (tab === "settings") {
-          document.getElementById("settingsTab").style.display = "block";
+          const adoptions = await apiCall(
+            "/listings/applications/my/",
+            "GET",
+            null,
+            false,
+          );
+          document.getElementById("adoptionsCount").textContent =
+            adoptions?.length || 0;
+
+          const orders = await apiCall("/orders/", "GET", null, false);
+          document.getElementById("ordersCount").textContent =
+            orders?.length || 0;
+        } catch (error) {
+          console.error("Error loading stats:", error);
         }
+      }
 
-        // تحديث التبويب النشط
+      // Switch tabs
+      function switchTab(tab) {
         document
           .querySelectorAll(".profile-tab")
           .forEach((t) => t.classList.remove("active"));
+        document
+          .querySelectorAll(".profile-section")
+          .forEach((s) => (s.style.display = "none"));
+
         event.target.classList.add("active");
+        document.getElementById(tab + "Tab").style.display = "block";
+
+        if (tab === "pets") loadMyPets();
+        if (tab === "adoptions") loadMyAdoptions();
+        if (tab === "listings") loadMyListings();
       }
 
-      // تعديل الملف الشخصي
+      // Edit profile
       function editProfile() {
         document.getElementById("infoTab").style.display = "none";
         document.getElementById("editProfileForm").style.display = "block";
+
+        document.getElementById("editFirstName").value =
+          userData.first_name || "";
+        document.getElementById("editLastName").value =
+          userData.last_name || "";
+        document.getElementById("editEmail").value = userData.email || "";
+        document.getElementById("editPhone").value =
+          userData.phone_number || "";
+        document.getElementById("editLocation").value = userData.location || "";
       }
 
-      // حفظ التعديلات
-      function saveProfile(event) {
+      // Save profile
+      async function saveProfile(event) {
         event.preventDefault();
 
-        const name = document.getElementById("editName").value;
-        const email = document.getElementById("editEmail").value;
-        const phone = document.getElementById("editPhone").value;
-        const city = document.getElementById("editCity").value;
-        const address = document.getElementById("editAddress").value;
+        const formData = new FormData();
+        formData.append(
+          "first_name",
+          document.getElementById("editFirstName").value,
+        );
+        formData.append(
+          "last_name",
+          document.getElementById("editLastName").value,
+        );
+        formData.append("email", document.getElementById("editEmail").value);
+        formData.append(
+          "phone_number",
+          document.getElementById("editPhone").value,
+        );
+        formData.append(
+          "location",
+          document.getElementById("editLocation").value,
+        );
 
-        // تحديث العرض
-        document.getElementById("profileName").textContent = name;
-        document.getElementById("profileEmail").textContent = email;
-        document.getElementById("displayName").textContent = name;
-        document.getElementById("displayEmail").textContent = email;
-        document.getElementById("displayPhone").textContent = phone;
-        document.getElementById("displayCity").textContent = city;
-        document.getElementById("displayAddress").textContent = address;
+        const avatar = document.getElementById("editAvatar").files[0];
+        if (avatar) formData.append("profile_image", avatar);
 
-        // حفظ في localStorage
-        const user = JSON.parse(localStorage.getItem("user") || "{}");
-        user.name = name;
-        user.email = email;
-        localStorage.setItem("user", JSON.stringify(user));
+        showLoading();
 
-        cancelEdit();
-        showNotification("تم حفظ التغييرات بنجاح");
+        try {
+          const updated = await fetch(`${API_BASE_URL}/auth/profile/`, {
+            method: "PUT",
+            headers: {
+              Authorization: `Token ${getToken()}`,
+            },
+            body: formData,
+          }).then((res) => res.json());
+
+          if (updated) {
+            showNotification("تم تحديث الملف الشخصي بنجاح", "success");
+            cancelEdit();
+            loadProfile();
+          }
+        } catch (error) {
+          showNotification("حدث خطأ في تحديث الملف", "error");
+        } finally {
+          hideLoading();
+        }
       }
 
-      // إلغاء التعديل
+      // Cancel edit
       function cancelEdit() {
         document.getElementById("infoTab").style.display = "block";
         document.getElementById("editProfileForm").style.display = "none";
       }
 
-      // إضافة حيوان جديد
-      function addNewPet() {
-        alert("سيتم فتح نموذج إضافة حيوان جديد");
-      }
+      // Load pet types
+      async function loadPetTypes() {
+        try {
+          const types = await apiCall("/animals/types/", "GET", null, false);
+          petTypes = types.results || types || [];
 
-      // تعديل حيوان
-      function editPet(petId) {
-        alert(`تعديل بيانات الحيوان رقم ${petId}`);
-      }
-
-      // تغيير كلمة المرور
-      function changePassword() {
-        alert("سيتم فتح نافذة تغيير كلمة المرور");
-      }
-
-      // حذف الحساب
-      function deleteAccount() {
-        if (
-          confirm("هل أنت متأكد من حذف الحساب؟ لا يمكن التراجع عن هذا الإجراء")
-        ) {
-          localStorage.removeItem("token");
-          localStorage.removeItem("user");
-          window.location.href = "../index.html";
+          const select = document.getElementById("petType");
+          select.innerHTML =
+            '<option value="">اختر النوع</option>' +
+            petTypes
+              .map((t) => `<option value="${t.id}">${t.name}</option>`)
+              .join("");
+        } catch (error) {
+          console.error("Error loading pet types:", error);
         }
       }
 
-      // تبديل الإشعارات
-      function toggleNotification(type) {
-        console.log(`تم تغيير إشعارات ${type}`);
+      // Add pet
+      function addPet() {
+        loadPetTypes();
+        document.getElementById("addPetModal").style.display = "block";
       }
 
-      // تسجيل الخروج
-      function logout() {
-        localStorage.removeItem("token");
-        localStorage.removeItem("user");
-        window.location.href = "../index.html";
+      // Submit add pet
+      async function submitAddPet(event) {
+        event.preventDefault();
+
+        const formData = new FormData();
+        formData.append("name", document.getElementById("petName").value);
+        formData.append(
+          "animal_type",
+          document.getElementById("petType").value,
+        );
+        formData.append("gender", document.getElementById("petGender").value);
+        formData.append(
+          "age_years",
+          document.getElementById("petAgeYears").value,
+        );
+        formData.append(
+          "age_months",
+          document.getElementById("petAgeMonths").value,
+        );
+        formData.append(
+          "description",
+          document.getElementById("petDescription").value,
+        );
+
+        const breed = document.getElementById("petBreed").value;
+        if (breed) formData.append("breed", breed);
+
+        const image = document.getElementById("petImage").files[0];
+        if (image) formData.append("images", image);
+
+        showLoading();
+
+        try {
+          await fetch(`${API_BASE_URL}/animals/`, {
+            method: "POST",
+            headers: {
+              Authorization: `Token ${getToken()}`,
+            },
+            body: formData,
+          });
+
+          showNotification("تم إضافة الحيوان بنجاح", "success");
+          closeAddPetModal();
+          loadMyPets();
+        } catch (error) {
+          showNotification("حدث خطأ في إضافة الحيوان", "error");
+        } finally {
+          hideLoading();
+        }
       }
 
-      // إظهار الإشعارات
-      function showNotification(message) {
-        const notification = document.createElement("div");
-        notification.style.cssText = `
-                position: fixed;
-                top: 80px;
-                left: 50%;
-                transform: translateX(-50%);
-                background: var(--primary-color);
-                color: white;
-                padding: 1rem 2rem;
-                border-radius: 0.5rem;
-                box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-                z-index: 1001;
-                animation: slideDown 0.3s ease;
-            `;
-        notification.textContent = message;
+      // Load my pets
+      async function loadMyPets() {
+        try {
+          const response = await apiCall(
+            "/animals/?created_by=" + userData.id,
+            "GET",
+            null,
+            false,
+          );
+          const pets = response.results || response || [];
 
-        document.body.appendChild(notification);
+          const container = document.getElementById("myPetsList");
 
-        setTimeout(() => {
-          notification.remove();
-        }, 3000);
+          if (pets.length === 0) {
+            container.innerHTML =
+              '<p class="text-center">لا توجد حيوانات مضافة</p>';
+            return;
+          }
+
+          container.innerHTML = pets
+            .map(
+              (pet) => `
+                    <div class="pet-item">
+                        <img src="${pet.primary_image || "https://via.placeholder.com/50"}" class="pet-avatar">
+                        <div class="pet-info">
+                            <div class="pet-name">${pet.name}</div>
+                            <div class="pet-detail">${pet.animal_type_name} - ${pet.age_display}</div>
+                        </div>
+                        <button class="edit-btn" onclick="editPet(${pet.id})">تعديل</button>
+                    </div>
+                `,
+            )
+            .join("");
+        } catch (error) {
+          console.error("Error loading pets:", error);
+        }
       }
+
+      // Load my adoptions
+      async function loadMyAdoptions() {
+        try {
+          const response = await apiCall(
+            "/listings/applications/my/",
+            "GET",
+            null,
+            false,
+          );
+          const applications = response.results || response || [];
+
+          const container = document.getElementById("adoptionRequestsList");
+
+          if (applications.length === 0) {
+            container.innerHTML =
+              '<p class="text-center">لا توجد طلبات تبني</p>';
+            return;
+          }
+
+          container.innerHTML = applications
+            .map(
+              (app) => `
+                    <div class="vaccination-card">
+                        <div class="vaccination-header">
+                            <div>
+                                <h4>${app.listing_title}</h4>
+                                <small>${app.listing?.animal?.name}</small>
+                            </div>
+                            <span class="vaccination-status ${app.status}">${app.status_display}</span>
+                        </div>
+                        <p>تاريخ التقديم: ${formatDate(app.created_at)}</p>
+                    </div>
+                `,
+            )
+            .join("");
+        } catch (error) {
+          console.error("Error loading adoptions:", error);
+        }
+      }
+
+      // Change password
+      function changePassword() {
+        const currentPassword = prompt("أدخل كلمة المرور الحالية:");
+        if (!currentPassword) return;
+
+        const newPassword = prompt("أدخل كلمة المرور الجديدة:");
+        if (!newPassword) return;
+
+        const confirmPassword = prompt("تأكيد كلمة المرور الجديدة:");
+        if (newPassword !== confirmPassword) {
+          alert("كلمتا المرور غير متطابقتين");
+          return;
+        }
+
+        showLoading();
+
+        apiCall("/auth/change-password/", "POST", {
+          old_password: currentPassword,
+          new_password: newPassword,
+          new_password2: confirmPassword,
+        })
+          .then(() => {
+            showNotification("تم تغيير كلمة المرور بنجاح", "success");
+          })
+          .catch((error) => {
+            showNotification(error.message, "error");
+          })
+          .finally(() => {
+            hideLoading();
+          });
+      }
+
+      // Delete account
+      function deleteAccount() {
+        if (
+          !confirm(
+            "هل أنت متأكد من حذف الحساب؟ لا يمكن التراجع عن هذا الإجراء!",
+          )
+        )
+          return;
+
+        showLoading();
+
+        apiCall("/auth/users/" + userData.id + "/", "DELETE")
+          .then(() => {
+            clearAuth();
+            window.location.href = "../index.html";
+          })
+          .catch((error) => {
+            showNotification(error.message, "error");
+          })
+          .finally(() => {
+            hideLoading();
+          });
+      }
+
+      function closeAddPetModal() {
+        document.getElementById("addPetModal").style.display = "none";
+        document.getElementById("petName").value = "";
+        document.getElementById("petDescription").value = "";
+      }
+
+      // Initialize
+      document.addEventListener("DOMContentLoaded", loadProfile);
     </script>
   </body>
 </html>

@@ -10,6 +10,10 @@
       href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
@@ -17,7 +21,7 @@
     <nav class="navbar">
       <div class="container">
         <a href="index.html" class="logo">
-          <img src="images/logo.png" alt="" />
+          <img src="images/logo.png" alt="PalPets" />
         </a>
 
         <div class="nav-menu">
@@ -30,7 +34,7 @@
         </div>
 
         <div class="auth-buttons">
-          <a href="pages/login.html" class="btn-login">تسجيل الدخول</a>
+          <!-- ستتغير حسب حالة المستخدم -->
         </div>
 
         <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
@@ -69,19 +73,19 @@
       <div class="container">
         <div class="stats-grid">
           <div class="stat-item">
-            <div class="stat-number" id="petsCount">500+</div>
+            <div class="stat-number" id="petsCount">0</div>
             <div class="stat-label">حيوان متاح</div>
           </div>
           <div class="stat-item">
-            <div class="stat-number" id="usersCount">1000+</div>
+            <div class="stat-number" id="usersCount">0</div>
             <div class="stat-label">مستخدم نشط</div>
           </div>
           <div class="stat-item">
-            <div class="stat-number" id="vetsCount">50+</div>
+            <div class="stat-number" id="vetsCount">0</div>
             <div class="stat-label">طبيب بيطري</div>
           </div>
           <div class="stat-item">
-            <div class="stat-number" id="sheltersCount">20+</div>
+            <div class="stat-number" id="sheltersCount">0</div>
             <div class="stat-label">ملجأ</div>
           </div>
         </div>
@@ -133,9 +137,7 @@
     <section class="services" style="background-color: var(--background)">
       <div class="container">
         <h2 class="section-title">آخر الحيوانات المتاحة</h2>
-        <div class="pets-grid" id="recentPets">
-          <!-- سيتم تعبئتها عبر JavaScript -->
-        </div>
+        <div class="pets-grid" id="recentPets"></div>
       </div>
     </section>
 
@@ -183,22 +185,99 @@
       </div>
     </footer>
 
-    <script src="js/main.js"></script>
+    <script src="js/api.js"></script>
     <script>
+      // تحميل إحصائيات الصفحة الرئيسية
+      async function loadStats() {
+        try {
+          const animals = await apiCall("/animals/", "GET", null, false);
+          document.getElementById("petsCount").textContent =
+            animals?.length || 0;
+
+          const stats = await apiCall("/auth/stats/", "GET", null, false);
+          document.getElementById("usersCount").textContent =
+            stats?.total_users || 0;
+          document.getElementById("vetsCount").textContent =
+            stats?.total_veterinarians || 0;
+          document.getElementById("sheltersCount").textContent =
+            stats?.total_shelters || 0;
+        } catch (error) {
+          console.error("Error loading stats:", error);
+        }
+      }
+
       // تحميل آخر الحيوانات
-      document.addEventListener("DOMContentLoaded", function () {
+      async function loadRecentPets() {
+        try {
+          const animals = await apiCall("/animals/recent/", "GET", null, false);
+          const container = document.getElementById("recentPets");
+
+          if (animals?.length > 0) {
+            container.innerHTML = animals.map(createPetCard).join("");
+          } else {
+            container.innerHTML =
+              '<p class="text-center">لا توجد حيوانات متاحة حالياً</p>';
+          }
+        } catch (error) {
+          console.error("Error loading recent pets:", error);
+        }
+      }
+
+      // إنشاء بطاقة حيوان
+      function createPetCard(pet) {
+        const typeName = pet.animal_type_name || "غير معروف";
+        const gender = pet.gender === "male" ? "ذكر" : "أنثى";
+        const age = pet.age_display || "غير محدد";
+
+        return `
+                <div class="pet-card">
+                    <img src="${pet.primary_image || "https://via.placeholder.com/300x200"}" alt="${pet.name}" class="pet-image">
+                    <div class="pet-content">
+                        <div class="pet-header">
+                            <h3 class="pet-name">${pet.name}</h3>
+                            <span class="pet-status">${getStatusBadge(pet.status)}</span>
+                        </div>
+                        <div class="pet-details">
+                            <p><strong>النوع:</strong> ${typeName}</p>
+                            <p><strong>الجنس:</strong> ${gender}</p>
+                            <p><strong>العمر:</strong> ${age}</p>
+                            ${pet.listing_type === "sale" ? `<p><strong>السعر:</strong> ${pet.price} ₪</p>` : ""}
+                        </div>
+                        <div class="pet-actions">
+                            <button onclick="viewPetDetails(${pet.id})" class="btn-details">تفاصيل</button>
+                            <button onclick="contactOwner(${pet.id})" class="btn-contact">تواصل</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+      }
+
+      // عرض تفاصيل الحيوان
+      function viewPetDetails(petId) {
+        window.location.href = `pages/pets.html?id=${petId}`;
+      }
+
+      // التواصل مع المالك
+      function contactOwner(petId) {
+        if (!getToken()) {
+          if (
+            confirm(
+              "يجب تسجيل الدخول أولاً. هل تريد الانتقال إلى صفحة تسجيل الدخول؟",
+            )
+          ) {
+            window.location.href = "pages/login.html";
+          }
+          return;
+        }
+        // TODO: فتح نافذة التواصل
+        alert("سيتم تفعيل خاصية التواصل قريباً");
+      }
+
+      // تهيئة الصفحة
+      document.addEventListener("DOMContentLoaded", () => {
+        loadStats();
         loadRecentPets();
       });
-
-      function loadRecentPets() {
-        const pets = getPets();
-        const recentPets = pets.slice(0, 3);
-        const container = document.getElementById("recentPets");
-
-        container.innerHTML = recentPets
-          .map((pet) => createPetCard(pet))
-          .join("");
-      }
     </script>
   </body>
 </html>

@@ -10,16 +10,18 @@
       href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
     <link rel="stylesheet" href="../css/style.css" />
   </head>
   <body>
-    <!-- Navbar -->
     <nav class="navbar">
       <div class="container">
         <a href="../index.html" class="logo">
-          <img src="../images/logo.png" alt="" />
+          <img src="../images/logo.png" alt="PalPets" />
         </a>
-
         <div class="nav-menu">
           <a href="../index.html">الرئيسية</a>
           <a href="pets.html" class="active">الحيوانات</a>
@@ -28,14 +30,9 @@
           <a href="veterinary.html">الرعاية البيطرية</a>
           <a href="store.html">المتجر</a>
         </div>
-
-        <div class="auth-buttons">
-          <a href="login.html" class="btn-login">تسجيل الدخول</a>
-        </div>
-
+        <div class="auth-buttons"></div>
         <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
       </div>
-
       <div class="mobile-menu" id="mobileMenu">
         <a href="../index.html">الرئيسية</a>
         <a href="pets.html">الحيوانات</a>
@@ -47,19 +44,9 @@
       </div>
     </nav>
 
-    <!-- Search Section -->
     <section class="search-section">
       <div class="container">
         <h1 class="section-title">الحيوانات المتاحة</h1>
-        <p
-          style="
-            text-align: center;
-            color: var(--text-light);
-            margin-bottom: 2rem;
-          "
-        >
-          تصفح الحيوانات المتاحة للبيع أو التبني
-        </p>
 
         <!-- Search and Filters -->
         <div class="search-card">
@@ -69,103 +56,282 @@
               id="searchInput"
               placeholder="ابحث عن حيوان..."
               class="search-input"
-              onkeyup="filterPets()"
             />
 
-            <select
-              id="typeFilter"
-              class="search-input"
-              onchange="filterPets()"
-            >
+            <select id="typeFilter" class="search-input">
               <option value="">جميع الأنواع</option>
-              <option value="dog">كلاب</option>
-              <option value="cat">قطط</option>
             </select>
 
-            <select
-              id="breedFilter"
-              class="search-input"
-              onchange="filterPets()"
-            >
-              <option value="">جميع السلالات</option>
-              <option value="شيرازي">شيرازي</option>
-              <option value="جيرمن">جيرمن شيبرد</option>
-              <option value="بوميرانيان">بوميرانيان</option>
+            <select id="genderFilter" class="search-input">
+              <option value="">جميع الأجناس</option>
+              <option value="male">ذكر</option>
+              <option value="female">أنثى</option>
             </select>
 
-            <select id="ageFilter" class="search-input" onchange="filterPets()">
-              <option value="">جميع الأعمار</option>
-              <option value="صغير">صغير (أقل من سنة)</option>
-              <option value="بالغ">بالغ (1-7 سنوات)</option>
-              <option value="كبير">كبير (أكثر من 7 سنوات)</option>
+            <select id="listingTypeFilter" class="search-input">
+              <option value="">جميع أنواع الإعلانات</option>
+              <option value="adoption">للتبني</option>
+              <option value="sale">للبيع</option>
             </select>
           </div>
         </div>
-
-        <!-- Loading Spinner -->
-        <div id="loading" class="spinner" style="display: none"></div>
 
         <!-- Pets Grid -->
         <div id="petsGrid" class="pets-grid"></div>
 
+        <!-- Loading Spinner -->
+        <div id="loading" class="spinner" style="display: none"></div>
+
         <!-- Empty State -->
         <div id="emptyState" class="empty-state" style="display: none">
           <p>لا توجد حيوانات متاحة حالياً</p>
-          <a href="pets.html" class="btn-secondary">عرض الكل</a>
+        </div>
+
+        <!-- Pagination -->
+        <div id="pagination" class="pagination">
+          <button class="btn-prev" onclick="prevPage()" id="prevBtn">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+          <span id="pageInfo">صفحة 1 من 1</span>
+          <button class="btn-next" onclick="nextPage()" id="nextBtn">
+            <i class="fas fa-chevron-left"></i>
+          </button>
         </div>
       </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="container">
-        <div class="footer-grid">
-          <div class="footer-section">
-            <h3>عن المنصة</h3>
-            <p>
-              منصة متكاملة للعناية بالحيوانات الأليفة، تجمع عشاق الحيوانات،
-              المربين، والملاجئ في مكان واحد.
-            </p>
-          </div>
-          <div class="footer-section">
-            <h3>روابط سريعة</h3>
-            <ul class="footer-links">
-              <li><a href="../index.html">الرئيسية</a></li>
-              <li><a href="pets.html">الحيوانات</a></li>
-              <li><a href="adoption.html">التبني</a></li>
-              <li><a href="lost-found.html">مفقود ومعثور</a></li>
-            </ul>
-          </div>
-          <div class="footer-section">
-            <h3>الخدمات</h3>
-            <ul class="footer-links">
-              <li><a href="veterinary.html">الرعاية البيطرية</a></li>
-              <li><a href="store.html">المتجر</a></li>
-              <li><a href="#">التطعيمات</a></li>
-              <li><a href="#">استشارات</a></li>
-            </ul>
-          </div>
-          <div class="footer-section">
-            <h3>تواصل معنا</h3>
-            <ul class="footer-links">
-              <li>📞 +972599248391</li>
-              <li>✉️ info@PalPets.com</li>
-              <li>📍 فلسطين</li>
-            </ul>
-          </div>
-        </div>
-        <div class="footer-bottom">
-          <p>© 2026 PalPets - جميع الحقوق محفوظة</p>
-        </div>
+    <!-- Pet Details Modal -->
+    <div id="petModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div id="petDetails"></div>
       </div>
+    </div>
+
+    <footer class="footer">
+      <!-- نفس الفوتر من الصفحة الرئيسية -->
     </footer>
 
-    <script src="../js/main.js"></script>
-    <script src="../js/pets.js"></script>
+    <script src="../js/api.js"></script>
     <script>
-      // تهيئة الصفحة
-      document.addEventListener("DOMContentLoaded", function () {
-        displayPets();
+      let currentPage = 1;
+      let totalPages = 1;
+      let petTypes = [];
+      let currentFilters = {};
+
+      // تحميل أنواع الحيوانات
+      async function loadPetTypes() {
+        try {
+          const types = await apiCall("/animals/types/", "GET", null, false);
+          petTypes = types || [];
+
+          const select = document.getElementById("typeFilter");
+          select.innerHTML =
+            '<option value="">جميع الأنواع</option>' +
+            petTypes
+              .map((t) => `<option value="${t.id}">${t.name}</option>`)
+              .join("");
+        } catch (error) {
+          console.error("Error loading pet types:", error);
+        }
+      }
+
+      // تحميل الحيوانات
+      async function loadPets() {
+        showLoading();
+
+        try {
+          const search = document.getElementById("searchInput").value;
+          const type = document.getElementById("typeFilter").value;
+          const gender = document.getElementById("genderFilter").value;
+          const listingType =
+            document.getElementById("listingTypeFilter").value;
+
+          let url = `/animals/?page=${currentPage}`;
+          if (search) url += `&search=${search}`;
+          if (type) url += `&animal_type=${type}`;
+          if (gender) url += `&gender=${gender}`;
+          if (listingType) url += `&listing_type=${listingType}`;
+
+          const response = await apiCall(url, "GET", null, false);
+
+          const pets = response.results || response || [];
+          totalPages = Math.ceil((response.count || pets.length) / 10);
+
+          displayPets(pets);
+          updatePagination();
+        } catch (error) {
+          console.error("Error loading pets:", error);
+          document.getElementById("petsGrid").innerHTML =
+            '<p class="text-center">حدث خطأ في تحميل البيانات</p>';
+        } finally {
+          hideLoading();
+        }
+      }
+
+      // عرض الحيوانات
+      function displayPets(pets) {
+        const grid = document.getElementById("petsGrid");
+        const emptyState = document.getElementById("emptyState");
+
+        if (pets.length === 0) {
+          grid.style.display = "none";
+          emptyState.style.display = "block";
+          return;
+        }
+
+        grid.style.display = "grid";
+        emptyState.style.display = "none";
+
+        grid.innerHTML = pets.map((pet) => createPetCard(pet)).join("");
+      }
+
+      // إنشاء بطاقة حيوان
+      function createPetCard(pet) {
+        return `
+                <div class="pet-card">
+                    <img src="${pet.primary_image || "https://via.placeholder.com/300x200"}" alt="${pet.name}" class="pet-image">
+                    <div class="pet-content">
+                        <div class="pet-header">
+                            <h3 class="pet-name">${pet.name}</h3>
+                            <span>${getStatusBadge(pet.status)}</span>
+                        </div>
+                        <div class="pet-details">
+                            <p><strong>النوع:</strong> ${pet.animal_type_name}</p>
+                            <p><strong>السلالة:</strong> ${pet.breed_name || "غير محدد"}</p>
+                            <p><strong>الجنس:</strong> ${getGenderName(pet.gender)}</p>
+                            <p><strong>العمر:</strong> ${pet.age}</p>
+                            ${pet.listing_type === "sale" ? `<p><strong>السعر:</strong> ${pet.price} ₪</p>` : ""}
+                        </div>
+                        <div class="pet-actions">
+                            <button onclick="viewPetDetails(${pet.id})" class="btn-details">تفاصيل</button>
+                            <button onclick="likePet(${pet.id})" class="btn-contact">
+                                <i class="fas fa-heart"></i> ${pet.likes_count || 0}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+      }
+
+      // عرض تفاصيل الحيوان
+      async function viewPetDetails(id) {
+        showLoading();
+
+        try {
+          const pet = await apiCall(`/animals/${id}/`, "GET", null, false);
+
+          const modal = document.getElementById("petModal");
+          const details = document.getElementById("petDetails");
+
+          details.innerHTML = `
+                    <div style="display: flex; gap: 20px;">
+                        <div style="flex: 1;">
+                            <img src="${pet.primary_image || "https://via.placeholder.com/400x300"}" 
+                                 style="width: 100%; border-radius: 10px;">
+                        </div>
+                        <div style="flex: 1;">
+                            <h2>${pet.name}</h2>
+                            <p>${pet.description}</p>
+                            
+                            <table class="details-table">
+                                <tr><th>النوع:</th><td>${pet.animal_type_name}</td></tr>
+                                <tr><th>السلالة:</th><td>${pet.breed_name || "غير محدد"}</td></tr>
+                                <tr><th>الجنس:</th><td>${getGenderName(pet.gender)}</td></tr>
+                                <tr><th>العمر:</th><td>${pet.age}</td></tr>
+                                <tr><th>اللون:</th><td>${pet.color || "غير محدد"}</td></tr>
+                                <tr><th>الموقع:</th><td>${pet.location || "غير محدد"}</td></tr>
+                                <tr><th>التطعيمات:</th><td>${pet.is_vaccinated ? "✅ مكتملة" : "⏳ غير مكتملة"}</td></tr>
+                            </table>
+                            
+                            <div style="margin-top: 20px;">
+                                <button class="btn-primary" onclick="contactOwner(${pet.id})">تواصل مع المالك</button>
+                                <button class="btn-secondary" onclick="likePet(${pet.id})">
+                                    <i class="fas fa-heart"></i> ${pet.likes_count || 0}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+          modal.style.display = "block";
+        } catch (error) {
+          showNotification("حدث خطأ في تحميل البيانات", "error");
+        } finally {
+          hideLoading();
+        }
+      }
+
+      // إعجاب بالحيوان
+      async function likePet(id) {
+        if (!requireAuth()) return;
+
+        try {
+          const response = await apiCall(`/animals/${id}/like/`, "POST");
+          showNotification(
+            response.liked ? "تمت الإعجاب" : "تم إلغاء الإعجاب",
+            "success",
+          );
+          loadPets(); // إعادة تحميل
+        } catch (error) {
+          showNotification("حدث خطأ", "error");
+        }
+      }
+
+      // Pagination
+      function prevPage() {
+        if (currentPage > 1) {
+          currentPage--;
+          loadPets();
+        }
+      }
+
+      function nextPage() {
+        if (currentPage < totalPages) {
+          currentPage++;
+          loadPets();
+        }
+      }
+
+      function updatePagination() {
+        document.getElementById("pageInfo").textContent =
+          `صفحة ${currentPage} من ${totalPages}`;
+        document.getElementById("prevBtn").disabled = currentPage === 1;
+        document.getElementById("nextBtn").disabled =
+          currentPage === totalPages;
+      }
+
+      function closeModal() {
+        document.getElementById("petModal").style.display = "none";
+      }
+
+      // Event listeners
+      document.getElementById("searchInput").addEventListener("input", () => {
+        currentPage = 1;
+        loadPets();
+      });
+
+      document.getElementById("typeFilter").addEventListener("change", () => {
+        currentPage = 1;
+        loadPets();
+      });
+
+      document.getElementById("genderFilter").addEventListener("change", () => {
+        currentPage = 1;
+        loadPets();
+      });
+
+      document
+        .getElementById("listingTypeFilter")
+        .addEventListener("change", () => {
+          currentPage = 1;
+          loadPets();
+        });
+
+      // Initialize
+      document.addEventListener("DOMContentLoaded", () => {
+        loadPetTypes();
+        loadPets();
       });
     </script>
   </body>

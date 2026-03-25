@@ -1,3 +1,4 @@
+<!-- register.html -->
 <!doctype html>
 <html lang="ar" dir="rtl">
   <head>
@@ -13,13 +14,11 @@
     <link rel="stylesheet" href="../css/style.css" />
   </head>
   <body>
-    <!-- Navbar -->
     <nav class="navbar">
       <div class="container">
         <a href="../index.html" class="logo">
-          <img src="../images/logo.png" alt="" />
+          <img src="../images/logo.png" alt="PalPets" />
         </a>
-
         <div class="nav-menu">
           <a href="../index.html">الرئيسية</a>
           <a href="pets.html">الحيوانات</a>
@@ -28,74 +27,67 @@
           <a href="veterinary.html">الرعاية البيطرية</a>
           <a href="store.html">المتجر</a>
         </div>
-
-        <div class="auth-buttons">
-          <a href="login.html" class="btn-login">تسجيل الدخول</a>
-        </div>
-
+        <div class="auth-buttons"></div>
         <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
-      </div>
-
-      <div class="mobile-menu" id="mobileMenu">
-        <a href="../index.html">الرئيسية</a>
-        <a href="pets.html">الحيوانات</a>
-        <a href="adoption.html">التبني</a>
-        <a href="lost-found.html">مفقود ومعثور</a>
-        <a href="veterinary.html">الرعاية البيطرية</a>
-        <a href="store.html">المتجر</a>
-        <a href="login.html">تسجيل الدخول</a>
       </div>
     </nav>
 
-    <!-- Register Section -->
     <section class="login-section">
       <div class="login-card">
         <h2 class="login-title">إنشاء حساب جديد</h2>
-
         <div id="messageContainer"></div>
 
         <form id="registerForm" onsubmit="handleRegister(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">الاسم الأول</label>
+              <input type="text" id="firstName" class="form-input" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">الاسم الأخير</label>
+              <input type="text" id="lastName" class="form-input" required />
+            </div>
+          </div>
+
           <div class="form-group">
-            <label class="form-label">الاسم الكامل</label>
-            <input
-              type="text"
-              id="name"
-              class="form-input"
-              placeholder="أدخل اسمك الكامل"
-              required
-            />
+            <label class="form-label">اسم المستخدم</label>
+            <input type="text" id="username" class="form-input" required />
           </div>
 
           <div class="form-group">
             <label class="form-label">البريد الإلكتروني</label>
-            <input
-              type="email"
-              id="email"
-              class="form-input"
-              placeholder="أدخل بريدك الإلكتروني"
-              required
-            />
+            <input type="email" id="email" class="form-input" required />
           </div>
 
           <div class="form-group">
             <label class="form-label">رقم الهاتف</label>
+            <input type="tel" id="phone" class="form-input" required />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">الموقع</label>
             <input
-              type="tel"
-              id="phone"
+              type="text"
+              id="location"
               class="form-input"
-              placeholder="أدخل رقم هاتفك"
+              placeholder="المدينة"
             />
           </div>
 
           <div class="form-group">
+            <label class="form-label">نوع الحساب</label>
+            <select id="userType" class="form-input">
+              <option value="regular">مستخدم عادي</option>
+              <option value="breeder">مربي</option>
+              <option value="veterinarian">طبيب بيطري</option>
+              <option value="clinic">عيادة</option>
+              <option value="shelter">ملجأ</option>
+            </select>
+          </div>
+
+          <div class="form-group">
             <label class="form-label">كلمة المرور</label>
-            <input
-              type="password"
-              id="password"
-              class="form-input"
-              placeholder="أدخل كلمة المرور"
-              required
-            />
+            <input type="password" id="password" class="form-input" required />
           </div>
 
           <div class="form-group">
@@ -104,26 +96,8 @@
               type="password"
               id="confirmPassword"
               class="form-input"
-              placeholder="أعد إدخال كلمة المرور"
               required
             />
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">نوع الحساب</label>
-            <select id="accountType" class="form-input">
-              <option value="user">مستخدم عادي</option>
-              <option value="breeder">مربي</option>
-              <option value="vet">طبيب بيطري</option>
-              <option value="shelter">ملجأ</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label class="form-checkbox">
-              <input type="checkbox" required />
-              <span>أوافق على <a href="#">الشروط والأحكام</a></span>
-            </label>
           </div>
 
           <button type="submit" class="btn-submit">إنشاء حساب</button>
@@ -135,51 +109,7 @@
       </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="container">
-        <div class="footer-grid">
-          <div class="footer-section">
-            <h3>عن المنصة</h3>
-            <p>
-              منصة متكاملة للعناية بالحيوانات الأليفة، تجمع عشاق الحيوانات،
-              المربين، والملاجئ في مكان واحد.
-            </p>
-          </div>
-          <div class="footer-section">
-            <h3>روابط سريعة</h3>
-            <ul class="footer-links">
-              <li><a href="../index.html">الرئيسية</a></li>
-              <li><a href="pets.html">الحيوانات</a></li>
-              <li><a href="adoption.html">التبني</a></li>
-              <li><a href="lost-found.html">مفقود ومعثور</a></li>
-            </ul>
-          </div>
-          <div class="footer-section">
-            <h3>الخدمات</h3>
-            <ul class="footer-links">
-              <li><a href="veterinary.html">الرعاية البيطرية</a></li>
-              <li><a href="store.html">المتجر</a></li>
-              <li><a href="#">التطعيمات</a></li>
-              <li><a href="#">استشارات</a></li>
-            </ul>
-          </div>
-          <div class="footer-section">
-            <h3>تواصل معنا</h3>
-            <ul class="footer-links">
-              <li>📞 +972599248391</li>
-              <li>✉️ info@PalPets.com</li>
-              <li>📍 فلسطين</li>
-            </ul>
-          </div>
-        </div>
-        <div class="footer-bottom">
-          <p>© 2026 PalPets - جميع الحقوق محفوظة</p>
-        </div>
-      </div>
-    </footer>
-
-    <script src="../js/main.js"></script>
+    <script src="../js/api.js"></script>
     <script src="../js/auth.js"></script>
   </body>
 </html>

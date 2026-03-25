@@ -10,73 +10,22 @@
       href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
     <link rel="stylesheet" href="../css/style.css" />
     <style>
-      .adoption-badge {
-        background-color: #fef3c7;
-        color: #92400e;
-        padding: 0.25rem 0.75rem;
-        border-radius: 9999px;
-        font-size: 0.875rem;
-        font-weight: 500;
-      }
-
-      .shelter-card {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        padding: 2rem;
-        border-radius: 1rem;
-        margin-bottom: 2rem;
-      }
-
-      .requirements-list {
-        background-color: #f8fafc;
-        padding: 1.5rem;
-        border-radius: 0.5rem;
-        margin: 1rem 0;
-      }
-
-      .requirements-list li {
-        margin: 0.75rem 0;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-      }
-
-      .requirements-list li::before {
-        content: "✓";
-        color: var(--secondary-color);
-        font-weight: bold;
-      }
-
       .adoption-process {
         display: flex;
         justify-content: space-between;
         margin: 3rem 0;
         position: relative;
       }
-
       .process-step {
         text-align: center;
         flex: 1;
-        position: relative;
       }
-
-      .process-step::before {
-        content: "";
-        position: absolute;
-        top: 30px;
-        right: 50%;
-        width: 100%;
-        height: 2px;
-        background: #e5e7eb;
-        z-index: 1;
-      }
-
-      .process-step:last-child::before {
-        display: none;
-      }
-
       .step-number {
         width: 60px;
         height: 60px;
@@ -87,42 +36,26 @@
         align-items: center;
         justify-content: center;
         font-size: 1.5rem;
-        font-weight: bold;
         margin: 0 auto 1rem;
-        position: relative;
-        z-index: 2;
       }
-
-      .step-title {
-        font-weight: 600;
-        margin-bottom: 0.5rem;
+      .application-form {
+        max-width: 600px;
+        margin: 2rem auto;
       }
-
-      .step-description {
-        font-size: 0.875rem;
-        color: var(--text-light);
-      }
-
       @media (max-width: 768px) {
         .adoption-process {
           flex-direction: column;
           gap: 2rem;
         }
-
-        .process-step::before {
-          display: none;
-        }
       }
     </style>
   </head>
   <body>
-    <!-- Navbar -->
     <nav class="navbar">
       <div class="container">
         <a href="../index.html" class="logo">
-          <img src="../images/logo.png" alt="" />
+          <img src="../images/logo.png" alt="PalPets" />
         </a>
-
         <div class="nav-menu">
           <a href="../index.html">الرئيسية</a>
           <a href="pets.html">الحيوانات</a>
@@ -131,14 +64,9 @@
           <a href="veterinary.html">الرعاية البيطرية</a>
           <a href="store.html">المتجر</a>
         </div>
-
-        <div class="auth-buttons">
-          <a href="login.html" class="btn-login">تسجيل الدخول</a>
-        </div>
-
+        <div class="auth-buttons"></div>
         <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
       </div>
-
       <div class="mobile-menu" id="mobileMenu">
         <a href="../index.html">الرئيسية</a>
         <a href="pets.html">الحيوانات</a>
@@ -159,105 +87,41 @@
         <div class="hero-content">
           <h2>تبني حيوان أليف</h2>
           <p>امنح حيواناً أليفاً منزلاً جديداً وابدأ قصة حب لا تنتهي</p>
-          <div class="hero-buttons">
-            <a href="#available-pets" class="btn-primary">استعرض الحيوانات</a>
-            <a href="#how-it-works" class="btn-outline">كيف تعمل الخدمة</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Adoption Stats -->
-    <section class="stats">
-      <div class="container">
-        <div class="stats-grid">
-          <div class="stat-item">
-            <div class="stat-number">150+</div>
-            <div class="stat-label">حيوان تم تبنيه</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-number">8</div>
-            <div class="stat-label">ملاجئ شريكة</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-number">95%</div>
-            <div class="stat-label">نسبة النجاح</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-number">120+</div>
-            <div class="stat-label">عائلة سعيدة</div>
-          </div>
+          <a href="#available-pets" class="btn-primary">استعرض الحيوانات</a>
         </div>
       </div>
     </section>
 
     <!-- How It Works -->
-    <section id="how-it-works" class="services" style="background-color: white">
+    <section class="services" style="background-color: white">
       <div class="container">
         <h2 class="section-title">كيف تتم عملية التبني؟</h2>
         <div class="adoption-process">
           <div class="process-step">
             <div class="step-number">1</div>
-            <h3 class="step-title">اختر حيوانك</h3>
-            <p class="step-description">
-              تصفح الحيوانات المتاحة للتبني واختر ما يناسبك
-            </p>
+            <h3>اختر حيوانك</h3>
+            <p>تصفح الحيوانات المتاحة للتبني واختر ما يناسبك</p>
           </div>
           <div class="process-step">
             <div class="step-number">2</div>
-            <h3 class="step-title">قدم طلباً</h3>
-            <p class="step-description">
-              املأ نموذج طلب التبني وانتظر المراجعة
-            </p>
+            <h3>قدم طلباً</h3>
+            <p>املأ نموذج طلب التبني وانتظر المراجعة</p>
           </div>
           <div class="process-step">
             <div class="step-number">3</div>
-            <h3 class="step-title">مقابلة شخصية</h3>
-            <p class="step-description">
-              مقابلة مع الملجأ للتعرف عليك وعلى منزلك
-            </p>
+            <h3>مقابلة شخصية</h3>
+            <p>مقابلة مع الملجأ للتعرف عليك وعلى منزلك</p>
           </div>
           <div class="process-step">
             <div class="step-number">4</div>
-            <h3 class="step-title">استلم حيوانك</h3>
-            <p class="step-description">
-              بعد الموافقة، يمكنك استلام حيوانك الجديد
-            </p>
+            <h3>استلم حيوانك</h3>
+            <p>بعد الموافقة، يمكنك استلام حيوانك الجديد</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Adoption Requirements -->
-    <section class="services" style="background-color: var(--background)">
-      <div class="container">
-        <h2 class="section-title">شروط التبني</h2>
-        <div class="services-grid">
-          <div class="service-card">
-            <div class="service-icon">🏠</div>
-            <h3>منزل مناسب</h3>
-            <p>يجب توفير مساحة مناسبة وسكن آمن للحيوان</p>
-          </div>
-          <div class="service-card">
-            <div class="service-icon">💰</div>
-            <h3>القدرة المالية</h3>
-            <p>القدرة على توفير الرعاية البيطرية والغذاء المناسب</p>
-          </div>
-          <div class="service-card">
-            <div class="service-icon">⏰</div>
-            <h3>الوقت الكافي</h3>
-            <p>تخصيص وقت كافي للعناية والاهتمام بالحيوان</p>
-          </div>
-          <div class="service-card">
-            <div class="service-icon">❤️</div>
-            <h3>الالتزام طويل المدى</h3>
-            <p>التبني التزام مدى الحياة وليس قراراً مؤقتاً</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Available Pets for Adoption -->
+    <!-- Available Pets -->
     <section id="available-pets" class="services">
       <div class="container">
         <h2 class="section-title">حيوانات تنتظر منزلاً</h2>
@@ -270,506 +134,340 @@
               id="searchInput"
               placeholder="ابحث عن حيوان..."
               class="search-input"
-              onkeyup="filterAdoptionPets()"
             />
-
-            <select
-              id="typeFilter"
-              class="search-input"
-              onchange="filterAdoptionPets()"
-            >
+            <select id="typeFilter" class="search-input">
               <option value="">جميع الأنواع</option>
-              <option value="dog">كلاب</option>
-              <option value="cat">قطط</option>
-              <option value="other">حيوانات أخرى</option>
             </select>
-
-            <select
-              id="ageFilter"
-              class="search-input"
-              onchange="filterAdoptionPets()"
-            >
+            <select id="ageFilter" class="search-input">
               <option value="">جميع الأعمار</option>
-              <option value="صغير">صغير (أقل من سنة)</option>
-              <option value="بالغ">بالغ (1-7 سنوات)</option>
-              <option value="كبير">كبير (أكثر من 7 سنوات)</option>
+              <option value="young">صغير (أقل من سنة)</option>
+              <option value="adult">بالغ (1-7 سنوات)</option>
+              <option value="senior">كبير (أكثر من 7 سنوات)</option>
             </select>
-
-            <select
-              id="shelterFilter"
-              class="search-input"
-              onchange="filterAdoptionPets()"
-            >
-              <option value="">جميع الملاجئ</option>
-              <option value="shelter1">ملجأ الرفق بالحيوان</option>
-              <option value="shelter2">جمعية حماية الحيوانات</option>
+            <select id="genderFilter" class="search-input">
+              <option value="">جميع الأجناس</option>
+              <option value="male">ذكر</option>
+              <option value="female">أنثى</option>
             </select>
           </div>
         </div>
-
-        <!-- Loading Spinner -->
-        <div id="loading" class="spinner" style="display: none"></div>
 
         <!-- Pets Grid -->
         <div id="adoptionPetsGrid" class="pets-grid"></div>
-      </div>
-    </section>
 
-    <!-- Shelters Section -->
-    <section class="services" style="background-color: white">
-      <div class="container">
-        <h2 class="section-title">الملاجئ الشريكة</h2>
-        <div class="services-grid" id="sheltersGrid">
-          <!-- سيتم تعبئتها عبر JavaScript -->
+        <!-- Loading -->
+        <div id="loading" class="spinner" style="display: none"></div>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="empty-state" style="display: none">
+          <p>لا توجد حيوانات متاحة للتبني حالياً</p>
+        </div>
+
+        <!-- Pagination -->
+        <div id="pagination" class="pagination">
+          <button class="btn-prev" onclick="prevPage()" id="prevBtn">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+          <span id="pageInfo">صفحة 1 من 1</span>
+          <button class="btn-next" onclick="nextPage()" id="nextBtn">
+            <i class="fas fa-chevron-left"></i>
+          </button>
         </div>
       </div>
     </section>
 
-    <!-- Success Stories -->
-    <section class="services" style="background-color: var(--background)">
-      <div class="container">
-        <h2 class="section-title">قصص نجاح</h2>
-        <div class="services-grid" id="storiesGrid">
-          <div class="service-card">
-            <img
-              src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b"
-              alt="Success story"
-              style="
-                width: 100%;
-                height: 200px;
-                object-fit: cover;
-                border-radius: 0.5rem;
-                margin-bottom: 1rem;
-              "
-            />
-            <h3>عائلة آل سعود</h3>
-            <p>
-              "تبنينا كلب لونا منذ 6 أشهر، وأصبحت فرداً من العائلة. المنصة سهلت
-              علينا عملية التبني جداً"
-            </p>
-            <div style="margin-top: 1rem">
-              <span class="adoption-badge">تم التبني: يناير 2026</span>
-            </div>
-          </div>
-          <div class="service-card">
-            <img
-              src="https://images.unsplash.com/photo-1450778869180-41d0601e046e"
-              alt="Success story"
-              style="
-                width: 100%;
-                height: 200px;
-                object-fit: cover;
-                border-radius: 0.5rem;
-                margin-bottom: 1rem;
-              "
-            />
-            <h3>عائلة العمري</h3>
-            <p>
-              "وجدنا قطتنا الجميلة ميشو من خلال المنصة. كانت التجربة رائعة
-              والفريق متعاون جداً"
-            </p>
-            <div style="margin-top: 1rem">
-              <span class="adoption-badge">تم التبني: ديسمبر 2024</span>
-            </div>
-          </div>
-          <div class="service-card">
-            <img
-              src="https://images.unsplash.com/photo-1521673461164-de300ebcfb17"
-              alt="Success story"
-              style="
-                width: 100%;
-                height: 200px;
-                object-fit: cover;
-                border-radius: 0.5rem;
-                margin-bottom: 1rem;
-              "
-            />
-            <h3>عائلة الغامدي</h3>
-            <p>
-              "تبنينا أرنبين من نفس الملجأ. الأطفال سعداء جداً والخدمات البيطرية
-              المقدمة ممتازة"
-            </p>
-            <div style="margin-top: 1rem">
-              <span class="adoption-badge">تم التبني: نوفمبر 2024</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Call to Action -->
-    <section
-      style="
-        background: linear-gradient(
-          135deg,
-          var(--primary-color),
-          var(--secondary-color)
-        );
-        color: white;
-        padding: 4rem 0;
-      "
-    >
-      <div class="container" style="text-align: center">
-        <h2 style="font-size: 2rem; margin-bottom: 1rem">
-          هل أنت مستعد لتبني حيوان أليف؟
-        </h2>
-        <p style="font-size: 1.25rem; margin-bottom: 2rem; opacity: 0.9">
-          انضم إلى مئات العائلات التي وجدت صديقاً جديداً من خلال منصتنا
-        </p>
-        <a
-          href="#available-pets"
-          class="btn-primary"
-          style="background-color: white; color: var(--primary-color)"
-          >ابحث عن حيوان للتبني</a
+    <!-- Adoption Application Modal -->
+    <div id="applicationModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeApplicationModal()">&times;</span>
+        <h2>تقديم طلب تبني</h2>
+        <form
+          id="applicationForm"
+          onsubmit="submitApplication(event)"
+          class="application-form"
         >
-      </div>
-    </section>
+          <input type="hidden" id="listingId" />
 
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="container">
-        <div class="footer-grid">
-          <div class="footer-section">
-            <h3>عن المنصة</h3>
-            <p>
-              منصة متكاملة للعناية بالحيوانات الأليفة، تجمع عشاق الحيوانات،
-              المربين، والملاجئ في مكان واحد.
-            </p>
+          <div class="form-group">
+            <label>هل لديك خبرة سابقة في تربية الحيوانات؟</label>
+            <select id="hasExperience" class="form-input" required>
+              <option value="true">نعم</option>
+              <option value="false">لا</option>
+            </select>
           </div>
-          <div class="footer-section">
-            <h3>روابط سريعة</h3>
-            <ul class="footer-links">
-              <li><a href="../index.html">الرئيسية</a></li>
-              <li><a href="pets.html">الحيوانات</a></li>
-              <li><a href="adoption.html">التبني</a></li>
-              <li><a href="lost-found.html">مفقود ومعثور</a></li>
-            </ul>
-          </div>
-          <div class="footer-section">
-            <h3>الخدمات</h3>
-            <ul class="footer-links">
-              <li><a href="veterinary.html">الرعاية البيطرية</a></li>
-              <li><a href="store.html">المتجر</a></li>
-              <li><a href="#">التطعيمات</a></li>
-              <li><a href="#">استشارات</a></li>
-            </ul>
-          </div>
-          <div class="footer-section">
-            <h3>تواصل معنا</h3>
-            <ul class="footer-links">
-              <li>📞 +972599248391</li>
-              <li>✉️ info@PalPets.com</li>
-              <li>📍 فلسطين</li>
-            </ul>
-          </div>
-        </div>
-        <div class="footer-bottom">
-          <p>© 2026 PalPets - جميع الحقوق محفوظة</p>
-        </div>
-      </div>
-    </footer>
 
-    <script src="../js/main.js"></script>
+          <div class="form-group">
+            <label>هل لديك حيوانات أخرى في المنزل؟</label>
+            <select id="hasOtherPets" class="form-input" required>
+              <option value="true">نعم</option>
+              <option value="false">لا</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>هل لديك أطفال؟</label>
+            <select id="hasChildren" class="form-input" required>
+              <option value="true">نعم</option>
+              <option value="false">لا</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>نوع السكن</label>
+            <select id="housingType" class="form-input" required>
+              <option value="apartment">شقة</option>
+              <option value="house">منزل مستقل</option>
+              <option value="villa">فيلا</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>هل يوجد فناء أو حديقة؟</label>
+            <select id="hasYard" class="form-input" required>
+              <option value="true">نعم</option>
+              <option value="false">لا</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>لماذا تريد التبني؟</label>
+            <textarea
+              id="whyAdopt"
+              class="form-input"
+              rows="4"
+              required
+            ></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>رسالة إضافية</label>
+            <textarea id="message" class="form-input" rows="3"></textarea>
+          </div>
+
+          <button type="submit" class="btn-submit">تقديم الطلب</button>
+        </form>
+      </div>
+    </div>
+
+    <script src="../js/api.js"></script>
     <script>
-      // بيانات التبني
-      function getAdoptionPets() {
-        return [
-          {
-            id: 101,
-            name: "شوقي",
-            type: "dog",
-            breed: "سلالة مختلطة",
-            age: "سنتين",
-            gender: "ذكر",
-            shelter: "ملجأ الرفق بالحيوان",
-            image: "https://images.unsplash.com/photo-1544568100-847a948585b9",
-            description: "كلب شوقي ودود ومحب للأطفال، يحتاج لعائلة تهتم به",
-            vaccinated: true,
-            neutered: true,
-          },
-          {
-            id: 102,
-            name: "نور",
-            type: "cat",
-            breed: "قط بلدي",
-            age: "سنة",
-            gender: "أنثى",
-            shelter: "جمعية حماية الحيوانات",
-            image:
-              "https://images.unsplash.com/photo-1513360371669-4adf3dd7dff8",
-            description:
-              "قطة نور لطيفة وهادئة، محصنة ومعتادة على الحياة المنزلية",
-            vaccinated: true,
-            neutered: false,
-          },
-          {
-            id: 103,
-            name: "توفي",
-            type: "cat",
-            breed: "شيرازي",
-            age: "3 سنوات",
-            gender: "أنثى",
-            shelter: "ملجأ الرفق بالحيوان",
-            image: "https://images.unsplash.com/photo-1533738363-b7f9aef128ce",
-            description: "قطة توفي جميلة ومحبوبة، تبحث عن منزل دافئ",
-            vaccinated: true,
-            neutered: true,
-          },
-          {
-            id: 104,
-            name: "بودي",
-            type: "dog",
-            breed: "لابرادور",
-            age: "شهرين",
-            gender: "ذكر",
-            shelter: "جمعية حماية الحيوانات",
-            image:
-              "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e",
-            description: "جرو بودي مرح ونشيط، سيحتاج لتدريب وصبر",
-            vaccinated: false,
-            neutered: false,
-          },
-          {
-            id: 105,
-            name: "لولي",
-            type: "rabbit",
-            breed: "أرنب هولندي",
-            age: "6 شهور",
-            gender: "أنثى",
-            shelter: "ملجأ الرفق بالحيوان",
-            image:
-              "https://images.unsplash.com/photo-1535241749838-299277b6305f",
-            description: "أرنبة لولي لطيفة ووديعة، مناسبة للشقق",
-            vaccinated: true,
-            neutered: false,
-          },
-          {
-            id: 106,
-            name: "جوجو",
-            type: "bird",
-            breed: "ببغاء",
-            age: "سنة ونص",
-            gender: "ذكر",
-            shelter: "جمعية حماية الحيوانات",
-            image: "https://images.unsplash.com/photo-1552728089-57bdde30beb3",
-            description: "ببغاء جوجو يحب الكلام واللعب، يحتاج لاهتمام",
-            vaccinated: true,
-            neutered: false,
-          },
-        ];
+      let currentPage = 1;
+      let totalPages = 1;
+      let petTypes = [];
+      let selectedListingId = null;
+
+      // Load pet types
+      async function loadPetTypes() {
+        try {
+          const types = await apiCall("/animals/types/", "GET", null, false);
+          petTypes = types || [];
+          const select = document.getElementById("typeFilter");
+          select.innerHTML =
+            '<option value="">جميع الأنواع</option>' +
+            petTypes
+              .map((t) => `<option value="${t.id}">${t.name}</option>`)
+              .join("");
+        } catch (error) {
+          console.error("Error loading pet types:", error);
+        }
       }
 
-      function getShelters() {
-        return [
-          {
-            name: "ملجأ الرفق بالحيوان",
-            image:
-              "https://images.unsplash.com/photo-1574158622682-e40e69881006",
-            pets: 45,
-            location: "الرياض",
-            phone: "+966 55 123 4567",
-          },
-          {
-            name: "جمعية حماية الحيوانات",
-            image:
-              "https://images.unsplash.com/photo-1574158622682-e40e69881006",
-            pets: 32,
-            location: "جدة",
-            phone: "+966 55 765 4321",
-          },
-          {
-            name: "دار الرحمة للحيوانات",
-            image:
-              "https://images.unsplash.com/photo-1574158622682-e40e69881006",
-            pets: 28,
-            location: "الدمام",
-            phone: "+966 55 987 6543",
-          },
-        ];
+      // Load adoption listings
+      async function loadAdoptionListings() {
+        showLoading();
+
+        try {
+          const search = document.getElementById("searchInput").value;
+          const type = document.getElementById("typeFilter").value;
+          const gender = document.getElementById("genderFilter").value;
+
+          let url = `/listings/?listing_type=adoption&page=${currentPage}`;
+          if (search) url += `&search=${search}`;
+          if (type) url += `&animal__animal_type=${type}`;
+          if (gender) url += `&animal__gender=${gender}`;
+
+          const response = await apiCall(url, "GET", null, false);
+
+          const listings = response.results || response || [];
+          totalPages = Math.ceil((response.count || listings.length) / 10);
+
+          displayListings(listings);
+          updatePagination();
+        } catch (error) {
+          console.error("Error loading listings:", error);
+          document.getElementById("adoptionPetsGrid").innerHTML =
+            '<p class="text-center">حدث خطأ في تحميل البيانات</p>';
+        } finally {
+          hideLoading();
+        }
       }
 
-      // عرض حيوانات التبني
-      function displayAdoptionPets() {
-        const petsGrid = document.getElementById("adoptionPetsGrid");
-        const loading = document.getElementById("loading");
+      // Display listings
+      function displayListings(listings) {
+        const grid = document.getElementById("adoptionPetsGrid");
+        const emptyState = document.getElementById("emptyState");
 
-        loading.style.display = "block";
-        petsGrid.style.display = "none";
+        if (listings.length === 0) {
+          grid.style.display = "none";
+          emptyState.style.display = "block";
+          return;
+        }
 
-        setTimeout(() => {
-          const pets = getAdoptionPets();
-          loading.style.display = "none";
-          petsGrid.style.display = "grid";
+        grid.style.display = "grid";
+        emptyState.style.display = "none";
 
-          petsGrid.innerHTML = pets
-            .map((pet) => {
-              const typeName =
-                pet.type === "dog"
-                  ? "كلب"
-                  : pet.type === "cat"
-                    ? "قطة"
-                    : pet.type === "rabbit"
-                      ? "أرنب"
-                      : "طائر";
-              return `
-                        <div class="pet-card">
-                            <img src="${pet.image}" alt="${pet.name}" class="pet-image">
-                            <div class="pet-content">
-                                <div class="pet-header">
-                                    <h3 class="pet-name">${pet.name}</h3>
-                                    <span class="adoption-badge">للتبني</span>
-                                </div>
-                                <div class="pet-details">
-                                    <p><strong>النوع:</strong> ${typeName}</p>
-                                    <p><strong>السلالة:</strong> ${pet.breed}</p>
-                                    <p><strong>العمر:</strong> ${pet.age}</p>
-                                    <p><strong>الملجأ:</strong> ${pet.shelter}</p>
-                                    <p>
-                                        <strong>التطعيمات:</strong> 
-                                        <span style="color: ${pet.vaccinated ? "green" : "orange"}">
-                                            ${pet.vaccinated ? "✅ مكتملة" : "⏳ غير مكتملة"}
-                                        </span>
-                                    </p>
-                                </div>
-                                <p class="pet-description">${pet.description}</p>
-                                <div class="pet-actions">
-                                    <button onclick="applyForAdoption(${pet.id})" class="btn-details">قدم طلب تبني</button>
-                                    <button onclick="contactShelter('${pet.shelter}')" class="btn-contact">تواصل مع الملجأ</button>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-            })
-            .join("");
-        }, 500);
-      }
-
-      // عرض الملاجئ
-      function displayShelters() {
-        const sheltersGrid = document.getElementById("sheltersGrid");
-        const shelters = getShelters();
-
-        sheltersGrid.innerHTML = shelters
+        grid.innerHTML = listings
           .map(
-            (shelter) => `
-                <div class="service-card">
-                    <img src="${shelter.image}" alt="${shelter.name}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 0.5rem; margin-bottom: 1rem;">
-                    <h3>${shelter.name}</h3>
-                    <div style="margin: 0.5rem 0;">
-                        <p><strong>الموقع:</strong> ${shelter.location}</p>
-                        <p><strong>الحيوانات:</strong> ${shelter.pets} حيوان</p>
-                        <p><strong>الهاتف:</strong> ${shelter.phone}</p>
+            (listing) => `
+                <div class="pet-card">
+                    <img src="${listing.primary_image || "https://via.placeholder.com/300x200"}" alt="${listing.animal?.name}" class="pet-image">
+                    <div class="pet-content">
+                        <div class="pet-header">
+                            <h3 class="pet-name">${listing.animal?.name || "حيوان"}</h3>
+                            <span class="adoption-badge">للتبني</span>
+                        </div>
+                        <div class="pet-details">
+                            <p><strong>النوع:</strong> ${listing.animal?.animal_type_name || "غير معروف"}</p>
+                            <p><strong>السلالة:</strong> ${listing.animal?.breed_name || "غير محدد"}</p>
+                            <p><strong>الجنس:</strong> ${getGenderName(listing.animal?.gender)}</p>
+                            <p><strong>العمر:</strong> ${listing.animal?.age_display || "غير محدد"}</p>
+                            <p><strong>الملجأ:</strong> ${listing.created_by_name || "خاص"}</p>
+                        </div>
+                        <div class="pet-actions">
+                            <button onclick="viewListingDetails(${listing.id})" class="btn-details">تفاصيل</button>
+                            <button onclick="applyForAdoption(${listing.id})" class="btn-contact">قدم طلب</button>
+                        </div>
                     </div>
-                    <button onclick="viewShelterPets('${shelter.name}')" class="btn-details" style="width: 100%; margin-top: 1rem;">عرض الحيوانات</button>
                 </div>
             `,
           )
           .join("");
       }
 
-      // فلترة حيوانات التبني
-      function filterAdoptionPets() {
-        const searchQuery =
-          document.getElementById("searchInput")?.value.toLowerCase() || "";
-        const typeFilter = document.getElementById("typeFilter")?.value || "";
-        const ageFilter = document.getElementById("ageFilter")?.value || "";
-        const shelterFilter =
-          document.getElementById("shelterFilter")?.value || "";
+      // View listing details
+      async function viewListingDetails(id) {
+        try {
+          const listing = await apiCall(`/listings/${id}/`, "GET", null, false);
 
-        const allPets = getAdoptionPets();
-
-        const filteredPets = allPets.filter((pet) => {
-          if (
-            searchQuery &&
-            !pet.name.toLowerCase().includes(searchQuery) &&
-            !pet.breed.toLowerCase().includes(searchQuery)
-          ) {
-            return false;
-          }
-
-          if (typeFilter && pet.type !== typeFilter) {
-            return false;
-          }
-
-          if (shelterFilter && pet.shelter !== shelterFilter) {
-            return false;
-          }
-
-          return true;
-        });
-
-        const petsGrid = document.getElementById("adoptionPetsGrid");
-        petsGrid.innerHTML = filteredPets
-          .map((pet) => {
-            const typeName =
-              pet.type === "dog"
-                ? "كلب"
-                : pet.type === "cat"
-                  ? "قطة"
-                  : pet.type === "rabbit"
-                    ? "أرنب"
-                    : "طائر";
-            return `
-                    <div class="pet-card">
-                        <img src="${pet.image}" alt="${pet.name}" class="pet-image">
-                        <div class="pet-content">
-                            <div class="pet-header">
-                                <h3 class="pet-name">${pet.name}</h3>
-                                <span class="adoption-badge">للتبني</span>
-                            </div>
-                            <div class="pet-details">
-                                <p><strong>النوع:</strong> ${typeName}</p>
-                                <p><strong>السلالة:</strong> ${pet.breed}</p>
-                                <p><strong>العمر:</strong> ${pet.age}</p>
-                                <p><strong>الملجأ:</strong> ${pet.shelter}</p>
-                            </div>
-                            <p class="pet-description">${pet.description}</p>
-                            <div class="pet-actions">
-                                <button onclick="applyForAdoption(${pet.id})" class="btn-details">قدم طلب تبني</button>
-                                <button onclick="contactShelter('${pet.shelter}')" class="btn-contact">تواصل مع الملجأ</button>
+          const modal = document.createElement("div");
+          modal.className = "modal";
+          modal.style.display = "block";
+          modal.innerHTML = `
+                    <div class="modal-content" style="max-width: 800px;">
+                        <span class="close" onclick="this.parentElement.parentElement.remove()">&times;</span>
+                        <h2>${listing.title}</h2>
+                        <div style="display: flex; gap: 20px;">
+                            <img src="${listing.primary_image || "https://via.placeholder.com/400"}" style="width: 300px; border-radius: 10px;">
+                            <div>
+                                <p>${listing.description}</p>
+                                <h3>معلومات الحيوان</h3>
+                                <p><strong>الاسم:</strong> ${listing.animal?.name}</p>
+                                <p><strong>النوع:</strong> ${listing.animal?.animal_type_name}</p>
+                                <p><strong>السلالة:</strong> ${listing.animal?.breed_name}</p>
+                                <p><strong>العمر:</strong> ${listing.animal?.age_display}</p>
+                                <p><strong>الموقع:</strong> ${listing.animal?.location}</p>
+                                <button class="btn-primary" onclick="applyForAdoption(${listing.id})">قدم طلب تبني</button>
                             </div>
                         </div>
                     </div>
                 `;
-          })
-          .join("");
-      }
-
-      // طلب التبني
-      function applyForAdoption(petId) {
-        const isLoggedIn = localStorage.getItem("token");
-        if (isLoggedIn) {
-          alert("سيتم توجيهك إلى نموذج طلب التبني");
-          // هنا يمكن توجيه المستخدم إلى نموذج الطلب
-        } else {
-          if (
-            confirm(
-              "يجب تسجيل الدخول أولاً. هل تريد الانتقال إلى صفحة تسجيل الدخول؟",
-            )
-          ) {
-            window.location.href = "login.html";
-          }
+          document.body.appendChild(modal);
+        } catch (error) {
+          showNotification("حدث خطأ في تحميل التفاصيل", "error");
         }
       }
 
-      // التواصل مع الملجأ
-      function contactShelter(shelterName) {
-        alert(`سيتم فتح محادثة مع ${shelterName}`);
+      // Apply for adoption
+      function applyForAdoption(listingId) {
+        if (!requireAuth()) return;
+
+        selectedListingId = listingId;
+        document.getElementById("listingId").value = listingId;
+        document.getElementById("applicationModal").style.display = "block";
       }
 
-      // عرض حيوانات ملجأ معين
-      function viewShelterPets(shelterName) {
-        document.getElementById("shelterFilter").value = shelterName;
-        filterAdoptionPets();
-        document
-          .getElementById("available-pets")
-          .scrollIntoView({ behavior: "smooth" });
+      // Submit application
+      async function submitApplication(event) {
+        event.preventDefault();
+
+        const formData = {
+          has_experience:
+            document.getElementById("hasExperience").value === "true",
+          has_other_pets:
+            document.getElementById("hasOtherPets").value === "true",
+          has_children: document.getElementById("hasChildren").value === "true",
+          housing_type: document.getElementById("housingType").value,
+          has_yard: document.getElementById("hasYard").value === "true",
+          why_adopt: document.getElementById("whyAdopt").value,
+          message: document.getElementById("message").value,
+        };
+
+        showLoading();
+
+        try {
+          await apiCall(
+            `/listings/${selectedListingId}/apply/`,
+            "POST",
+            formData,
+          );
+          showNotification("تم تقديم طلب التبني بنجاح", "success");
+          closeApplicationModal();
+        } catch (error) {
+          showNotification(error.message || "حدث خطأ في تقديم الطلب", "error");
+        } finally {
+          hideLoading();
+        }
       }
 
-      // تهيئة الصفحة
-      document.addEventListener("DOMContentLoaded", function () {
-        displayAdoptionPets();
-        displayShelters();
+      // Close modal
+      function closeApplicationModal() {
+        document.getElementById("applicationModal").style.display = "none";
+        document.getElementById("applicationForm").reset();
+      }
+
+      // Pagination
+      function prevPage() {
+        if (currentPage > 1) {
+          currentPage--;
+          loadAdoptionListings();
+        }
+      }
+
+      function nextPage() {
+        if (currentPage < totalPages) {
+          currentPage++;
+          loadAdoptionListings();
+        }
+      }
+
+      function updatePagination() {
+        document.getElementById("pageInfo").textContent =
+          `صفحة ${currentPage} من ${totalPages}`;
+        document.getElementById("prevBtn").disabled = currentPage === 1;
+        document.getElementById("nextBtn").disabled =
+          currentPage === totalPages;
+      }
+
+      // Event listeners
+      document.getElementById("searchInput").addEventListener("input", () => {
+        currentPage = 1;
+        loadAdoptionListings();
+      });
+
+      document.getElementById("typeFilter").addEventListener("change", () => {
+        currentPage = 1;
+        loadAdoptionListings();
+      });
+
+      document.getElementById("genderFilter").addEventListener("change", () => {
+        currentPage = 1;
+        loadAdoptionListings();
+      });
+
+      // Initialize
+      document.addEventListener("DOMContentLoaded", () => {
+        loadPetTypes();
+        loadAdoptionListings();
       });
     </script>
   </body>
