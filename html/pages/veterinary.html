@@ -4,73 +4,720 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>الرعاية البيطرية - PalPets</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap"
       rel="stylesheet"
     />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
-    <link rel="stylesheet" href="../css/style.css" />
+
     <style>
+      :root {
+        --primary: #ff7a59;
+        --primary-dark: #e85f3d;
+        --secondary: #ffd166;
+        --accent: #5ec8a5;
+        --accent-dark: #37ad87;
+        --accent-light: #e8fff7;
+        --success: #059669;
+        --success-dark: #047857;
+        --success-light: #ecfdf5;
+        --danger: #dc2626;
+        --danger-light: #fee2e2;
+        --background: #fffaf5;
+        --background-soft: #fdf3ea;
+        --surface: #ffffff;
+        --text: #2f2a26;
+        --text-light: #6f665f;
+        --border: #f0dfd2;
+        --shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+        --container: 1200px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "Tajawal", sans-serif;
+        background:
+          radial-gradient(circle at top right, rgba(255, 209, 102, 0.18), transparent 20%),
+          radial-gradient(circle at bottom left, rgba(94, 200, 165, 0.12), transparent 22%),
+          linear-gradient(180deg, #fffaf5 0%, #fff7ef 100%);
+        color: var(--text);
+        line-height: 1.7;
+        min-height: 100vh;
+        position: relative;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.05;
+        background-image:
+          url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='%23ff7a59'%3E%3Ccircle cx='28' cy='30' r='8'/%3E%3Ccircle cx='47' cy='18' r='7'/%3E%3Ccircle cx='66' cy='30' r='8'/%3E%3Ccircle cx='38' cy='48' r='7'/%3E%3Cpath d='M57 52c11 0 18 8 18 17 0 8-7 13-18 13s-18-5-18-13c0-9 7-17 18-17z'/%3E%3C/g%3E%3C/svg%3E");
+        background-size: 120px;
+        z-index: -1;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      img {
+        max-width: 100%;
+        display: block;
+      }
+
+      button,
+      input,
+      select,
+      textarea {
+        font-family: inherit;
+      }
+
+      .container {
+        width: min(100% - 32px, var(--container));
+        margin-inline: auto;
+      }
+
+      .section-title {
+        text-align: center;
+        font-size: 2rem;
+        font-weight: 800;
+        margin-bottom: 40px;
+        color: var(--text);
+        position: relative;
+      }
+
+      .section-title::after {
+        content: "";
+        width: 90px;
+        height: 5px;
+        border-radius: 999px;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        display: block;
+        margin: 12px auto 0;
+      }
+
+      /* Navbar */
+      .navbar {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: rgba(255, 255, 255, 0.86);
+        backdrop-filter: blur(14px);
+        border-bottom: 1px solid rgba(240, 223, 210, 0.8);
+      }
+
+      .navbar .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        min-height: 82px;
+      }
+
+      .logo img {
+        height: 52px;
+        object-fit: contain;
+      }
+
+      .nav-menu {
+        display: flex;
+        align-items: center;
+        gap: 22px;
+      }
+
+      .nav-menu a {
+        font-weight: 700;
+        color: var(--text-light);
+        transition: 0.25s ease;
+        position: relative;
+      }
+
+      .nav-menu a:hover,
+      .nav-menu a.active {
+        color: var(--primary);
+      }
+
+      .nav-menu a.active::after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        right: 0;
+        width: 100%;
+        height: 3px;
+        border-radius: 999px;
+        background: var(--primary);
+      }
+
+      .auth-buttons {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .mobile-menu-btn {
+        display: none;
+        border: none;
+        background: var(--primary);
+        color: #fff;
+        width: 46px;
+        height: 46px;
+        border-radius: 14px;
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: 0.25s ease;
+      }
+
+      .mobile-menu-btn:hover {
+        background: var(--primary-dark);
+      }
+
+      .mobile-menu {
+        display: none;
+        flex-direction: column;
+        background: #fff;
+        border-top: 1px solid var(--border);
+        padding: 12px 16px;
+      }
+
+      .mobile-menu a {
+        padding: 12px;
+        border-radius: 12px;
+        font-weight: 700;
+        color: var(--text-light);
+        transition: 0.25s ease;
+      }
+
+      .mobile-menu a:hover {
+        background: var(--background-soft);
+        color: var(--primary);
+      }
+
+      .mobile-menu.show {
+        display: flex;
+      }
+
+      /* Hero */
+      .page-hero {
+        position: relative;
+        overflow: hidden;
+        min-height: 430px;
+        display: flex;
+        align-items: center;
+        padding: 90px 0 70px;
+        background:
+          linear-gradient(rgba(47, 42, 38, 0.48), rgba(47, 42, 38, 0.48)),
+          url("https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=1600&q=80") center/cover no-repeat;
+      }
+
+      .page-hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(5, 150, 105, 0.18)),
+          radial-gradient(circle at 20% 20%, rgba(255, 209, 102, 0.18), transparent 24%);
+      }
+
+      .page-hero::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          url("https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=1000&q=80") left center/28% 100% no-repeat,
+          url("https://images.unsplash.com/photo-1519052537078-e6302a4968d4?auto=format&fit=crop&w=900&q=80") right center/28% 100% no-repeat;
+        opacity: 0.15;
+        mix-blend-mode: screen;
+      }
+
+      .page-hero-content {
+        position: relative;
+        z-index: 2;
+        background: rgba(255, 255, 255, 0.14);
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        backdrop-filter: blur(12px);
+        padding: 42px;
+        border-radius: 28px;
+        color: #fff;
+        max-width: 760px;
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.16);
+      }
+
+      .page-hero h1 {
+        font-size: clamp(2rem, 4vw, 3rem);
+        font-weight: 800;
+        margin-bottom: 16px;
+        line-height: 1.3;
+      }
+
+      .page-hero p {
+        font-size: 1.08rem;
+        color: rgba(255, 255, 255, 0.92);
+        margin-bottom: 18px;
+        max-width: 620px;
+      }
+
+      .hero-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .hero-badge {
+        background: rgba(255, 255, 255, 0.16);
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        color: #fff;
+        padding: 10px 16px;
+        border-radius: 999px;
+        font-weight: 700;
+        font-size: 0.95rem;
+        backdrop-filter: blur(8px);
+      }
+
+      /* Common sections */
+      .section-block {
+        padding: 70px 0;
+      }
+
+      /* Emergency */
       .emergency-banner {
         background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
         color: white;
-        padding: 1.5rem;
-        border-radius: 0.5rem;
+        padding: 1.5rem 1.75rem;
+        border-radius: 24px;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 2rem;
+        gap: 20px;
+        margin-top: -35px;
+        box-shadow: 0 16px 30px rgba(220, 38, 38, 0.22);
+        position: relative;
+        z-index: 3;
       }
+
+      .emergency-banner h3 {
+        font-size: 1.35rem;
+        margin-bottom: 6px;
+      }
+
+      .emergency-banner p {
+        color: rgba(255, 255, 255, 0.9);
+      }
+
       .emergency-number {
         font-size: 2rem;
-        font-weight: bold;
+        font-weight: 800;
+        white-space: nowrap;
       }
-      .vaccination-schedule {
-        background: white;
-        padding: 2rem;
-        border-radius: 0.5rem;
+
+      /* Tabs */
+      .tabs-wrapper {
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid var(--border);
         box-shadow: var(--shadow);
+        border-radius: 24px;
+        padding: 16px;
       }
+
+      .tabs {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .tab {
+        padding: 12px 22px;
+        border: 1px solid var(--border);
+        background: #fff;
+        color: var(--text-light);
+        border-radius: 14px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: 0.25s ease;
+      }
+
+      .tab.active {
+        color: #fff;
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        border-color: transparent;
+      }
+
+      .tab-content {
+        display: none;
+      }
+
+      .tab-content.active {
+        display: block;
+      }
+
+      /* Filters / search */
+      .search-card,
+      .form-card,
+      .vaccination-schedule {
+        background: rgba(255, 255, 255, 0.92);
+        padding: 24px;
+        border-radius: 24px;
+        box-shadow: var(--shadow);
+        border: 1px solid var(--border);
+      }
+
+      .search-grid,
+      .form-row {
+        display: grid;
+        gap: 16px;
+      }
+
+      .search-grid {
+        grid-template-columns: 2fr 1fr 1fr auto;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .form-group {
+        margin-bottom: 18px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 700;
+        color: var(--text);
+      }
+
+      .search-input,
+      .form-input {
+        width: 100%;
+        min-height: 54px;
+        border-radius: 16px;
+        border: 1px solid var(--border);
+        background: #fff;
+        padding: 0 18px;
+        font-size: 1rem;
+        color: var(--text);
+        outline: none;
+        transition: 0.25s ease;
+      }
+
+      .search-input:focus,
+      .form-input:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 4px rgba(255, 122, 89, 0.12);
+      }
+
+      /* Buttons */
+      .btn-primary,
+      .btn-details,
+      .btn-submit {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        border: none;
+        border-radius: 14px;
+        cursor: pointer;
+        transition: 0.25s ease;
+        font-weight: 700;
+        min-height: 52px;
+        padding: 0 22px;
+      }
+
+      .btn-primary,
+      .btn-submit {
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        color: #fff;
+      }
+
+      .btn-details {
+        background: var(--accent);
+        color: #fff;
+        margin-top: 12px;
+        width: 100%;
+      }
+
+      .btn-primary:hover,
+      .btn-details:hover,
+      .btn-submit:hover,
+      .tab:hover {
+        transform: translateY(-2px);
+      }
+
+      /* Cards / grids */
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 22px;
+      }
+
+      .clinic-card,
+      .doctor-card {
+        background: #fff;
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        border: 1px solid var(--border);
+        transition: 0.25s ease;
+      }
+
+      .clinic-card:hover,
+      .doctor-card:hover {
+        transform: translateY(-6px);
+      }
+
+      .clinic-image,
+      .doctor-image {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        background: #f3f4f6;
+      }
+
+      .clinic-info,
+      .doctor-info {
+        padding: 20px;
+      }
+
+      .clinic-info h3,
+      .doctor-info h3 {
+        margin-bottom: 10px;
+        font-size: 1.2rem;
+      }
+
+      .clinic-info p,
+      .doctor-info p {
+        color: var(--text-light);
+        margin-bottom: 7px;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 12px;
+        border-radius: 999px;
+        font-size: 0.88rem;
+        font-weight: 700;
+      }
+
+      .badge-emergency {
+        background: var(--danger-light);
+        color: var(--danger);
+        margin-top: 6px;
+      }
+
+      .badge-rating {
+        background: var(--success-light);
+        color: var(--success-dark);
+      }
+
+      /* Appointments */
+      #userAppointments {
+        margin-top: 28px;
+      }
+
+      .appointment-card {
+        background: #fff;
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow);
+        border-radius: 20px;
+        padding: 18px;
+        margin-bottom: 14px;
+      }
+
+      .appointment-card h4 {
+        margin-bottom: 8px;
+      }
+
+      .appointment-card p {
+        color: var(--text-light);
+        margin-bottom: 5px;
+      }
+
+      /* Vaccination table */
       .schedule-table {
         width: 100%;
         border-collapse: collapse;
+        overflow: hidden;
+        border-radius: 18px;
       }
+
       .schedule-table th {
-        background: var(--primary-color);
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
         color: white;
         padding: 1rem;
+        text-align: center;
       }
+
       .schedule-table td {
-        padding: 0.75rem;
-        border-bottom: 1px solid #e5e7eb;
+        padding: 0.9rem 1rem;
+        border-bottom: 1px solid #eee;
+        text-align: center;
+        color: var(--text-light);
+        background: #fff;
       }
-      .clinic-card {
-        background: white;
-        border-radius: 0.5rem;
-        overflow: hidden;
+
+      .schedule-table tr:nth-child(even) td {
+        background: #fffaf7;
+      }
+
+      /* Empty states */
+      .empty-state {
+        text-align: center;
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid var(--border);
         box-shadow: var(--shadow);
+        border-radius: 24px;
+        padding: 40px 20px;
+        color: var(--text-light);
       }
-      .clinic-image {
-        width: 100%;
-        height: 200px;
-        object-fit: cover;
+
+      /* Footer */
+      .footer {
+        background: linear-gradient(180deg, #2f2a26, #241f1c);
+        color: #fff;
+        margin-top: 40px;
+        position: relative;
+        overflow: hidden;
+        padding: 60px 0 30px;
       }
-      .clinic-info {
-        padding: 1.5rem;
+
+      .footer::before {
+        content: "🐾";
+        position: absolute;
+        top: 20px;
+        left: 30px;
+        font-size: 7rem;
+        opacity: 0.05;
+      }
+
+      .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 22px;
+      }
+
+      .footer-section h3 {
+        margin-bottom: 16px;
+        color: var(--secondary);
+      }
+
+      .footer-section p,
+      .footer-links li {
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .footer-links {
+        list-style: none;
+      }
+
+      .footer-links li {
+        margin-bottom: 10px;
+      }
+
+      .footer-links a:hover {
+        color: var(--secondary);
+      }
+
+      .footer-bottom {
+        margin-top: 35px;
+        padding-top: 18px;
+        border-top: 1px solid rgba(255, 255, 255, 0.12);
+        text-align: center;
+        color: rgba(255, 255, 255, 0.75);
+      }
+
+      @media (max-width: 992px) {
+        .nav-menu {
+          display: none;
+        }
+
+        .mobile-menu-btn {
+          display: inline-grid;
+          place-items: center;
+        }
+
+        .page-hero::after {
+          display: none;
+        }
+
+        .search-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .page-hero {
+          min-height: 360px;
+          padding: 60px 0;
+          background-position: center;
+        }
+
+        .page-hero-content {
+          padding: 28px 20px;
+          border-radius: 22px;
+        }
+
+        .page-hero p {
+          font-size: 1rem;
+        }
+
+        .section-block {
+          padding: 55px 0;
+        }
+
+        .emergency-banner {
+          flex-direction: column;
+          align-items: flex-start;
+          margin-top: -20px;
+        }
+
+        .emergency-number {
+          font-size: 1.6rem;
+        }
+
+        .tabs {
+          flex-direction: column;
+        }
+
+        .search-grid,
+        .form-row {
+          grid-template-columns: 1fr;
+        }
+
+        .schedule-table {
+          display: block;
+          overflow-x: auto;
+          white-space: nowrap;
+        }
       }
     </style>
   </head>
+
   <body>
     <nav class="navbar">
       <div class="container">
         <a href="../index.html" class="logo">
           <img src="../images/logo.png" alt="PalPets" />
         </a>
+
         <div class="nav-menu">
           <a href="../index.html">الرئيسية</a>
           <a href="pets.html">الحيوانات</a>
@@ -79,51 +726,74 @@
           <a href="veterinary.html" class="active">الرعاية البيطرية</a>
           <a href="store.html">المتجر</a>
         </div>
+
         <div class="auth-buttons"></div>
         <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
       </div>
+
+      <div class="mobile-menu" id="mobileMenu">
+        <a href="../index.html">الرئيسية</a>
+        <a href="pets.html">الحيوانات</a>
+        <a href="adoption.html">التبني</a>
+        <a href="lost-found.html">مفقود ومعثور</a>
+        <a href="veterinary.html">الرعاية البيطرية</a>
+        <a href="store.html">المتجر</a>
+        <a href="login.html">تسجيل الدخول</a>
+      </div>
     </nav>
 
-    <!-- Hero -->
-    <section
-      class="hero"
-      style="background: linear-gradient(135deg, #10b981 0%, #059669 100%)"
-    >
+    <section class="page-hero">
       <div class="container">
-        <div class="hero-content">
-          <h2>الرعاية البيطرية</h2>
-          <p>أفضل الأطباء والعيادات البيطرية لرعاية حيوانك الأليف</p>
+        <div class="page-hero-content">
+          <h1>أفضل رعاية بيطرية لحيوانك الأليف</h1>
+          <p>
+            اعثر على العيادات والأطباء البيطريين، واحجز موعدك بسهولة، واطلع على
+            أساسيات الرعاية والتطعيمات في مكان واحد.
+          </p>
+
+          <div class="hero-badges">
+            <span class="hero-badge">🏥 عيادات موثوقة</span>
+            <span class="hero-badge">👨‍⚕️ أطباء بيطريون</span>
+            <span class="hero-badge">📅 حجز مواعيد</span>
+            <span class="hero-badge">💉 جداول تطعيم</span>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Emergency -->
-    <div class="container">
-      <div class="emergency-banner">
-        <div>
-          <h3>🚨 طوارئ بيطرية 24/7</h3>
-          <p>خدمة الطوارئ متاحة على مدار الساعة</p>
+    <section class="section-block" style="padding-bottom: 30px;">
+      <div class="container">
+        <div class="emergency-banner">
+          <div>
+            <h3>🚨 طوارئ بيطرية 24/7</h3>
+            <p>خدمة الطوارئ البيطرية متاحة على مدار الساعة للحالات العاجلة.</p>
+          </div>
+          <div class="emergency-number">📞 920012345</div>
         </div>
-        <div class="emergency-number">📞 920012345</div>
       </div>
-    </div>
+    </section>
 
-    <!-- Tabs -->
-    <div class="container">
-      <div class="tabs">
-        <button class="tab active" onclick="showTab('clinics')">
-          العيادات
-        </button>
-        <button class="tab" onclick="showTab('doctors')">الأطباء</button>
-        <button class="tab" onclick="showTab('appointments')">المواعيد</button>
+    <section class="section-block" style="padding-top: 0;">
+      <div class="container">
+        <div class="tabs-wrapper">
+          <div class="tabs">
+            <button class="tab active" onclick="showTab('clinics', this)">
+              العيادات
+            </button>
+            <button class="tab" onclick="showTab('doctors', this)">
+              الأطباء
+            </button>
+            <button class="tab" onclick="showTab('appointments', this)">
+              المواعيد
+            </button>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <!-- Clinics Tab -->
     <div id="clinicsTab" class="tab-content active">
-      <section class="services">
+      <section class="section-block" style="padding-top: 0;">
         <div class="container">
-          <!-- Filters -->
           <div class="search-card">
             <div class="search-grid">
               <input
@@ -142,43 +812,55 @@
             </div>
           </div>
 
-          <!-- Clinics Grid -->
           <div id="clinicsGrid" class="services-grid"></div>
         </div>
       </section>
     </div>
 
-    <!-- Doctors Tab -->
     <div id="doctorsTab" class="tab-content">
-      <section class="services">
+      <section class="section-block" style="padding-top: 0;">
         <div class="container">
           <div id="doctorsGrid" class="services-grid"></div>
         </div>
       </section>
     </div>
 
-    <!-- Appointments Tab -->
     <div id="appointmentsTab" class="tab-content">
-      <section class="services">
+      <section class="section-block" style="padding-top: 0;">
         <div class="container">
           <div class="form-card">
-            <h3>حجز موعد</h3>
+            <h3 style="margin-bottom: 18px;">حجز موعد</h3>
+
             <form id="appointmentForm" onsubmit="bookAppointment(event)">
               <div class="form-row">
                 <div class="form-group">
                   <label>العيادة</label>
-                  <select id="appClinic" class="form-input" required></select>
+                  <select id="appClinic" class="form-input" required>
+                    <option value="">اختر العيادة</option>
+                  </select>
                 </div>
+
                 <div class="form-group">
                   <label>الطبيب</label>
-                  <select id="appDoctor" class="form-input" required></select>
+                  <select id="appDoctor" class="form-input" required>
+                    <option value="">اختر الطبيب</option>
+                  </select>
                 </div>
               </div>
+
               <div class="form-row">
                 <div class="form-group">
                   <label>الخدمة</label>
-                  <select id="appService" class="form-input" required></select>
+                  <select id="appService" class="form-input" required>
+                    <option value="">اختر الخدمة</option>
+                    <option value="general_checkup">فحص عام</option>
+                    <option value="vaccination">تطعيم</option>
+                    <option value="surgery">جراحة</option>
+                    <option value="emergency">طوارئ</option>
+                    <option value="consultation">استشارة</option>
+                  </select>
                 </div>
+
                 <div class="form-group">
                   <label>اسم الحيوان</label>
                   <input
@@ -189,16 +871,19 @@
                   />
                 </div>
               </div>
+
               <div class="form-row">
                 <div class="form-group">
                   <label>التاريخ</label>
                   <input type="date" id="appDate" class="form-input" required />
                 </div>
+
                 <div class="form-group">
                   <label>الوقت</label>
                   <input type="time" id="appTime" class="form-input" required />
                 </div>
               </div>
+
               <button type="submit" class="btn-submit">حجز الموعد</button>
             </form>
           </div>
@@ -208,10 +893,10 @@
       </section>
     </div>
 
-    <!-- Vaccination Schedule -->
-    <section class="services" style="background-color: white">
+    <section class="section-block">
       <div class="container">
         <h2 class="section-title">جدول التطعيمات الأساسية</h2>
+
         <div class="vaccination-schedule">
           <table class="schedule-table">
             <thead>
@@ -227,22 +912,69 @@
       </div>
     </section>
 
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-section">
+            <h3>عن المنصة</h3>
+            <p>
+              منصة متكاملة للعناية بالحيوانات الأليفة، تجمع عشاق الحيوانات،
+              المربين، والملاجئ في مكان واحد.
+            </p>
+          </div>
+
+          <div class="footer-section">
+            <h3>روابط سريعة</h3>
+            <ul class="footer-links">
+              <li><a href="../index.html">الرئيسية</a></li>
+              <li><a href="pets.html">الحيوانات</a></li>
+              <li><a href="adoption.html">التبني</a></li>
+              <li><a href="lost-found.html">مفقود ومعثور</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h3>الخدمات</h3>
+            <ul class="footer-links">
+              <li><a href="veterinary.html">الرعاية البيطرية</a></li>
+              <li><a href="store.html">المتجر</a></li>
+              <li><a href="#">التطعيمات</a></li>
+              <li><a href="#">استشارات</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h3>تواصل معنا</h3>
+            <ul class="footer-links">
+              <li>📞 +972599248391</li>
+              <li>✉️ info@PalPets.com</li>
+              <li>📍 فلسطين</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>© 2026 PalPets - جميع الحقوق محفوظة</p>
+        </div>
+      </div>
+    </footer>
+
     <script src="../js/api.js"></script>
     <script>
       let currentTab = "clinics";
       let cities = [];
 
-      // Show tab
-      function showTab(tab) {
-        currentTab = tab;
-        document
-          .querySelectorAll(".tab")
-          .forEach((t) => t.classList.remove("active"));
-        document
-          .querySelectorAll(".tab-content")
-          .forEach((c) => c.classList.remove("active"));
+      function toggleMobileMenu() {
+        document.getElementById("mobileMenu").classList.toggle("show");
+      }
 
-        event.target.classList.add("active");
+      function showTab(tab, el) {
+        currentTab = tab;
+
+        document.querySelectorAll(".tab").forEach((t) => t.classList.remove("active"));
+        document.querySelectorAll(".tab-content").forEach((c) => c.classList.remove("active"));
+
+        if (el) el.classList.add("active");
         document.getElementById(tab + "Tab").classList.add("active");
 
         if (tab === "clinics") loadClinics();
@@ -253,18 +985,19 @@
         }
       }
 
-      // Load clinics
       async function loadClinics() {
         showLoading();
 
         try {
           const search = document.getElementById("clinicSearch")?.value || "";
           const city = document.getElementById("cityFilter")?.value || "";
+          const specialty = document.getElementById("specialtyFilter")?.value || "";
 
           let url = "/veterinary/clinics/";
           const params = new URLSearchParams();
           if (search) params.append("search", search);
           if (city) params.append("city", city);
+          if (specialty) params.append("specialty", specialty);
           if (params.toString()) url += "?" + params.toString();
 
           const response = await apiCall(url, "GET", null, false);
@@ -272,137 +1005,176 @@
 
           displayClinics(clinics);
           extractCities(clinics);
+          extractSpecialties(clinics);
         } catch (error) {
           console.error("Error loading clinics:", error);
+          document.getElementById("clinicsGrid").innerHTML =
+            '<div class="empty-state">حدث خطأ في تحميل العيادات</div>';
         } finally {
           hideLoading();
         }
       }
 
-      // Display clinics
       function displayClinics(clinics) {
         const grid = document.getElementById("clinicsGrid");
+
+        if (!clinics.length) {
+          grid.innerHTML = '<div class="empty-state">لا توجد عيادات متاحة حالياً</div>';
+          return;
+        }
 
         grid.innerHTML = clinics
           .map(
             (clinic) => `
-                <div class="clinic-card">
-                    <img src="${clinic.logo || "https://via.placeholder.com/400x200"}" class="clinic-image">
-                    <div class="clinic-info">
-                        <h3>${clinic.name}</h3>
-                        <p>⭐ ${clinic.rating || 0} (${clinic.reviews_count || 0} تقييم)</p>
-                        <p>📍 ${clinic.city} - ${clinic.address}</p>
-                        <p>📞 ${clinic.phone}</p>
-                        ${clinic.emergency_service ? "<p>🚑 خدمة طوارئ 24/7</p>" : ""}
-                        <button class="btn-details" onclick="viewClinic(${clinic.id})">عرض التفاصيل</button>
-                    </div>
+              <div class="clinic-card">
+                <img
+                  src="${clinic.logo || "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1200&q=80"}"
+                  class="clinic-image"
+                  alt="${clinic.name}"
+                />
+                <div class="clinic-info">
+                  <h3>${clinic.name}</h3>
+                  <p><span class="badge badge-rating">⭐ ${clinic.rating || 0} (${clinic.reviews_count || 0} تقييم)</span></p>
+                  <p>📍 ${clinic.city || "غير محدد"} - ${clinic.address || "غير محدد"}</p>
+                  <p>📞 ${clinic.phone || "غير متوفر"}</p>
+                  ${
+                    clinic.specialty
+                      ? `<p>🩺 ${clinic.specialty}</p>`
+                      : ""
+                  }
+                  ${
+                    clinic.emergency_service
+                      ? `<p><span class="badge badge-emergency">🚑 خدمة طوارئ 24/7</span></p>`
+                      : ""
+                  }
+                  <button class="btn-details" onclick="viewClinic(${clinic.id})">عرض التفاصيل</button>
                 </div>
-            `,
+              </div>
+            `
           )
           .join("");
       }
 
-      // Extract cities for filter
       function extractCities(clinics) {
-        cities = [...new Set(clinics.map((c) => c.city))];
+        cities = [...new Set(clinics.map((c) => c.city).filter(Boolean))];
         const select = document.getElementById("cityFilter");
+        const currentValue = select.value;
+
         select.innerHTML =
           '<option value="">جميع المدن</option>' +
           cities.map((c) => `<option value="${c}">${c}</option>`).join("");
+
+        if (cities.includes(currentValue)) {
+          select.value = currentValue;
+        }
       }
 
-      // Load doctors
+      function extractSpecialties(clinics) {
+        const specialties = [...new Set(clinics.map((c) => c.specialty).filter(Boolean))];
+        const select = document.getElementById("specialtyFilter");
+        const currentValue = select.value;
+
+        select.innerHTML =
+          '<option value="">جميع التخصصات</option>' +
+          specialties.map((s) => `<option value="${s}">${s}</option>`).join("");
+
+        if (specialties.includes(currentValue)) {
+          select.value = currentValue;
+        }
+      }
+
       async function loadDoctors() {
         showLoading();
 
         try {
-          const response = await apiCall(
-            "/veterinary/doctors/",
-            "GET",
-            null,
-            false,
-          );
+          const response = await apiCall("/veterinary/doctors/", "GET", null, false);
           const doctors = response.results || response || [];
-
           displayDoctors(doctors);
         } catch (error) {
           console.error("Error loading doctors:", error);
+          document.getElementById("doctorsGrid").innerHTML =
+            '<div class="empty-state">حدث خطأ في تحميل الأطباء</div>';
         } finally {
           hideLoading();
         }
       }
 
-      // Display doctors
       function displayDoctors(doctors) {
         const grid = document.getElementById("doctorsGrid");
+
+        if (!doctors.length) {
+          grid.innerHTML = '<div class="empty-state">لا يوجد أطباء متاحون حالياً</div>';
+          return;
+        }
 
         grid.innerHTML = doctors
           .map(
             (doc) => `
-                <div class="service-card">
-                    <img src="${doc.profile_image || "https://via.placeholder.com/200"}" 
-                         style="width: 100%; height: 200px; object-fit: cover; border-radius: 0.5rem;">
-                    <h3>د. ${doc.name}</h3>
-                    <p>${doc.title}</p>
-                    <p>⭐ ${doc.rating || 0} (${doc.reviews_count || 0} تقييم)</p>
-                    <p>📞 ${doc.phone}</p>
-                    <p>${doc.experience_years} سنوات خبرة</p>
-                    <button class="btn-details" onclick="viewDoctor(${doc.id})">عرض التفاصيل</button>
+              <div class="doctor-card">
+                <img
+                  src="${doc.profile_image || "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=1200&q=80"}"
+                  class="doctor-image"
+                  alt="د. ${doc.name}"
+                />
+                <div class="doctor-info">
+                  <h3>د. ${doc.name || "غير محدد"}</h3>
+                  <p>${doc.title || "طبيب بيطري"}</p>
+                  <p><span class="badge badge-rating">⭐ ${doc.rating || 0} (${doc.reviews_count || 0} تقييم)</span></p>
+                  <p>📞 ${doc.phone || "غير متوفر"}</p>
+                  <p>🧪 ${doc.experience_years || 0} سنوات خبرة</p>
+                  ${
+                    doc.clinic_name
+                      ? `<p>🏥 ${doc.clinic_name}</p>`
+                      : ""
+                  }
+                  <button class="btn-details" onclick="viewDoctor(${doc.id})">عرض التفاصيل</button>
                 </div>
-            `,
+              </div>
+            `
           )
           .join("");
       }
 
-      // Load clinics for appointment
       async function loadClinicsForAppointment() {
         try {
-          const response = await apiCall(
-            "/veterinary/clinics/",
-            "GET",
-            null,
-            false,
-          );
+          const response = await apiCall("/veterinary/clinics/", "GET", null, false);
           const clinics = response.results || response || [];
 
           const select = document.getElementById("appClinic");
           select.innerHTML =
             '<option value="">اختر العيادة</option>' +
-            clinics
-              .map((c) => `<option value="${c.id}">${c.name}</option>`)
-              .join("");
+            clinics.map((c) => `<option value="${c.id}">${c.name}</option>`).join("");
         } catch (error) {
           console.error("Error loading clinics:", error);
         }
       }
 
-      // Load doctors for selected clinic
-      document
-        .getElementById("appClinic")
-        ?.addEventListener("change", async function (e) {
-          if (e.target.value) {
-            try {
-              const response = await apiCall(
-                `/veterinary/doctors/?clinic=${e.target.value}`,
-                "GET",
-                null,
-                false,
-              );
-              const doctors = response.results || response || [];
+      document.getElementById("appClinic")?.addEventListener("change", async function (e) {
+        const clinicId = e.target.value;
+        const doctorSelect = document.getElementById("appDoctor");
 
-              const select = document.getElementById("appDoctor");
-              select.innerHTML =
-                '<option value="">اختر الطبيب</option>' +
-                doctors
-                  .map((d) => `<option value="${d.id}">د. ${d.name}</option>`)
-                  .join("");
-            } catch (error) {
-              console.error("Error loading doctors:", error);
-            }
-          }
-        });
+        if (!clinicId) {
+          doctorSelect.innerHTML = '<option value="">اختر الطبيب</option>';
+          return;
+        }
 
-      // Book appointment
+        try {
+          const response = await apiCall(
+            `/veterinary/doctors/?clinic=${encodeURIComponent(clinicId)}`,
+            "GET",
+            null,
+            false
+          );
+          const doctors = response.results || response || [];
+
+          doctorSelect.innerHTML =
+            '<option value="">اختر الطبيب</option>' +
+            doctors.map((d) => `<option value="${d.id}">د. ${d.name}</option>`).join("");
+        } catch (error) {
+          console.error("Error loading doctors:", error);
+        }
+      });
+
       async function bookAppointment(event) {
         event.preventDefault();
         if (!requireAuth()) return;
@@ -421,6 +1193,7 @@
         try {
           await apiCall("/veterinary/appointments/", "POST", formData);
           showNotification("تم حجز الموعد بنجاح", "success");
+          document.getElementById("appointmentForm").reset();
           loadUserAppointments();
         } catch (error) {
           showNotification(error.message || "حدث خطأ في الحجز", "error");
@@ -429,26 +1202,141 @@
         }
       }
 
-      // Load user appointments
       async function loadUserAppointments() {
         try {
-          const response = await apiCall(
-            "/veterinary/appointments/",
-            "GET",
-            null,
-            false,
-          );
+          const response = await apiCall("/veterinary/appointments/", "GET", null, false);
           const appointments = response.results || response || [];
-
           displayUserAppointments(appointments);
         } catch (error) {
           console.error("Error loading appointments:", error);
         }
       }
 
-      // Initialize
+      function displayUserAppointments(appointments) {
+        const container = document.getElementById("userAppointments");
+
+        if (!appointments.length) {
+          container.innerHTML =
+            '<div class="empty-state" style="margin-top: 24px;">لا توجد مواعيد محفوظة حالياً</div>';
+          return;
+        }
+
+        container.innerHTML = `
+          <div style="margin-top: 26px;">
+            <h3 style="margin-bottom: 16px;">مواعيدي</h3>
+            ${appointments
+              .map(
+                (app) => `
+                  <div class="appointment-card">
+                    <h4>${app.clinic_name || "عيادة"} - ${app.doctor_name || "طبيب"}</h4>
+                    <p>🐾 ${app.pet_name || "غير محدد"}</p>
+                    <p>🩺 ${getServiceName(app.service)}</p>
+                    <p>📅 ${app.appointment_date || "-"} | ⏰ ${app.appointment_time || "-"}</p>
+                    ${
+                      app.status
+                        ? `<p>📌 الحالة: ${getAppointmentStatusName(app.status)}</p>`
+                        : ""
+                    }
+                  </div>
+                `
+              )
+              .join("")}
+          </div>
+        `;
+      }
+
+      function getServiceName(service) {
+        switch (service) {
+          case "general_checkup":
+            return "فحص عام";
+          case "vaccination":
+            return "تطعيم";
+          case "surgery":
+            return "جراحة";
+          case "emergency":
+            return "طوارئ";
+          case "consultation":
+            return "استشارة";
+          default:
+            return service || "غير محدد";
+        }
+      }
+
+      function getAppointmentStatusName(status) {
+        switch (status) {
+          case "pending":
+            return "قيد الانتظار";
+          case "confirmed":
+            return "مؤكد";
+          case "completed":
+            return "مكتمل";
+          case "cancelled":
+            return "ملغي";
+          default:
+            return status;
+        }
+      }
+
+      function viewClinic(id) {
+        showNotification("يمكنك لاحقاً ربط الزر بصفحة تفاصيل العيادة.", "success");
+      }
+
+      function viewDoctor(id) {
+        showNotification("يمكنك لاحقاً ربط الزر بصفحة تفاصيل الطبيب.", "success");
+      }
+
+      function populateVaccinationTable() {
+        const rows = [
+          {
+            age: "6-8 أسابيع",
+            dogs: "DHPP الجرعة الأولى",
+            cats: "FVRCP الجرعة الأولى",
+          },
+          {
+            age: "10-12 أسبوع",
+            dogs: "DHPP الجرعة الثانية",
+            cats: "FVRCP الجرعة الثانية",
+          },
+          {
+            age: "12-16 أسبوع",
+            dogs: "داء الكلب + DHPP",
+            cats: "داء الكلب + FVRCP",
+          },
+          {
+            age: "سنويًا",
+            dogs: "جرعات معززة حسب الحاجة",
+            cats: "جرعات معززة حسب الحاجة",
+          },
+        ];
+
+        document.getElementById("vaccinationTable").innerHTML = rows
+          .map(
+            (row) => `
+              <tr>
+                <td>${row.age}</td>
+                <td>${row.dogs}</td>
+                <td>${row.cats}</td>
+              </tr>
+            `
+          )
+          .join("");
+      }
+
+      document.getElementById("clinicSearch")?.addEventListener("input", () => {
+        loadClinics();
+      });
+
+      document.getElementById("cityFilter")?.addEventListener("change", () => {
+        loadClinics();
+      });
+
+      document.getElementById("specialtyFilter")?.addEventListener("change", () => {
+        loadClinics();
+      });
+
       document.addEventListener("DOMContentLoaded", () => {
         loadClinics();
+        populateVaccinationTable();
       });
     </script>
   </body>

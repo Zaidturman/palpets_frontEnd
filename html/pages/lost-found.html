@@ -4,57 +4,786 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>مفقود ومعثور - PalPets</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap"
       rel="stylesheet"
     />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
-    <link rel="stylesheet" href="../css/style.css" />
+
     <style>
-      .tab-buttons {
+      :root {
+        --primary: #ff7a59;
+        --primary-dark: #e85f3d;
+        --secondary: #ffd166;
+        --accent: #5ec8a5;
+        --accent-dark: #37ad87;
+        --accent-light: #e8fff7;
+        --danger: #e11d48;
+        --danger-light: #fff1f4;
+        --success-dark: #065f46;
+        --success-light: #ecfdf5;
+        --warning: #f59e0b;
+        --warning-light: #fff7e6;
+        --background: #fffaf5;
+        --background-soft: #fdf3ea;
+        --surface: #ffffff;
+        --text: #2f2a26;
+        --text-light: #6f665f;
+        --border: #f0dfd2;
+        --shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+        --container: 1200px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "Tajawal", sans-serif;
+        background:
+          radial-gradient(circle at top right, rgba(255, 209, 102, 0.18), transparent 20%),
+          radial-gradient(circle at bottom left, rgba(94, 200, 165, 0.12), transparent 22%),
+          linear-gradient(180deg, #fffaf5 0%, #fff7ef 100%);
+        color: var(--text);
+        line-height: 1.7;
+        position: relative;
+        min-height: 100vh;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.05;
+        background-image:
+          url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='%23ff7a59'%3E%3Ccircle cx='28' cy='30' r='8'/%3E%3Ccircle cx='47' cy='18' r='7'/%3E%3Ccircle cx='66' cy='30' r='8'/%3E%3Ccircle cx='38' cy='48' r='7'/%3E%3Cpath d='M57 52c11 0 18 8 18 17 0 8-7 13-18 13s-18-5-18-13c0-9 7-17 18-17z'/%3E%3C/g%3E%3C/svg%3E");
+        background-size: 120px;
+        z-index: -1;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      img {
+        max-width: 100%;
+        display: block;
+      }
+
+      button,
+      input,
+      select,
+      textarea {
+        font-family: inherit;
+      }
+
+      .container {
+        width: min(100% - 32px, var(--container));
+        margin-inline: auto;
+      }
+
+      .section-title {
+        text-align: center;
+        font-size: 2rem;
+        font-weight: 800;
+        margin-bottom: 40px;
+        color: var(--text);
+        position: relative;
+      }
+
+      .section-title::after {
+        content: "";
+        width: 90px;
+        height: 5px;
+        border-radius: 999px;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        display: block;
+        margin: 12px auto 0;
+      }
+
+      /* Navbar */
+      .navbar {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: rgba(255, 255, 255, 0.86);
+        backdrop-filter: blur(14px);
+        border-bottom: 1px solid rgba(240, 223, 210, 0.8);
+      }
+
+      .navbar .container {
         display: flex;
-        gap: 1rem;
-        margin-bottom: 2rem;
-        border-bottom: 2px solid #e5e7eb;
-        padding-bottom: 1rem;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        min-height: 82px;
       }
-      .tab-button {
-        padding: 0.5rem 2rem;
-        border: none;
-        background: none;
-        font-size: 1rem;
-        font-weight: 600;
+
+      .logo img {
+        height: 52px;
+        object-fit: contain;
+      }
+
+      .nav-menu {
+        display: flex;
+        align-items: center;
+        gap: 22px;
+      }
+
+      .nav-menu a {
+        font-weight: 700;
         color: var(--text-light);
+        transition: 0.25s ease;
+        position: relative;
+      }
+
+      .nav-menu a:hover,
+      .nav-menu a.active {
+        color: var(--primary);
+      }
+
+      .nav-menu a.active::after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        right: 0;
+        width: 100%;
+        height: 3px;
+        border-radius: 999px;
+        background: var(--primary);
+      }
+
+      .auth-buttons {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .mobile-menu-btn {
+        display: none;
+        border: none;
+        background: var(--primary);
+        color: #fff;
+        width: 46px;
+        height: 46px;
+        border-radius: 14px;
+        font-size: 1.2rem;
         cursor: pointer;
+        transition: 0.25s ease;
       }
-      .tab-button.active {
-        color: var(--primary-color);
-        border-bottom: 2px solid var(--primary-color);
+
+      .mobile-menu-btn:hover {
+        background: var(--primary-dark);
       }
+
+      .mobile-menu {
+        display: none;
+        flex-direction: column;
+        background: #fff;
+        border-top: 1px solid var(--border);
+        padding: 12px 16px;
+      }
+
+      .mobile-menu a {
+        padding: 12px;
+        border-radius: 12px;
+        font-weight: 700;
+        color: var(--text-light);
+        transition: 0.25s ease;
+      }
+
+      .mobile-menu a:hover {
+        background: var(--background-soft);
+        color: var(--primary);
+      }
+
+      .mobile-menu.show {
+        display: flex;
+      }
+
+      /* Hero */
+      .page-hero {
+        position: relative;
+        overflow: hidden;
+        min-height: 420px;
+        display: flex;
+        align-items: center;
+        padding: 90px 0 70px;
+        background:
+          linear-gradient(rgba(47, 42, 38, 0.5), rgba(47, 42, 38, 0.5)),
+          url("https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=1600&q=80") center/cover no-repeat;
+      }
+
+      .page-hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(135deg, rgba(225, 29, 72, 0.28), rgba(255, 122, 89, 0.14)),
+          radial-gradient(circle at 18% 20%, rgba(94, 200, 165, 0.2), transparent 24%);
+      }
+
+      .page-hero::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          url("https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=1000&q=80") left center/28% 100% no-repeat,
+          url("https://images.unsplash.com/photo-1519052537078-e6302a4968d4?auto=format&fit=crop&w=900&q=80") right center/28% 100% no-repeat;
+        opacity: 0.16;
+        mix-blend-mode: screen;
+      }
+
+      .page-hero-content {
+        position: relative;
+        z-index: 2;
+        background: rgba(255, 255, 255, 0.14);
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        backdrop-filter: blur(12px);
+        padding: 42px;
+        border-radius: 28px;
+        color: #fff;
+        max-width: 760px;
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.16);
+      }
+
+      .page-hero h1 {
+        font-size: clamp(2rem, 4vw, 3rem);
+        font-weight: 800;
+        margin-bottom: 16px;
+        line-height: 1.3;
+      }
+
+      .page-hero p {
+        font-size: 1.08rem;
+        color: rgba(255, 255, 255, 0.92);
+        margin-bottom: 18px;
+        max-width: 620px;
+      }
+
+      .hero-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .hero-badge {
+        background: rgba(255, 255, 255, 0.16);
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        color: #fff;
+        padding: 10px 16px;
+        border-radius: 999px;
+        font-weight: 700;
+        font-size: 0.95rem;
+        backdrop-filter: blur(8px);
+      }
+
+      /* Sections */
+      .section-block {
+        padding: 70px 0;
+      }
+
+      /* Stats */
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 22px;
+      }
+
+      .stat-item {
+        background: linear-gradient(180deg, #fff, #fff8f3);
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow);
+        border-radius: 22px;
+        padding: 28px 18px;
+        text-align: center;
+        transition: 0.25s ease;
+      }
+
+      .stat-item:hover {
+        transform: translateY(-6px);
+      }
+
+      .stat-number {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--danger);
+        margin-bottom: 8px;
+      }
+
+      .stat-label {
+        color: var(--text-light);
+        font-weight: 700;
+      }
+
+      /* Report buttons */
       .report-buttons {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 2rem;
-        margin: 2rem 0;
+        gap: 24px;
       }
-      @media (max-width: 768px) {
+
+      .report-card {
+        background: rgba(255, 255, 255, 0.92);
+        border-radius: 26px;
+        padding: 28px 24px;
+        box-shadow: var(--shadow);
+        transition: 0.25s ease;
+      }
+
+      .report-card:hover {
+        transform: translateY(-6px);
+      }
+
+      .report-card.lost-card {
+        border: 2px solid #fee2e2;
+      }
+
+      .report-card.found-card {
+        border: 2px solid #d1fae5;
+      }
+
+      .service-icon {
+        width: 72px;
+        height: 72px;
+        border-radius: 20px;
+        display: grid;
+        place-items: center;
+        font-size: 2rem;
+        margin-bottom: 16px;
+      }
+
+      .lost-card .service-icon {
+        background: var(--danger-light);
+        color: var(--danger);
+      }
+
+      .found-card .service-icon {
+        background: var(--success-light);
+        color: var(--success-dark);
+      }
+
+      .report-card h3 {
+        margin-bottom: 10px;
+        font-size: 1.2rem;
+      }
+
+      .report-card p {
+        color: var(--text-light);
+        margin-bottom: 18px;
+      }
+
+      /* Tabs */
+      .tabs-card {
+        background: rgba(255, 255, 255, 0.88);
+        border: 1px solid var(--border);
+        border-radius: 26px;
+        box-shadow: var(--shadow);
+        padding: 18px;
+        margin-bottom: 26px;
+      }
+
+      .tab-buttons {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .tab-button {
+        padding: 12px 22px;
+        border: 1px solid var(--border);
+        background: #fff;
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--text-light);
+        cursor: pointer;
+        border-radius: 14px;
+        transition: 0.25s ease;
+      }
+
+      .tab-button.active {
+        color: #fff;
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        border-color: transparent;
+      }
+
+      /* Grid */
+      .pets-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+        gap: 22px;
+      }
+
+      .pet-card {
+        background: rgba(255, 255, 255, 0.92);
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        transition: 0.25s ease;
+      }
+
+      .pet-card:hover {
+        transform: translateY(-6px);
+      }
+
+      .pet-image {
+        width: 100%;
+        height: 230px;
+        object-fit: cover;
+        background: #f5f5f5;
+      }
+
+      .pet-content {
+        padding: 20px;
+      }
+
+      .pet-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 12px;
+      }
+
+      .pet-name {
+        font-size: 1.2rem;
+        font-weight: 800;
+        color: var(--text);
+      }
+
+      .pet-details p {
+        color: var(--text-light);
+        margin-bottom: 7px;
+      }
+
+      .lost-badge,
+      .found-badge,
+      .urgent-badge {
+        padding: 6px 12px;
+        border-radius: 999px;
+        font-size: 0.88rem;
+        font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .lost-badge {
+        background: var(--danger-light);
+        color: var(--danger);
+      }
+
+      .found-badge {
+        background: var(--success-light);
+        color: var(--success-dark);
+      }
+
+      .urgent-badge {
+        background: var(--warning-light);
+        color: #b45309;
+        margin-top: 4px;
+      }
+
+      .pet-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 18px;
+      }
+
+      .btn-primary,
+      .btn-details,
+      .btn-contact,
+      .btn-submit {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        border: none;
+        border-radius: 14px;
+        cursor: pointer;
+        transition: 0.25s ease;
+        font-weight: 700;
+      }
+
+      .btn-details {
+        flex: 1;
+        padding: 13px 16px;
+        background: var(--background-soft);
+        color: var(--text);
+      }
+
+      .btn-contact {
+        flex: 1;
+        padding: 13px 16px;
+        background: var(--accent);
+        color: #fff;
+      }
+
+      .btn-primary,
+      .btn-submit {
+        padding: 14px 22px;
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        color: #fff;
+      }
+
+      .lost-card .btn-details {
+        background: var(--danger);
+        color: #fff;
+      }
+
+      .found-card .btn-details {
+        background: var(--success-dark);
+        color: #fff;
+      }
+
+      .btn-details:hover,
+      .btn-contact:hover,
+      .btn-primary:hover,
+      .btn-submit:hover,
+      .tab-button:hover {
+        transform: translateY(-2px);
+      }
+
+      /* Spinner */
+      .spinner {
+        width: 48px;
+        height: 48px;
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid var(--primary);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 30px auto;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .empty-state {
+        text-align: center;
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow);
+        border-radius: 24px;
+        padding: 40px 20px;
+        color: var(--text-light);
+      }
+
+      /* Modal / Form */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 3000;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 20px;
+        overflow-y: auto;
+      }
+
+      .modal-content {
+        background: #fff;
+        max-width: 600px;
+        margin: 40px auto;
+        border-radius: 24px;
+        padding: 28px;
+        position: relative;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.18);
+      }
+
+      .close {
+        position: absolute;
+        top: 14px;
+        left: 18px;
+        font-size: 2rem;
+        color: #777;
+        cursor: pointer;
+        line-height: 1;
+      }
+
+      .close:hover {
+        color: var(--primary);
+      }
+
+      .form-group {
+        margin-bottom: 18px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 700;
+        color: var(--text);
+      }
+
+      .form-input {
+        width: 100%;
+        min-height: 54px;
+        border-radius: 16px;
+        border: 1px solid var(--border);
+        background: #fff;
+        padding: 0 18px;
+        font-size: 1rem;
+        color: var(--text);
+        outline: none;
+        transition: 0.25s ease;
+      }
+
+      textarea.form-input {
+        padding: 14px 18px;
+        resize: vertical;
+      }
+
+      .form-input:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 4px rgba(255, 122, 89, 0.12);
+      }
+
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+
+      /* Footer */
+      .footer {
+        background: linear-gradient(180deg, #2f2a26, #241f1c);
+        color: #fff;
+        margin-top: 40px;
+        position: relative;
+        overflow: hidden;
+        padding: 60px 0 30px;
+      }
+
+      .footer::before {
+        content: "🐾";
+        position: absolute;
+        top: 20px;
+        left: 30px;
+        font-size: 7rem;
+        opacity: 0.05;
+      }
+
+      .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 22px;
+      }
+
+      .footer-section h3 {
+        margin-bottom: 16px;
+        color: var(--secondary);
+      }
+
+      .footer-section p,
+      .footer-links li {
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .footer-links {
+        list-style: none;
+      }
+
+      .footer-links li {
+        margin-bottom: 10px;
+      }
+
+      .footer-links a:hover {
+        color: var(--secondary);
+      }
+
+      .footer-bottom {
+        margin-top: 35px;
+        padding-top: 18px;
+        border-top: 1px solid rgba(255, 255, 255, 0.12);
+        text-align: center;
+        color: rgba(255, 255, 255, 0.75);
+      }
+
+      @media (max-width: 992px) {
+        .nav-menu {
+          display: none;
+        }
+
+        .mobile-menu-btn {
+          display: inline-grid;
+          place-items: center;
+        }
+
+        .page-hero::after {
+          display: none;
+        }
+
         .report-buttons {
           grid-template-columns: 1fr;
         }
       }
+
+      @media (max-width: 768px) {
+        .page-hero {
+          min-height: 360px;
+          padding: 60px 0;
+          background-position: center;
+        }
+
+        .page-hero-content {
+          padding: 28px 20px;
+          border-radius: 22px;
+        }
+
+        .page-hero p {
+          font-size: 1rem;
+        }
+
+        .section-block {
+          padding: 55px 0;
+        }
+
+        .pet-actions {
+          flex-direction: column;
+        }
+
+        .form-row {
+          grid-template-columns: 1fr;
+        }
+
+        .tab-buttons {
+          flex-direction: column;
+        }
+
+        .modal-content {
+          padding: 20px;
+        }
+      }
     </style>
   </head>
+
   <body>
     <nav class="navbar">
       <div class="container">
         <a href="../index.html" class="logo">
           <img src="../images/logo.png" alt="PalPets" />
         </a>
+
         <div class="nav-menu">
           <a href="../index.html">الرئيسية</a>
           <a href="pets.html">الحيوانات</a>
@@ -63,9 +792,11 @@
           <a href="veterinary.html">الرعاية البيطرية</a>
           <a href="store.html">المتجر</a>
         </div>
+
         <div class="auth-buttons"></div>
         <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
       </div>
+
       <div class="mobile-menu" id="mobileMenu">
         <a href="../index.html">الرئيسية</a>
         <a href="pets.html">الحيوانات</a>
@@ -77,21 +808,26 @@
       </div>
     </nav>
 
-    <!-- Hero -->
-    <section
-      class="hero"
-      style="background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%)"
-    >
+    <section class="page-hero">
       <div class="container">
-        <div class="hero-content">
-          <h2>مفقود ومعثور</h2>
-          <p>ساعد في جمع شمل الحيوانات الأليفة مع أصحابها</p>
+        <div class="page-hero-content">
+          <h1>ساعد في إعادة الحيوانات إلى أصحابها</h1>
+          <p>
+            بلّغ عن الحيوانات المفقودة أو التي عثرت عليها، وساهم في جمع الشمل
+            بسرعة من خلال منصة واضحة وسهلة الاستخدام.
+          </p>
+
+          <div class="hero-badges">
+            <span class="hero-badge">🔍 حيوانات مفقودة</span>
+            <span class="hero-badge">📢 حيوانات معثور عليها</span>
+            <span class="hero-badge">⚠️ بلاغات عاجلة</span>
+            <span class="hero-badge">💛 لمّ شمل أسرع</span>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Quick Stats -->
-    <section class="stats">
+    <section class="section-block">
       <div class="container">
         <div class="stats-grid">
           <div class="stat-item">
@@ -114,74 +850,63 @@
       </div>
     </section>
 
-    <!-- Report Buttons -->
-    <div class="container">
-      <div class="report-buttons">
-        <div class="service-card" style="border: 2px solid #fee2e2">
-          <div class="service-icon" style="color: #e11d48">🔍</div>
-          <h3>الإبلاغ عن حيوان مفقود</h3>
-          <p>إذا فقدت حيوانك الأليف، أبلغنا فوراً للمساعدة في العثور عليه</p>
-          <button
-            onclick="reportLost()"
-            class="btn-details"
-            style="background-color: #e11d48"
-          >
-            إبلاغ الآن
-          </button>
-        </div>
-        <div class="service-card" style="border: 2px solid #d1fae5">
-          <div class="service-icon" style="color: #065f46">📢</div>
-          <h3>الإبلاغ عن حيوان معثور عليه</h3>
-          <p>عثرت على حيوان أليف؟ ساعد في إعادته لأصحابه</p>
-          <button
-            onclick="reportFound()"
-            class="btn-details"
-            style="background-color: #065f46"
-          >
-            إبلاغ الآن
-          </button>
+    <section class="section-block" style="padding-top: 0">
+      <div class="container">
+        <div class="report-buttons">
+          <div class="report-card lost-card">
+            <div class="service-icon">🔍</div>
+            <h3>الإبلاغ عن حيوان مفقود</h3>
+            <p>إذا فقدت حيوانك الأليف، أنشئ بلاغًا فورًا لزيادة فرص العثور عليه بسرعة.</p>
+            <button onclick="reportLost()" class="btn-details">إبلاغ الآن</button>
+          </div>
+
+          <div class="report-card found-card">
+            <div class="service-icon">📢</div>
+            <h3>الإبلاغ عن حيوان معثور عليه</h3>
+            <p>عثرت على حيوان أليف؟ ساعد في إعادته لأصحابه من خلال إضافة بلاغ واضح.</p>
+            <button onclick="reportFound()" class="btn-details">إبلاغ الآن</button>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- Tabs -->
-    <section class="services">
+    <section class="section-block" style="padding-top: 0">
       <div class="container">
-        <div class="tab-buttons">
-          <button
-            class="tab-button active"
-            onclick="switchTab('lost')"
-            id="tabLostBtn"
-          >
-            حيوانات مفقودة
-          </button>
-          <button
-            class="tab-button"
-            onclick="switchTab('found')"
-            id="tabFoundBtn"
-          >
-            حيوانات معثور عليها
-          </button>
+        <div class="tabs-card">
+          <div class="tab-buttons">
+            <button
+              class="tab-button active"
+              onclick="switchTab('lost')"
+              id="tabLostBtn"
+            >
+              حيوانات مفقودة
+            </button>
+
+            <button
+              class="tab-button"
+              onclick="switchTab('found')"
+              id="tabFoundBtn"
+            >
+              حيوانات معثور عليها
+            </button>
+          </div>
         </div>
 
-        <!-- Reports Grid -->
         <div id="reportsGrid" class="pets-grid"></div>
 
-        <!-- Loading -->
         <div id="loading" class="spinner" style="display: none"></div>
 
-        <!-- Empty State -->
         <div id="emptyState" class="empty-state" style="display: none">
           <p>لا توجد بلاغات في هذا القسم</p>
         </div>
       </div>
     </section>
 
-    <!-- Report Modal -->
     <div id="reportModal" class="modal">
-      <div class="modal-content" style="max-width: 600px">
+      <div class="modal-content">
         <span class="close" onclick="closeReportModal()">&times;</span>
         <h2 id="modalTitle">الإبلاغ عن حيوان مفقود</h2>
+
         <form id="reportForm" onsubmit="submitReport(event)">
           <input type="hidden" id="reportType" />
 
@@ -212,6 +937,7 @@
                 <option value="female">أنثى</option>
               </select>
             </div>
+
             <div class="form-group">
               <label>اللون</label>
               <input type="text" id="color" class="form-input" required />
@@ -261,54 +987,75 @@
       </div>
     </div>
 
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-section">
+            <h3>عن المنصة</h3>
+            <p>
+              منصة متكاملة للعناية بالحيوانات الأليفة، تجمع عشاق الحيوانات،
+              المربين، والملاجئ في مكان واحد.
+            </p>
+          </div>
+
+          <div class="footer-section">
+            <h3>روابط سريعة</h3>
+            <ul class="footer-links">
+              <li><a href="../index.html">الرئيسية</a></li>
+              <li><a href="pets.html">الحيوانات</a></li>
+              <li><a href="adoption.html">التبني</a></li>
+              <li><a href="lost-found.html">مفقود ومعثور</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h3>الخدمات</h3>
+            <ul class="footer-links">
+              <li><a href="veterinary.html">الرعاية البيطرية</a></li>
+              <li><a href="store.html">المتجر</a></li>
+              <li><a href="#">التطعيمات</a></li>
+              <li><a href="#">استشارات</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h3>تواصل معنا</h3>
+            <ul class="footer-links">
+              <li>📞 +972599248391</li>
+              <li>✉️ info@PalPets.com</li>
+              <li>📍 فلسطين</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>© 2026 PalPets - جميع الحقوق محفوظة</p>
+        </div>
+      </div>
+    </footer>
+
     <script src="../js/api.js"></script>
     <script>
       let currentTab = "lost";
       let petTypes = [];
       let breeds = [];
 
-      // Load stats
       async function loadStats() {
         try {
-          const lost = await apiCall(
-            "/lostfound/?report_type=lost",
-            "GET",
-            null,
-            false,
-          );
-          const found = await apiCall(
-            "/lostfound/?report_type=found",
-            "GET",
-            null,
-            false,
-          );
-          const resolved = await apiCall(
-            "/lostfound/?status=resolved",
-            "GET",
-            null,
-            false,
-          );
-          const urgent = await apiCall(
-            "/lostfound/?urgency=urgent,critical",
-            "GET",
-            null,
-            false,
-          );
+          const lost = await apiCall("/lostfound/?report_type=lost", "GET", null, false);
+          const found = await apiCall("/lostfound/?report_type=found", "GET", null, false);
+          const resolved = await apiCall("/lostfound/?status=resolved", "GET", null, false);
+          const urgent = await apiCall("/lostfound/?urgency=urgent,critical", "GET", null, false);
 
-          document.getElementById("lostCount").textContent =
-            lost?.count || lost?.length || 0;
-          document.getElementById("foundCount").textContent =
-            found?.count || found?.length || 0;
-          document.getElementById("resolvedCount").textContent =
-            resolved?.count || resolved?.length || 0;
-          document.getElementById("urgentCount").textContent =
-            urgent?.count || urgent?.length || 0;
+          document.getElementById("lostCount").textContent = lost?.count || lost?.length || 0;
+          document.getElementById("foundCount").textContent = found?.count || found?.length || 0;
+          document.getElementById("resolvedCount").textContent = resolved?.count || resolved?.length || 0;
+          document.getElementById("urgentCount").textContent = urgent?.count || urgent?.length || 0;
         } catch (error) {
           console.error("Error loading stats:", error);
         }
       }
 
-      // Load pet types
       async function loadPetTypes() {
         try {
           const types = await apiCall("/animals/types/", "GET", null, false);
@@ -317,53 +1064,44 @@
           const select = document.getElementById("petType");
           select.innerHTML =
             '<option value="">اختر النوع</option>' +
-            petTypes
-              .map((t) => `<option value="${t.id}">${t.name}</option>`)
-              .join("");
+            petTypes.map((t) => `<option value="${t.id}">${t.name}</option>`).join("");
         } catch (error) {
           console.error("Error loading pet types:", error);
         }
       }
 
-      // Load breeds for selected type
-      document
-        .getElementById("petType")
-        ?.addEventListener("change", async function (e) {
-          if (e.target.value) {
-            try {
-              const response = await apiCall(
-                `/animals/breeds/?animal_type=${e.target.value}`,
-                "GET",
-                null,
-                false,
-              );
-              breeds = response?.results || response || [];
+      document.getElementById("petType")?.addEventListener("change", async function (e) {
+        if (e.target.value) {
+          try {
+            const response = await apiCall(
+              `/animals/breeds/?animal_type=${encodeURIComponent(e.target.value)}`,
+              "GET",
+              null,
+              false
+            );
+            breeds = response?.results || response || [];
 
-              const select = document.getElementById("breed");
-              select.innerHTML =
-                '<option value="">غير محدد</option>' +
-                breeds
-                  .map((b) => `<option value="${b.id}">${b.name}</option>`)
-                  .join("");
-            } catch (error) {
-              console.error("Error loading breeds:", error);
-            }
+            const select = document.getElementById("breed");
+            select.innerHTML =
+              '<option value="">غير محدد</option>' +
+              breeds.map((b) => `<option value="${b.id}">${b.name}</option>`).join("");
+          } catch (error) {
+            console.error("Error loading breeds:", error);
           }
-        });
+        }
+      });
 
-      // Load reports
       async function loadReports() {
         showLoading();
 
         try {
           const response = await apiCall(
-            `/lostfound/?report_type=${currentTab}`,
+            `/lostfound/?report_type=${encodeURIComponent(currentTab)}`,
             "GET",
             null,
-            false,
+            false
           );
           const reports = response.results || response || [];
-
           displayReports(reports);
         } catch (error) {
           console.error("Error loading reports:", error);
@@ -372,12 +1110,11 @@
         }
       }
 
-      // Display reports
       function displayReports(reports) {
         const grid = document.getElementById("reportsGrid");
         const emptyState = document.getElementById("emptyState");
 
-        if (reports.length === 0) {
+        if (!reports.length) {
           grid.style.display = "none";
           emptyState.style.display = "block";
           return;
@@ -389,93 +1126,83 @@
         grid.innerHTML = reports
           .map(
             (report) => `
-                <div class="pet-card">
-                    <img src="${report.primary_image || "https://via.placeholder.com/300x200"}" class="pet-image">
-                    <div class="pet-content">
-                        <div class="pet-header">
-                            <h3 class="pet-name">${report.pet_name || "حيوان"}</h3>
-                            <span class="${report.report_type === "lost" ? "lost-badge" : "found-badge"}">
-                                ${report.report_type === "lost" ? "مفقود" : "معثور عليه"}
-                            </span>
-                        </div>
-                        <div class="pet-details">
-                            <p><strong>النوع:</strong> ${report.pet_type_name}</p>
-                            <p><strong>السلالة:</strong> ${report.breed_name || "غير محدد"}</p>
-                            <p><strong>الموقع:</strong> ${report.location}</p>
-                            <p><strong>التاريخ:</strong> ${formatDate(report.event_date)}</p>
-                            ${report.urgency !== "normal" ? '<p><span class="urgent-badge">⚠️ عاجل</span></p>' : ""}
-                        </div>
-                        <div class="pet-actions">
-                            <button onclick="viewReportDetails(${report.id})" class="btn-details">تفاصيل</button>
-                            ${
-                              report.report_type === "lost"
-                                ? `<button onclick="reportSighting(${report.id})" class="btn-contact">الإبلاغ عن مشاهدة</button>`
-                                : `<button onclick="claimPet(${report.id})" class="btn-contact">الإبلاغ كحيواني</button>`
-                            }
-                        </div>
-                    </div>
+              <div class="pet-card">
+                <img
+                  src="${report.primary_image || "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=1200&q=80"}"
+                  alt="${report.pet_name || "حيوان"}"
+                  class="pet-image"
+                />
+                <div class="pet-content">
+                  <div class="pet-header">
+                    <h3 class="pet-name">${report.pet_name || "حيوان"}</h3>
+                    <span class="${report.report_type === "lost" ? "lost-badge" : "found-badge"}">
+                      ${report.report_type === "lost" ? "مفقود" : "معثور عليه"}
+                    </span>
+                  </div>
+
+                  <div class="pet-details">
+                    <p><strong>النوع:</strong> ${report.pet_type_name || "غير محدد"}</p>
+                    <p><strong>السلالة:</strong> ${report.breed_name || "غير محدد"}</p>
+                    <p><strong>الموقع:</strong> ${report.location || "غير محدد"}</p>
+                    <p><strong>التاريخ:</strong> ${formatDate(report.event_date)}</p>
+                    ${
+                      report.urgency !== "normal"
+                        ? '<p><span class="urgent-badge">⚠️ عاجل</span></p>'
+                        : ""
+                    }
+                  </div>
+
+                  <div class="pet-actions">
+                    <button onclick="viewReportDetails(${report.id})" class="btn-details">تفاصيل</button>
+                    ${
+                      report.report_type === "lost"
+                        ? `<button onclick="reportSighting(${report.id})" class="btn-contact">الإبلاغ عن مشاهدة</button>`
+                        : `<button onclick="claimPet(${report.id})" class="btn-contact">الإبلاغ كحيواني</button>`
+                    }
+                  </div>
                 </div>
-            `,
+              </div>
+            `
           )
           .join("");
       }
 
-      // Switch tabs
       function switchTab(tab) {
         currentTab = tab;
-        document
-          .querySelectorAll(".tab-button")
-          .forEach((btn) => btn.classList.remove("active"));
+        document.querySelectorAll(".tab-button").forEach((btn) => btn.classList.remove("active"));
         document
           .getElementById(`tab${tab === "lost" ? "Lost" : "Found"}Btn`)
           .classList.add("active");
         loadReports();
       }
 
-      // Report lost
       function reportLost() {
         if (!requireAuth()) return;
-        document.getElementById("modalTitle").textContent =
-          "الإبلاغ عن حيوان مفقود";
+        document.getElementById("modalTitle").textContent = "الإبلاغ عن حيوان مفقود";
         document.getElementById("reportType").value = "lost";
         document.getElementById("reportModal").style.display = "block";
       }
 
-      // Report found
       function reportFound() {
         if (!requireAuth()) return;
-        document.getElementById("modalTitle").textContent =
-          "الإبلاغ عن حيوان معثور عليه";
+        document.getElementById("modalTitle").textContent = "الإبلاغ عن حيوان معثور عليه";
         document.getElementById("reportType").value = "found";
         document.getElementById("reportModal").style.display = "block";
       }
 
-      // Submit report
       async function submitReport(event) {
         event.preventDefault();
 
         const formData = new FormData();
-        formData.append(
-          "report_type",
-          document.getElementById("reportType").value,
-        );
+        formData.append("report_type", document.getElementById("reportType").value);
         formData.append("pet_name", document.getElementById("petName").value);
         formData.append("pet_type", document.getElementById("petType").value);
         formData.append("gender", document.getElementById("gender").value);
         formData.append("color", document.getElementById("color").value);
         formData.append("location", document.getElementById("location").value);
-        formData.append(
-          "event_date",
-          document.getElementById("eventDate").value,
-        );
-        formData.append(
-          "description",
-          document.getElementById("description").value,
-        );
-        formData.append(
-          "special_features",
-          document.getElementById("specialFeatures").value,
-        );
+        formData.append("event_date", document.getElementById("eventDate").value);
+        formData.append("description", document.getElementById("description").value);
+        formData.append("special_features", document.getElementById("specialFeatures").value);
         formData.append("urgency", document.getElementById("urgency").value);
 
         const breed = document.getElementById("breed").value;
@@ -496,13 +1223,89 @@
         }
       }
 
-      // Close modal
       function closeReportModal() {
         document.getElementById("reportModal").style.display = "none";
         document.getElementById("reportForm").reset();
       }
 
-      // Initialize
+      async function viewReportDetails(id) {
+        try {
+          const report = await apiCall(`/lostfound/${id}/`, "GET", null, false);
+
+          const modal = document.createElement("div");
+          modal.className = "modal";
+          modal.style.display = "block";
+          modal.innerHTML = `
+            <div class="modal-content" style="max-width: 850px;">
+              <span class="close" onclick="this.parentElement.parentElement.remove()">&times;</span>
+              <h2 style="margin-bottom: 18px;">${report.pet_name || "تفاصيل البلاغ"}</h2>
+
+              <div style="display:flex; gap:20px; align-items:flex-start; flex-wrap:wrap;">
+                <img
+                  src="${report.primary_image || "https://images.unsplash.com/photo-1519052537078-e6302a4968d4?auto=format&fit=crop&w=1200&q=80"}"
+                  alt="${report.pet_name || "حيوان"}"
+                  style="width:300px; max-width:100%; border-radius:18px; object-fit:cover;"
+                />
+
+                <div style="flex:1; min-width:260px;">
+                  <p><strong>الحالة:</strong> ${report.report_type === "lost" ? "مفقود" : "معثور عليه"}</p>
+                  <p><strong>النوع:</strong> ${report.pet_type_name || "غير محدد"}</p>
+                  <p><strong>السلالة:</strong> ${report.breed_name || "غير محدد"}</p>
+                  <p><strong>الجنس:</strong> ${getGenderName(report.gender)}</p>
+                  <p><strong>اللون:</strong> ${report.color || "غير محدد"}</p>
+                  <p><strong>الموقع:</strong> ${report.location || "غير محدد"}</p>
+                  <p><strong>التاريخ:</strong> ${formatDate(report.event_date)}</p>
+                  <p><strong>الوصف:</strong> ${report.description || "لا يوجد وصف"}</p>
+                  <p><strong>صفات مميزة:</strong> ${report.special_features || "لا يوجد"}</p>
+                  ${
+                    report.urgency !== "normal"
+                      ? `<p><span class="urgent-badge">⚠️ ${
+                          report.urgency === "critical" ? "خطير" : "عاجل"
+                        }</span></p>`
+                      : ""
+                  }
+                </div>
+              </div>
+            </div>
+          `;
+
+          document.body.appendChild(modal);
+
+          modal.addEventListener("click", (e) => {
+            if (e.target === modal) modal.remove();
+          });
+        } catch (error) {
+          showNotification("حدث خطأ في تحميل التفاصيل", "error");
+        }
+      }
+
+      function reportSighting(id) {
+        if (!requireAuth()) return;
+        showNotification("يمكنك لاحقاً ربط هذه الزر بنموذج بلاغ مشاهدة.", "success");
+      }
+
+      function claimPet(id) {
+        if (!requireAuth()) return;
+        showNotification("يمكنك لاحقاً ربط هذه الزر بنموذج إثبات الملكية.", "success");
+      }
+
+      function getGenderName(gender) {
+        if (gender === "male") return "ذكر";
+        if (gender === "female") return "أنثى";
+        return "غير محدد";
+      }
+
+      function toggleMobileMenu() {
+        document.getElementById("mobileMenu").classList.toggle("show");
+      }
+
+      window.addEventListener("click", (e) => {
+        const reportModal = document.getElementById("reportModal");
+        if (e.target === reportModal) {
+          closeReportModal();
+        }
+      });
+
       document.addEventListener("DOMContentLoaded", () => {
         loadStats();
         loadPetTypes();

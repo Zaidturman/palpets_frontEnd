@@ -4,18 +4,594 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PalPets - منصة العناية بالحيوانات الأليفة</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap"
       rel="stylesheet"
     />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
-    <link rel="stylesheet" href="css/style.css" />
+
+    <style>
+      :root {
+        --primary: #ff7a59;
+        --primary-dark: #e85f3d;
+        --secondary: #ffd166;
+        --accent: #5ec8a5;
+        --accent-light: #e8fff7;
+        --background: #fffaf5;
+        --background-soft: #fdf3ea;
+        --surface: #ffffff;
+        --text: #2f2a26;
+        --text-light: #6f665f;
+        --border: #f0dfd2;
+        --shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+        --radius: 20px;
+        --container: 1200px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "Tajawal", sans-serif;
+        background:
+          radial-gradient(circle at top right, rgba(255, 209, 102, 0.18), transparent 20%),
+          radial-gradient(circle at bottom left, rgba(94, 200, 165, 0.12), transparent 22%),
+          linear-gradient(180deg, #fffaf5 0%, #fff7ef 100%);
+        color: var(--text);
+        line-height: 1.7;
+        position: relative;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.05;
+        background-image:
+          url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='%23ff7a59'%3E%3Ccircle cx='28' cy='30' r='8'/%3E%3Ccircle cx='47' cy='18' r='7'/%3E%3Ccircle cx='66' cy='30' r='8'/%3E%3Ccircle cx='38' cy='48' r='7'/%3E%3Cpath d='M57 52c11 0 18 8 18 17 0 8-7 13-18 13s-18-5-18-13c0-9 7-17 18-17z'/%3E%3C/g%3E%3C/svg%3E");
+        background-size: 120px;
+        z-index: -1;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      img {
+        max-width: 100%;
+        display: block;
+      }
+
+      button {
+        font-family: inherit;
+      }
+
+      .container {
+        width: min(100% - 32px, var(--container));
+        margin-inline: auto;
+      }
+
+      .section-title {
+        text-align: center;
+        font-size: 2rem;
+        font-weight: 800;
+        margin-bottom: 40px;
+        color: var(--text);
+        position: relative;
+      }
+
+      .section-title::after {
+        content: "";
+        width: 90px;
+        height: 5px;
+        border-radius: 999px;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        display: block;
+        margin: 12px auto 0;
+      }
+
+      /* Navbar */
+      .navbar {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: rgba(255, 255, 255, 0.86);
+        backdrop-filter: blur(14px);
+        border-bottom: 1px solid rgba(240, 223, 210, 0.8);
+      }
+
+      .navbar .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        min-height: 82px;
+      }
+
+      .logo img {
+        height: 52px;
+        object-fit: contain;
+      }
+
+      .nav-menu {
+        display: flex;
+        align-items: center;
+        gap: 22px;
+      }
+
+      .nav-menu a {
+        font-weight: 700;
+        color: var(--text-light);
+        transition: 0.25s ease;
+        position: relative;
+      }
+
+      .nav-menu a:hover,
+      .nav-menu a.active {
+        color: var(--primary);
+      }
+
+      .nav-menu a.active::after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        right: 0;
+        width: 100%;
+        height: 3px;
+        border-radius: 999px;
+        background: var(--primary);
+      }
+
+      .auth-buttons {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .mobile-menu-btn {
+        display: none;
+        border: none;
+        background: var(--primary);
+        color: #fff;
+        width: 46px;
+        height: 46px;
+        border-radius: 14px;
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: 0.25s ease;
+      }
+
+      .mobile-menu-btn:hover {
+        background: var(--primary-dark);
+      }
+
+      .mobile-menu {
+        display: none;
+        flex-direction: column;
+        background: #fff;
+        border-top: 1px solid var(--border);
+        padding: 12px 16px;
+      }
+
+      .mobile-menu a {
+        padding: 12px;
+        border-radius: 12px;
+        font-weight: 700;
+        color: var(--text-light);
+        transition: 0.25s ease;
+      }
+
+      .mobile-menu a:hover {
+        background: var(--background-soft);
+        color: var(--primary);
+      }
+
+      .mobile-menu.show {
+        display: flex;
+      }
+
+      /* Hero */
+      .hero {
+        position: relative;
+        overflow: hidden;
+        padding: 90px 0 70px;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(135deg, rgba(255, 122, 89, 0.12), rgba(255, 209, 102, 0.1)),
+          radial-gradient(circle at 20% 25%, rgba(94, 200, 165, 0.22), transparent 20%),
+          radial-gradient(circle at 85% 15%, rgba(255, 122, 89, 0.16), transparent 18%);
+        z-index: -2;
+      }
+
+      .hero::after {
+        content: "🐾 🐶 🐱 🐾";
+        position: absolute;
+        left: 5%;
+        bottom: 12%;
+        font-size: 2rem;
+        opacity: 0.12;
+        letter-spacing: 12px;
+        z-index: -1;
+      }
+
+      .hero-content {
+        background: rgba(255, 255, 255, 0.74);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        box-shadow: var(--shadow);
+        border-radius: 32px;
+        padding: 60px 40px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-content::before {
+        content: "";
+        position: absolute;
+        width: 220px;
+        height: 220px;
+        border-radius: 50%;
+        background: rgba(255, 209, 102, 0.18);
+        top: -70px;
+        right: -50px;
+      }
+
+      .hero-content::after {
+        content: "";
+        position: absolute;
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        background: rgba(94, 200, 165, 0.16);
+        bottom: -60px;
+        left: -40px;
+      }
+
+      .hero h2 {
+        font-size: clamp(2rem, 4vw, 3.3rem);
+        font-weight: 800;
+        line-height: 1.3;
+        margin-bottom: 18px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .hero p {
+        max-width: 720px;
+        margin: 0 auto 28px;
+        color: var(--text-light);
+        font-size: 1.15rem;
+        position: relative;
+        z-index: 1;
+      }
+
+      .hero-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 14px;
+        flex-wrap: wrap;
+        position: relative;
+        z-index: 1;
+      }
+
+      .btn-primary,
+      .btn-outline,
+      .btn-details,
+      .btn-contact {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 13px 24px;
+        border-radius: 14px;
+        font-weight: 700;
+        transition: 0.25s ease;
+        cursor: pointer;
+        border: none;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        color: #fff;
+        box-shadow: 0 10px 20px rgba(255, 122, 89, 0.25);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+      }
+
+      .btn-outline {
+        border: 2px solid var(--primary);
+        color: var(--primary);
+        background: #fff;
+      }
+
+      .btn-outline:hover {
+        background: var(--primary);
+        color: #fff;
+      }
+
+      /* Sections */
+      .stats,
+      .services,
+      .footer {
+        padding: 70px 0;
+      }
+
+      .stats-grid,
+      .services-grid,
+      .footer-grid,
+      .pets-grid {
+        display: grid;
+        gap: 22px;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      }
+
+      .stat-item {
+        background: linear-gradient(180deg, #fff, #fff8f3);
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow);
+        border-radius: 22px;
+        padding: 28px 18px;
+        text-align: center;
+        transition: 0.25s ease;
+      }
+
+      .stat-item:hover {
+        transform: translateY(-6px);
+      }
+
+      .stat-number {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--primary);
+        margin-bottom: 8px;
+      }
+
+      .stat-label {
+        color: var(--text-light);
+        font-weight: 700;
+      }
+
+      .services {
+        position: relative;
+      }
+
+      .services-grid {
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      }
+
+      .service-card {
+        background: rgba(255, 255, 255, 0.85);
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        padding: 28px 22px;
+        box-shadow: var(--shadow);
+        transition: 0.25s ease;
+      }
+
+      .service-card:hover {
+        transform: translateY(-7px);
+      }
+
+      .service-icon {
+        width: 68px;
+        height: 68px;
+        border-radius: 18px;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(135deg, var(--accent-light), #fff4dc);
+        font-size: 2rem;
+        margin-bottom: 18px;
+      }
+
+      .service-card h3 {
+        margin-bottom: 10px;
+        font-size: 1.2rem;
+        font-weight: 800;
+      }
+
+      .service-card p {
+        color: var(--text-light);
+      }
+
+      /* Pets */
+      .pets-grid {
+        grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      }
+
+      .pet-card {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        transition: 0.25s ease;
+      }
+
+      .pet-card:hover {
+        transform: translateY(-6px);
+      }
+
+      .pet-image {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        background: #f5f5f5;
+      }
+
+      .pet-content {
+        padding: 20px;
+      }
+
+      .pet-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 12px;
+      }
+
+      .pet-name {
+        font-size: 1.2rem;
+        font-weight: 800;
+      }
+
+      .pet-status {
+        background: var(--accent-light);
+        color: #1f8d69;
+        padding: 6px 12px;
+        border-radius: 999px;
+        font-size: 0.9rem;
+        font-weight: 700;
+      }
+
+      .pet-details p {
+        color: var(--text-light);
+        margin-bottom: 6px;
+      }
+
+      .pet-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 18px;
+      }
+
+      .btn-details {
+        flex: 1;
+        background: var(--background-soft);
+        color: var(--text);
+      }
+
+      .btn-contact {
+        flex: 1;
+        background: var(--accent);
+        color: #fff;
+      }
+
+      .btn-details:hover,
+      .btn-contact:hover {
+        transform: translateY(-2px);
+      }
+
+      /* Footer */
+      .footer {
+        background: linear-gradient(180deg, #2f2a26, #241f1c);
+        color: #fff;
+        margin-top: 30px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .footer::before {
+        content: "🐾";
+        position: absolute;
+        top: 20px;
+        left: 30px;
+        font-size: 7rem;
+        opacity: 0.05;
+      }
+
+      .footer-grid {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      }
+
+      .footer-section h3 {
+        margin-bottom: 16px;
+        color: var(--secondary);
+      }
+
+      .footer-section p,
+      .footer-links li {
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .footer-links {
+        list-style: none;
+      }
+
+      .footer-links li {
+        margin-bottom: 10px;
+      }
+
+      .footer-links a:hover {
+        color: var(--secondary);
+      }
+
+      .footer-bottom {
+        margin-top: 35px;
+        padding-top: 18px;
+        border-top: 1px solid rgba(255, 255, 255, 0.12);
+        text-align: center;
+        color: rgba(255, 255, 255, 0.75);
+      }
+
+      .text-center {
+        text-align: center;
+      }
+
+      @media (max-width: 992px) {
+        .nav-menu {
+          display: none;
+        }
+
+        .mobile-menu-btn {
+          display: inline-grid;
+          place-items: center;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .hero {
+          padding: 60px 0 50px;
+        }
+
+        .hero-content {
+          padding: 40px 22px;
+          border-radius: 24px;
+        }
+
+        .hero p {
+          font-size: 1rem;
+        }
+
+        .pet-actions,
+        .hero-buttons {
+          flex-direction: column;
+        }
+
+        .stats,
+        .services,
+        .footer {
+          padding: 55px 0;
+        }
+      }
+    </style>
   </head>
+
   <body>
     <!-- Navbar -->
     <nav class="navbar">
@@ -58,7 +634,7 @@
           <h2>منصة PalPets للعناية بالحيوانات الأليفة</h2>
           <p>
             منصة متكاملة تجمع عشاق الحيوانات الأليفة، المربين، والملاجئ في مكان
-            واحد
+            واحد لتسهيل التبني، الرعاية، البيع، والوصول للخدمات البيطرية.
           </p>
           <div class="hero-buttons">
             <a href="pages/pets.html" class="btn-primary">استعرض الحيوانات</a>
@@ -102,28 +678,31 @@
             <h3>بيع وشراء الحيوانات</h3>
             <p>منصة آمنة لبيع وشراء الحيوانات الأليفة بكل ثقة</p>
           </div>
+
           <div class="service-card">
             <div class="service-icon">🏠</div>
             <h3>تبني الحيوانات</h3>
             <p>ساعد في إيجاد منزل جديد للحيوانات التي تحتاج للرعاية</p>
           </div>
+
           <div class="service-card">
             <div class="service-icon">🔍</div>
             <h3>مفقود ومعثور</h3>
-            <p>
-              ساعد في العثور على الحيوانات المفقودة أو الإبلاغ عن حيوانات ضائعة
-            </p>
+            <p>ساعد في العثور على الحيوانات المفقودة أو الإبلاغ عن حيوانات ضائعة</p>
           </div>
+
           <div class="service-card">
             <div class="service-icon">🏥</div>
             <h3>الرعاية البيطرية</h3>
             <p>تواصل مع أفضل الأطباء البيطريين والعيادات</p>
           </div>
+
           <div class="service-card">
             <div class="service-icon">🛍️</div>
             <h3>متجر المستلزمات</h3>
             <p>كل ما يحتاجه حيوانك الأليف من طعام ومستلزمات</p>
           </div>
+
           <div class="service-card">
             <div class="service-icon">💉</div>
             <h3>تذكير بالتطعيمات</h3>
@@ -134,7 +713,7 @@
     </section>
 
     <!-- Recent Pets Section -->
-    <section class="services" style="background-color: var(--background)">
+    <section class="services" style="background: transparent">
       <div class="container">
         <h2 class="section-title">آخر الحيوانات المتاحة</h2>
         <div class="pets-grid" id="recentPets"></div>
@@ -152,6 +731,7 @@
               المربين، والملاجئ في مكان واحد.
             </p>
           </div>
+
           <div class="footer-section">
             <h3>روابط سريعة</h3>
             <ul class="footer-links">
@@ -161,6 +741,7 @@
               <li><a href="pages/lost-found.html">مفقود ومعثور</a></li>
             </ul>
           </div>
+
           <div class="footer-section">
             <h3>الخدمات</h3>
             <ul class="footer-links">
@@ -170,6 +751,7 @@
               <li><a href="#">استشارات</a></li>
             </ul>
           </div>
+
           <div class="footer-section">
             <h3>تواصل معنا</h3>
             <ul class="footer-links">
@@ -179,6 +761,7 @@
             </ul>
           </div>
         </div>
+
         <div class="footer-bottom">
           <p>© 2026 PalPets - جميع الحقوق محفوظة</p>
         </div>
@@ -187,26 +770,20 @@
 
     <script src="js/api.js"></script>
     <script>
-      // تحميل إحصائيات الصفحة الرئيسية
       async function loadStats() {
         try {
           const animals = await apiCall("/animals/", "GET", null, false);
-          document.getElementById("petsCount").textContent =
-            animals?.length || 0;
+          document.getElementById("petsCount").textContent = animals?.length || 0;
 
           const stats = await apiCall("/auth/stats/", "GET", null, false);
-          document.getElementById("usersCount").textContent =
-            stats?.total_users || 0;
-          document.getElementById("vetsCount").textContent =
-            stats?.total_veterinarians || 0;
-          document.getElementById("sheltersCount").textContent =
-            stats?.total_shelters || 0;
+          document.getElementById("usersCount").textContent = stats?.total_users || 0;
+          document.getElementById("vetsCount").textContent = stats?.total_veterinarians || 0;
+          document.getElementById("sheltersCount").textContent = stats?.total_shelters || 0;
         } catch (error) {
           console.error("Error loading stats:", error);
         }
       }
 
-      // تحميل آخر الحيوانات
       async function loadRecentPets() {
         try {
           const animals = await apiCall("/animals/recent/", "GET", null, false);
@@ -223,57 +800,83 @@
         }
       }
 
-      // إنشاء بطاقة حيوان
       function createPetCard(pet) {
         const typeName = pet.animal_type_name || "غير معروف";
-        const gender = pet.gender === "male" ? "ذكر" : "أنثى";
+        const gender =
+          pet.gender === "male"
+            ? "ذكر"
+            : pet.gender === "female"
+            ? "أنثى"
+            : "غير محدد";
         const age = pet.age_display || "غير محدد";
 
         return `
-                <div class="pet-card">
-                    <img src="${pet.primary_image || "https://via.placeholder.com/300x200"}" alt="${pet.name}" class="pet-image">
-                    <div class="pet-content">
-                        <div class="pet-header">
-                            <h3 class="pet-name">${pet.name}</h3>
-                            <span class="pet-status">${getStatusBadge(pet.status)}</span>
-                        </div>
-                        <div class="pet-details">
-                            <p><strong>النوع:</strong> ${typeName}</p>
-                            <p><strong>الجنس:</strong> ${gender}</p>
-                            <p><strong>العمر:</strong> ${age}</p>
-                            ${pet.listing_type === "sale" ? `<p><strong>السعر:</strong> ${pet.price} ₪</p>` : ""}
-                        </div>
-                        <div class="pet-actions">
-                            <button onclick="viewPetDetails(${pet.id})" class="btn-details">تفاصيل</button>
-                            <button onclick="contactOwner(${pet.id})" class="btn-contact">تواصل</button>
-                        </div>
-                    </div>
-                </div>
-            `;
+          <div class="pet-card">
+            <img
+              src="${pet.primary_image || "https://via.placeholder.com/300x200"}"
+              alt="${pet.name || "حيوان"}"
+              class="pet-image"
+            />
+            <div class="pet-content">
+              <div class="pet-header">
+                <h3 class="pet-name">${pet.name || "بدون اسم"}</h3>
+                <span class="pet-status">${getStatusBadge(pet.status)}</span>
+              </div>
+              <div class="pet-details">
+                <p><strong>النوع:</strong> ${typeName}</p>
+                <p><strong>الجنس:</strong> ${gender}</p>
+                <p><strong>العمر:</strong> ${age}</p>
+                ${
+                  pet.listing_type === "sale"
+                    ? `<p><strong>السعر:</strong> ${pet.price || 0} ₪</p>`
+                    : ""
+                }
+              </div>
+              <div class="pet-actions">
+                <button onclick="viewPetDetails(${pet.id})" class="btn-details">تفاصيل</button>
+                <button onclick="contactOwner(${pet.id})" class="btn-contact">تواصل</button>
+              </div>
+            </div>
+          </div>
+        `;
       }
 
-      // عرض تفاصيل الحيوان
+      function getStatusBadge(status) {
+        switch (status) {
+          case "available":
+            return "متاح";
+          case "adopted":
+            return "تم التبني";
+          case "sold":
+            return "تم البيع";
+          case "pending":
+            return "قيد المراجعة";
+          default:
+            return "متاح";
+        }
+      }
+
       function viewPetDetails(petId) {
         window.location.href = `pages/pets.html?id=${petId}`;
       }
 
-      // التواصل مع المالك
       function contactOwner(petId) {
         if (!getToken()) {
           if (
-            confirm(
-              "يجب تسجيل الدخول أولاً. هل تريد الانتقال إلى صفحة تسجيل الدخول؟",
-            )
+            confirm("يجب تسجيل الدخول أولاً. هل تريد الانتقال إلى صفحة تسجيل الدخول؟")
           ) {
             window.location.href = "pages/login.html";
           }
           return;
         }
-        // TODO: فتح نافذة التواصل
+
         alert("سيتم تفعيل خاصية التواصل قريباً");
       }
 
-      // تهيئة الصفحة
+      function toggleMobileMenu() {
+        document.getElementById("mobileMenu").classList.toggle("show");
+      }
+
       document.addEventListener("DOMContentLoaded", () => {
         loadStats();
         loadRecentPets();

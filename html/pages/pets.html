@@ -4,17 +4,700 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>الحيوانات - PalPets</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap"
       rel="stylesheet"
     />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
-    <link rel="stylesheet" href="../css/style.css" />
+
+    <style>
+      :root {
+        --primary: #ff7a59;
+        --primary-dark: #e85f3d;
+        --secondary: #ffd166;
+        --accent: #5ec8a5;
+        --accent-dark: #37ad87;
+        --accent-light: #e8fff7;
+        --background: #fffaf5;
+        --background-soft: #fdf3ea;
+        --surface: #ffffff;
+        --text: #2f2a26;
+        --text-light: #6f665f;
+        --border: #f0dfd2;
+        --shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+        --radius: 20px;
+        --container: 1200px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "Tajawal", sans-serif;
+        background:
+          radial-gradient(circle at top right, rgba(255, 209, 102, 0.18), transparent 20%),
+          radial-gradient(circle at bottom left, rgba(94, 200, 165, 0.12), transparent 22%),
+          linear-gradient(180deg, #fffaf5 0%, #fff7ef 100%);
+        color: var(--text);
+        line-height: 1.7;
+        position: relative;
+        min-height: 100vh;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.05;
+        background-image:
+          url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='%23ff7a59'%3E%3Ccircle cx='28' cy='30' r='8'/%3E%3Ccircle cx='47' cy='18' r='7'/%3E%3Ccircle cx='66' cy='30' r='8'/%3E%3Ccircle cx='38' cy='48' r='7'/%3E%3Cpath d='M57 52c11 0 18 8 18 17 0 8-7 13-18 13s-18-5-18-13c0-9 7-17 18-17z'/%3E%3C/g%3E%3C/svg%3E");
+        background-size: 120px;
+        z-index: -1;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      img {
+        max-width: 100%;
+        display: block;
+      }
+
+      button,
+      input,
+      select {
+        font-family: inherit;
+      }
+
+      .container {
+        width: min(100% - 32px, var(--container));
+        margin-inline: auto;
+      }
+
+      .section-title {
+        text-align: center;
+        font-size: 2rem;
+        font-weight: 800;
+        margin-bottom: 40px;
+        color: var(--text);
+        position: relative;
+      }
+
+      .section-title::after {
+        content: "";
+        width: 90px;
+        height: 5px;
+        border-radius: 999px;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        display: block;
+        margin: 12px auto 0;
+      }
+
+      /* Navbar */
+      .navbar {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: rgba(255, 255, 255, 0.86);
+        backdrop-filter: blur(14px);
+        border-bottom: 1px solid rgba(240, 223, 210, 0.8);
+      }
+
+      .navbar .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        min-height: 82px;
+      }
+
+      .logo img {
+        height: 52px;
+        object-fit: contain;
+      }
+
+      .nav-menu {
+        display: flex;
+        align-items: center;
+        gap: 22px;
+      }
+
+      .nav-menu a {
+        font-weight: 700;
+        color: var(--text-light);
+        transition: 0.25s ease;
+        position: relative;
+      }
+
+      .nav-menu a:hover,
+      .nav-menu a.active {
+        color: var(--primary);
+      }
+
+      .nav-menu a.active::after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        right: 0;
+        width: 100%;
+        height: 3px;
+        border-radius: 999px;
+        background: var(--primary);
+      }
+
+      .auth-buttons {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .mobile-menu-btn {
+        display: none;
+        border: none;
+        background: var(--primary);
+        color: #fff;
+        width: 46px;
+        height: 46px;
+        border-radius: 14px;
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: 0.25s ease;
+      }
+
+      .mobile-menu-btn:hover {
+        background: var(--primary-dark);
+      }
+
+      .mobile-menu {
+        display: none;
+        flex-direction: column;
+        background: #fff;
+        border-top: 1px solid var(--border);
+        padding: 12px 16px;
+      }
+
+      .mobile-menu a {
+        padding: 12px;
+        border-radius: 12px;
+        font-weight: 700;
+        color: var(--text-light);
+        transition: 0.25s ease;
+      }
+
+      .mobile-menu a:hover {
+        background: var(--background-soft);
+        color: var(--primary);
+      }
+
+      .mobile-menu.show {
+        display: flex;
+      }
+
+      /* Hero */
+      .page-hero {
+        position: relative;
+        overflow: hidden;
+        min-height: 420px;
+        display: flex;
+        align-items: center;
+        padding: 80px 0 70px;
+        background:
+          linear-gradient(rgba(47, 42, 38, 0.45), rgba(47, 42, 38, 0.45)),
+          url("https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=1600&q=80") center/cover no-repeat;
+      }
+
+      .page-hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(135deg, rgba(255, 122, 89, 0.28), rgba(255, 209, 102, 0.12)),
+          radial-gradient(circle at 15% 20%, rgba(94, 200, 165, 0.25), transparent 22%);
+      }
+
+      .page-hero::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          url("https://images.unsplash.com/photo-1519052537078-e6302a4968d4?auto=format&fit=crop&w=900&q=80") left center/30% 100% no-repeat,
+          url("https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=900&q=80") right center/30% 100% no-repeat;
+        opacity: 0.18;
+        mix-blend-mode: screen;
+      }
+
+      .page-hero-content {
+        position: relative;
+        z-index: 2;
+        background: rgba(255, 255, 255, 0.14);
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        backdrop-filter: blur(12px);
+        padding: 40px;
+        border-radius: 28px;
+        color: #fff;
+        max-width: 760px;
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.16);
+      }
+
+      .page-hero h1 {
+        font-size: clamp(2rem, 4vw, 3rem);
+        font-weight: 800;
+        margin-bottom: 16px;
+        line-height: 1.3;
+      }
+
+      .page-hero p {
+        font-size: 1.08rem;
+        color: rgba(255, 255, 255, 0.92);
+        margin-bottom: 22px;
+        max-width: 620px;
+      }
+
+      .hero-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .hero-badge {
+        background: rgba(255, 255, 255, 0.16);
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        color: #fff;
+        padding: 10px 16px;
+        border-radius: 999px;
+        font-weight: 700;
+        font-size: 0.95rem;
+        backdrop-filter: blur(8px);
+      }
+
+      /* Main section */
+      .search-section {
+        position: relative;
+        padding: 70px 0;
+      }
+
+      .search-card {
+        background: rgba(255, 255, 255, 0.86);
+        border: 1px solid var(--border);
+        border-radius: 26px;
+        box-shadow: var(--shadow);
+        padding: 24px;
+        margin-bottom: 34px;
+        backdrop-filter: blur(8px);
+      }
+
+      .search-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+      }
+
+      .search-input {
+        width: 100%;
+        height: 54px;
+        border-radius: 16px;
+        border: 1px solid var(--border);
+        background: #fff;
+        padding: 0 18px;
+        font-size: 1rem;
+        color: var(--text);
+        outline: none;
+        transition: 0.25s ease;
+      }
+
+      .search-input:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 4px rgba(255, 122, 89, 0.12);
+      }
+
+      /* Pets */
+      .pets-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+        gap: 22px;
+      }
+
+      .pet-card {
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        transition: 0.25s ease;
+      }
+
+      .pet-card:hover {
+        transform: translateY(-6px);
+      }
+
+      .pet-image {
+        width: 100%;
+        height: 230px;
+        object-fit: cover;
+        background: #f5f5f5;
+      }
+
+      .pet-content {
+        padding: 20px;
+      }
+
+      .pet-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 12px;
+      }
+
+      .pet-name {
+        font-size: 1.2rem;
+        font-weight: 800;
+        color: var(--text);
+      }
+
+      .pet-status {
+        padding: 6px 12px;
+        border-radius: 999px;
+        font-size: 0.88rem;
+        font-weight: 700;
+      }
+
+      .status-available {
+        background: var(--accent-light);
+        color: #1f8d69;
+      }
+
+      .status-sold,
+      .status-adopted {
+        background: #ffeaea;
+        color: #cf4a4a;
+      }
+
+      .status-pending {
+        background: #fff5d8;
+        color: #a97900;
+      }
+
+      .pet-details p {
+        color: var(--text-light);
+        margin-bottom: 7px;
+      }
+
+      .pet-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 18px;
+      }
+
+      .btn-primary,
+      .btn-details,
+      .btn-contact,
+      .btn-secondary,
+      .btn-prev,
+      .btn-next {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        border: none;
+        border-radius: 14px;
+        cursor: pointer;
+        transition: 0.25s ease;
+        font-weight: 700;
+      }
+
+      .btn-details {
+        flex: 1;
+        padding: 13px 16px;
+        background: var(--background-soft);
+        color: var(--text);
+      }
+
+      .btn-contact {
+        flex: 1;
+        padding: 13px 16px;
+        background: var(--accent);
+        color: #fff;
+      }
+
+      .btn-primary {
+        padding: 14px 22px;
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        color: #fff;
+      }
+
+      .btn-secondary {
+        padding: 14px 22px;
+        background: var(--accent-light);
+        color: var(--accent-dark);
+      }
+
+      .btn-details:hover,
+      .btn-contact:hover,
+      .btn-primary:hover,
+      .btn-secondary:hover,
+      .btn-prev:hover,
+      .btn-next:hover {
+        transform: translateY(-2px);
+      }
+
+      /* Spinner */
+      .spinner {
+        width: 48px;
+        height: 48px;
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid var(--primary);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 30px auto;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Empty state */
+      .empty-state {
+        text-align: center;
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow);
+        border-radius: 24px;
+        padding: 40px 20px;
+        color: var(--text-light);
+      }
+
+      /* Pagination */
+      .pagination {
+        margin-top: 35px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .btn-prev,
+      .btn-next {
+        width: 48px;
+        height: 48px;
+        background: #fff;
+        color: var(--text);
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow);
+      }
+
+      .btn-prev:disabled,
+      .btn-next:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      #pageInfo {
+        font-weight: 700;
+        color: var(--text-light);
+      }
+
+      /* Modal */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 3000;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 20px;
+        overflow-y: auto;
+      }
+
+      .modal-content {
+        background: #fff;
+        max-width: 1000px;
+        margin: 40px auto;
+        border-radius: 24px;
+        padding: 28px;
+        position: relative;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.18);
+      }
+
+      .close {
+        position: absolute;
+        top: 14px;
+        left: 18px;
+        font-size: 2rem;
+        color: #777;
+        cursor: pointer;
+        line-height: 1;
+      }
+
+      .close:hover {
+        color: var(--primary);
+      }
+
+      .details-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 18px;
+        overflow: hidden;
+        border-radius: 14px;
+      }
+
+      .details-table th,
+      .details-table td {
+        padding: 12px 14px;
+        border-bottom: 1px solid #eee;
+        text-align: right;
+      }
+
+      .details-table th {
+        width: 140px;
+        color: var(--text);
+        background: #fff8f3;
+      }
+
+      .details-table td {
+        color: var(--text-light);
+      }
+
+      /* Footer */
+      .footer {
+        background: linear-gradient(180deg, #2f2a26, #241f1c);
+        color: #fff;
+        margin-top: 40px;
+        position: relative;
+        overflow: hidden;
+        padding: 60px 0 30px;
+      }
+
+      .footer::before {
+        content: "🐾";
+        position: absolute;
+        top: 20px;
+        left: 30px;
+        font-size: 7rem;
+        opacity: 0.05;
+      }
+
+      .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 22px;
+      }
+
+      .footer-section h3 {
+        margin-bottom: 16px;
+        color: var(--secondary);
+      }
+
+      .footer-section p,
+      .footer-links li {
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .footer-links {
+        list-style: none;
+      }
+
+      .footer-links li {
+        margin-bottom: 10px;
+      }
+
+      .footer-links a:hover {
+        color: var(--secondary);
+      }
+
+      .footer-bottom {
+        margin-top: 35px;
+        padding-top: 18px;
+        border-top: 1px solid rgba(255, 255, 255, 0.12);
+        text-align: center;
+        color: rgba(255, 255, 255, 0.75);
+      }
+
+      .text-center {
+        text-align: center;
+      }
+
+      @media (max-width: 992px) {
+        .nav-menu {
+          display: none;
+        }
+
+        .mobile-menu-btn {
+          display: inline-grid;
+          place-items: center;
+        }
+
+        .search-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .page-hero::after {
+          display: none;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .page-hero {
+          min-height: 360px;
+          padding: 60px 0;
+          background-position: center;
+        }
+
+        .page-hero-content {
+          padding: 28px 20px;
+          border-radius: 22px;
+        }
+
+        .page-hero p {
+          font-size: 1rem;
+        }
+
+        .search-section {
+          padding: 55px 0;
+        }
+
+        .search-card {
+          padding: 18px;
+        }
+
+        .search-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .pet-actions {
+          flex-direction: column;
+        }
+
+        .modal-content {
+          padding: 20px;
+        }
+
+        .details-layout {
+          flex-direction: column !important;
+        }
+      }
+    </style>
   </head>
   <body>
     <nav class="navbar">
@@ -22,6 +705,7 @@
         <a href="../index.html" class="logo">
           <img src="../images/logo.png" alt="PalPets" />
         </a>
+
         <div class="nav-menu">
           <a href="../index.html">الرئيسية</a>
           <a href="pets.html" class="active">الحيوانات</a>
@@ -30,9 +714,11 @@
           <a href="veterinary.html">الرعاية البيطرية</a>
           <a href="store.html">المتجر</a>
         </div>
+
         <div class="auth-buttons"></div>
         <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
       </div>
+
       <div class="mobile-menu" id="mobileMenu">
         <a href="../index.html">الرئيسية</a>
         <a href="pets.html">الحيوانات</a>
@@ -44,11 +730,29 @@
       </div>
     </nav>
 
+    <section class="page-hero">
+      <div class="container">
+        <div class="page-hero-content">
+          <h1>اكتشف الحيوانات المتاحة في PalPets</h1>
+          <p>
+            تصفح الحيوانات المتاحة للبيع أو التبني، وابحث بسهولة حسب النوع والجنس
+            وطبيعة الإعلان، واعثر على الحيوان المناسب لك في تجربة مريحة وواضحة.
+          </p>
+
+          <div class="hero-badges">
+            <span class="hero-badge">🐶 كلاب</span>
+            <span class="hero-badge">🐱 قطط</span>
+            <span class="hero-badge">🏠 تبني</span>
+            <span class="hero-badge">💛 رعاية ومحبة</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="search-section">
       <div class="container">
-        <h1 class="section-title">الحيوانات المتاحة</h1>
+        <h2 class="section-title">الحيوانات المتاحة</h2>
 
-        <!-- Search and Filters -->
         <div class="search-card">
           <div class="search-grid">
             <input
@@ -76,18 +780,14 @@
           </div>
         </div>
 
-        <!-- Pets Grid -->
         <div id="petsGrid" class="pets-grid"></div>
 
-        <!-- Loading Spinner -->
         <div id="loading" class="spinner" style="display: none"></div>
 
-        <!-- Empty State -->
         <div id="emptyState" class="empty-state" style="display: none">
           <p>لا توجد حيوانات متاحة حالياً</p>
         </div>
 
-        <!-- Pagination -->
         <div id="pagination" class="pagination">
           <button class="btn-prev" onclick="prevPage()" id="prevBtn">
             <i class="fas fa-chevron-right"></i>
@@ -100,7 +800,6 @@
       </div>
     </section>
 
-    <!-- Pet Details Modal -->
     <div id="petModal" class="modal">
       <div class="modal-content">
         <span class="close" onclick="closeModal()">&times;</span>
@@ -109,7 +808,50 @@
     </div>
 
     <footer class="footer">
-      <!-- نفس الفوتر من الصفحة الرئيسية -->
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-section">
+            <h3>عن المنصة</h3>
+            <p>
+              منصة متكاملة للعناية بالحيوانات الأليفة، تجمع عشاق الحيوانات،
+              المربين، والملاجئ في مكان واحد.
+            </p>
+          </div>
+
+          <div class="footer-section">
+            <h3>روابط سريعة</h3>
+            <ul class="footer-links">
+              <li><a href="../index.html">الرئيسية</a></li>
+              <li><a href="pets.html">الحيوانات</a></li>
+              <li><a href="adoption.html">التبني</a></li>
+              <li><a href="lost-found.html">مفقود ومعثور</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h3>الخدمات</h3>
+            <ul class="footer-links">
+              <li><a href="veterinary.html">الرعاية البيطرية</a></li>
+              <li><a href="store.html">المتجر</a></li>
+              <li><a href="#">التطعيمات</a></li>
+              <li><a href="#">استشارات</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h3>تواصل معنا</h3>
+            <ul class="footer-links">
+              <li>📞 +972599248391</li>
+              <li>✉️ info@PalPets.com</li>
+              <li>📍 فلسطين</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>© 2026 PalPets - جميع الحقوق محفوظة</p>
+        </div>
+      </div>
     </footer>
 
     <script src="../js/api.js"></script>
@@ -117,9 +859,7 @@
       let currentPage = 1;
       let totalPages = 1;
       let petTypes = [];
-      let currentFilters = {};
 
-      // تحميل أنواع الحيوانات
       async function loadPetTypes() {
         try {
           const types = await apiCall("/animals/types/", "GET", null, false);
@@ -136,7 +876,6 @@
         }
       }
 
-      // تحميل الحيوانات
       async function loadPets() {
         showLoading();
 
@@ -148,15 +887,16 @@
             document.getElementById("listingTypeFilter").value;
 
           let url = `/animals/?page=${currentPage}`;
-          if (search) url += `&search=${search}`;
-          if (type) url += `&animal_type=${type}`;
-          if (gender) url += `&gender=${gender}`;
-          if (listingType) url += `&listing_type=${listingType}`;
+          if (search) url += `&search=${encodeURIComponent(search)}`;
+          if (type) url += `&animal_type=${encodeURIComponent(type)}`;
+          if (gender) url += `&gender=${encodeURIComponent(gender)}`;
+          if (listingType)
+            url += `&listing_type=${encodeURIComponent(listingType)}`;
 
           const response = await apiCall(url, "GET", null, false);
 
           const pets = response.results || response || [];
-          totalPages = Math.ceil((response.count || pets.length) / 10);
+          totalPages = Math.max(1, Math.ceil((response.count || pets.length) / 10));
 
           displayPets(pets);
           updatePagination();
@@ -169,12 +909,11 @@
         }
       }
 
-      // عرض الحيوانات
       function displayPets(pets) {
         const grid = document.getElementById("petsGrid");
         const emptyState = document.getElementById("emptyState");
 
-        if (pets.length === 0) {
+        if (!pets.length) {
           grid.style.display = "none";
           emptyState.style.display = "block";
           return;
@@ -182,39 +921,40 @@
 
         grid.style.display = "grid";
         emptyState.style.display = "none";
-
         grid.innerHTML = pets.map((pet) => createPetCard(pet)).join("");
       }
 
-      // إنشاء بطاقة حيوان
       function createPetCard(pet) {
         return `
-                <div class="pet-card">
-                    <img src="${pet.primary_image || "https://via.placeholder.com/300x200"}" alt="${pet.name}" class="pet-image">
-                    <div class="pet-content">
-                        <div class="pet-header">
-                            <h3 class="pet-name">${pet.name}</h3>
-                            <span>${getStatusBadge(pet.status)}</span>
-                        </div>
-                        <div class="pet-details">
-                            <p><strong>النوع:</strong> ${pet.animal_type_name}</p>
-                            <p><strong>السلالة:</strong> ${pet.breed_name || "غير محدد"}</p>
-                            <p><strong>الجنس:</strong> ${getGenderName(pet.gender)}</p>
-                            <p><strong>العمر:</strong> ${pet.age}</p>
-                            ${pet.listing_type === "sale" ? `<p><strong>السعر:</strong> ${pet.price} ₪</p>` : ""}
-                        </div>
-                        <div class="pet-actions">
-                            <button onclick="viewPetDetails(${pet.id})" class="btn-details">تفاصيل</button>
-                            <button onclick="likePet(${pet.id})" class="btn-contact">
-                                <i class="fas fa-heart"></i> ${pet.likes_count || 0}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            `;
+          <div class="pet-card">
+            <img src="${pet.primary_image || "https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=900&q=80"}" alt="${pet.name || "حيوان"}" class="pet-image">
+            <div class="pet-content">
+              <div class="pet-header">
+                <h3 class="pet-name">${pet.name || "بدون اسم"}</h3>
+                ${getStatusBadge(pet.status)}
+              </div>
+              <div class="pet-details">
+                <p><strong>النوع:</strong> ${pet.animal_type_name || "غير محدد"}</p>
+                <p><strong>السلالة:</strong> ${pet.breed_name || "غير محدد"}</p>
+                <p><strong>الجنس:</strong> ${getGenderName(pet.gender)}</p>
+                <p><strong>العمر:</strong> ${pet.age || "غير محدد"}</p>
+                ${
+                  pet.listing_type === "sale"
+                    ? `<p><strong>السعر:</strong> ${pet.price || 0} ₪</p>`
+                    : ""
+                }
+              </div>
+              <div class="pet-actions">
+                <button onclick="viewPetDetails(${pet.id})" class="btn-details">تفاصيل</button>
+                <button onclick="likePet(${pet.id})" class="btn-contact">
+                  <i class="fas fa-heart"></i> ${pet.likes_count || 0}
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
       }
 
-      // عرض تفاصيل الحيوان
       async function viewPetDetails(id) {
         showLoading();
 
@@ -225,34 +965,40 @@
           const details = document.getElementById("petDetails");
 
           details.innerHTML = `
-                    <div style="display: flex; gap: 20px;">
-                        <div style="flex: 1;">
-                            <img src="${pet.primary_image || "https://via.placeholder.com/400x300"}" 
-                                 style="width: 100%; border-radius: 10px;">
-                        </div>
-                        <div style="flex: 1;">
-                            <h2>${pet.name}</h2>
-                            <p>${pet.description}</p>
-                            
-                            <table class="details-table">
-                                <tr><th>النوع:</th><td>${pet.animal_type_name}</td></tr>
-                                <tr><th>السلالة:</th><td>${pet.breed_name || "غير محدد"}</td></tr>
-                                <tr><th>الجنس:</th><td>${getGenderName(pet.gender)}</td></tr>
-                                <tr><th>العمر:</th><td>${pet.age}</td></tr>
-                                <tr><th>اللون:</th><td>${pet.color || "غير محدد"}</td></tr>
-                                <tr><th>الموقع:</th><td>${pet.location || "غير محدد"}</td></tr>
-                                <tr><th>التطعيمات:</th><td>${pet.is_vaccinated ? "✅ مكتملة" : "⏳ غير مكتملة"}</td></tr>
-                            </table>
-                            
-                            <div style="margin-top: 20px;">
-                                <button class="btn-primary" onclick="contactOwner(${pet.id})">تواصل مع المالك</button>
-                                <button class="btn-secondary" onclick="likePet(${pet.id})">
-                                    <i class="fas fa-heart"></i> ${pet.likes_count || 0}
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                `;
+            <div class="details-layout" style="display:flex; gap:20px; align-items:flex-start;">
+              <div style="flex:1;">
+                <img
+                  src="${pet.primary_image || "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=1200&q=80"}"
+                  alt="${pet.name || "حيوان"}"
+                  style="width:100%; border-radius:18px; max-height:420px; object-fit:cover;"
+                />
+              </div>
+              <div style="flex:1;">
+                <h2 style="margin-bottom:12px;">${pet.name || "بدون اسم"}</h2>
+                <p style="color:var(--text-light); margin-bottom:14px;">
+                  ${pet.description || "لا يوجد وصف متاح لهذا الحيوان حالياً."}
+                </p>
+
+                <table class="details-table">
+                  <tr><th>النوع:</th><td>${pet.animal_type_name || "غير محدد"}</td></tr>
+                  <tr><th>السلالة:</th><td>${pet.breed_name || "غير محدد"}</td></tr>
+                  <tr><th>الجنس:</th><td>${getGenderName(pet.gender)}</td></tr>
+                  <tr><th>العمر:</th><td>${pet.age || "غير محدد"}</td></tr>
+                  <tr><th>اللون:</th><td>${pet.color || "غير محدد"}</td></tr>
+                  <tr><th>الموقع:</th><td>${pet.location || "غير محدد"}</td></tr>
+                  <tr><th>نوع الإعلان:</th><td>${pet.listing_type === "sale" ? "للبيع" : "للتبني"}</td></tr>
+                  <tr><th>التطعيمات:</th><td>${pet.is_vaccinated ? "✅ مكتملة" : "⏳ غير مكتملة"}</td></tr>
+                </table>
+
+                <div style="margin-top:20px; display:flex; gap:10px; flex-wrap:wrap;">
+                  <button class="btn-primary" onclick="contactOwner(${pet.id})">تواصل مع المالك</button>
+                  <button class="btn-secondary" onclick="likePet(${pet.id})">
+                    <i class="fas fa-heart"></i> ${pet.likes_count || 0}
+                  </button>
+                </div>
+              </div>
+            </div>
+          `;
 
           modal.style.display = "block";
         } catch (error) {
@@ -262,7 +1008,6 @@
         }
       }
 
-      // إعجاب بالحيوان
       async function likePet(id) {
         if (!requireAuth()) return;
 
@@ -270,15 +1015,14 @@
           const response = await apiCall(`/animals/${id}/like/`, "POST");
           showNotification(
             response.liked ? "تمت الإعجاب" : "تم إلغاء الإعجاب",
-            "success",
+            "success"
           );
-          loadPets(); // إعادة تحميل
+          loadPets();
         } catch (error) {
           showNotification("حدث خطأ", "error");
         }
       }
 
-      // Pagination
       function prevPage() {
         if (currentPage > 1) {
           currentPage--;
@@ -294,18 +1038,40 @@
       }
 
       function updatePagination() {
-        document.getElementById("pageInfo").textContent =
-          `صفحة ${currentPage} من ${totalPages}`;
+        document.getElementById("pageInfo").textContent = `صفحة ${currentPage} من ${totalPages}`;
         document.getElementById("prevBtn").disabled = currentPage === 1;
-        document.getElementById("nextBtn").disabled =
-          currentPage === totalPages;
+        document.getElementById("nextBtn").disabled = currentPage === totalPages;
       }
 
       function closeModal() {
         document.getElementById("petModal").style.display = "none";
       }
 
-      // Event listeners
+      function getGenderName(gender) {
+        if (gender === "male") return "ذكر";
+        if (gender === "female") return "أنثى";
+        return "غير محدد";
+      }
+
+      function getStatusBadge(status) {
+        switch (status) {
+          case "available":
+            return '<span class="pet-status status-available">متاح</span>';
+          case "sold":
+            return '<span class="pet-status status-sold">تم البيع</span>';
+          case "adopted":
+            return '<span class="pet-status status-adopted">تم التبني</span>';
+          case "pending":
+            return '<span class="pet-status status-pending">قيد المراجعة</span>';
+          default:
+            return '<span class="pet-status status-available">متاح</span>';
+        }
+      }
+
+      function toggleMobileMenu() {
+        document.getElementById("mobileMenu").classList.toggle("show");
+      }
+
       document.getElementById("searchInput").addEventListener("input", () => {
         currentPage = 1;
         loadPets();
@@ -321,14 +1087,18 @@
         loadPets();
       });
 
-      document
-        .getElementById("listingTypeFilter")
-        .addEventListener("change", () => {
-          currentPage = 1;
-          loadPets();
-        });
+      document.getElementById("listingTypeFilter").addEventListener("change", () => {
+        currentPage = 1;
+        loadPets();
+      });
 
-      // Initialize
+      window.addEventListener("click", (e) => {
+        const modal = document.getElementById("petModal");
+        if (e.target === modal) {
+          closeModal();
+        }
+      });
+
       document.addEventListener("DOMContentLoaded", () => {
         loadPetTypes();
         loadPets();

@@ -1,24 +1,445 @@
-<!-- register.html -->
 <!doctype html>
 <html lang="ar" dir="rtl">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>إنشاء حساب - PalPets</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="../css/style.css" />
+
+    <style>
+      :root {
+        --primary: #ff7a59;
+        --primary-dark: #e85f3d;
+        --secondary: #ffd166;
+        --accent: #5ec8a5;
+        --accent-light: #e8fff7;
+        --background: #fffaf5;
+        --background-soft: #fdf3ea;
+        --surface: #ffffff;
+        --text: #2f2a26;
+        --text-light: #6f665f;
+        --border: #f0dfd2;
+        --shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+        --container: 1200px;
+        --danger: #dc2626;
+        --success: #16a34a;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "Tajawal", sans-serif;
+        background:
+          radial-gradient(circle at top right, rgba(255, 209, 102, 0.18), transparent 20%),
+          radial-gradient(circle at bottom left, rgba(94, 200, 165, 0.12), transparent 22%),
+          linear-gradient(180deg, #fffaf5 0%, #fff7ef 100%);
+        color: var(--text);
+        line-height: 1.7;
+        min-height: 100vh;
+        position: relative;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.05;
+        background-image:
+          url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='%23ff7a59'%3E%3Ccircle cx='28' cy='30' r='8'/%3E%3Ccircle cx='47' cy='18' r='7'/%3E%3Ccircle cx='66' cy='30' r='8'/%3E%3Ccircle cx='38' cy='48' r='7'/%3E%3Cpath d='M57 52c11 0 18 8 18 17 0 8-7 13-18 13s-18-5-18-13c0-9 7-17 18-17z'/%3E%3C/g%3E%3C/svg%3E");
+        background-size: 120px;
+        z-index: -1;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      img {
+        max-width: 100%;
+        display: block;
+      }
+
+      button,
+      input,
+      select {
+        font-family: inherit;
+      }
+
+      .container {
+        width: min(100% - 32px, var(--container));
+        margin-inline: auto;
+      }
+
+      /* Navbar */
+      .navbar {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: rgba(255, 255, 255, 0.86);
+        backdrop-filter: blur(14px);
+        border-bottom: 1px solid rgba(240, 223, 210, 0.8);
+      }
+
+      .navbar .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        min-height: 82px;
+      }
+
+      .logo img {
+        height: 52px;
+        object-fit: contain;
+      }
+
+      .nav-menu {
+        display: flex;
+        align-items: center;
+        gap: 22px;
+      }
+
+      .nav-menu a {
+        font-weight: 700;
+        color: var(--text-light);
+        transition: 0.25s ease;
+        position: relative;
+      }
+
+      .nav-menu a:hover,
+      .nav-menu a.active {
+        color: var(--primary);
+      }
+
+      .auth-buttons {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .mobile-menu-btn {
+        display: none;
+        border: none;
+        background: var(--primary);
+        color: #fff;
+        width: 46px;
+        height: 46px;
+        border-radius: 14px;
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: 0.25s ease;
+      }
+
+      .mobile-menu-btn:hover {
+        background: var(--primary-dark);
+      }
+
+      .mobile-menu {
+        display: none;
+        flex-direction: column;
+        background: #fff;
+        border-top: 1px solid var(--border);
+        padding: 12px 16px;
+      }
+
+      .mobile-menu a {
+        padding: 12px;
+        border-radius: 12px;
+        font-weight: 700;
+        color: var(--text-light);
+        transition: 0.25s ease;
+      }
+
+      .mobile-menu a:hover {
+        background: var(--background-soft);
+        color: var(--primary);
+      }
+
+      .mobile-menu.show {
+        display: flex;
+      }
+
+      /* Register Section */
+      .register-section {
+        min-height: calc(100vh - 82px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 60px 16px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .register-section::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(rgba(47, 42, 38, 0.38), rgba(47, 42, 38, 0.38)),
+          url("https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=1600&q=80") center/cover no-repeat;
+        z-index: -3;
+      }
+
+      .register-section::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(circle at 15% 20%, rgba(255, 122, 89, 0.24), transparent 22%),
+          radial-gradient(circle at 80% 20%, rgba(94, 200, 165, 0.24), transparent 22%),
+          linear-gradient(135deg, rgba(255, 209, 102, 0.14), rgba(255, 255, 255, 0.05));
+        z-index: -2;
+      }
+
+      .register-wrapper {
+        width: 100%;
+        max-width: 1180px;
+        display: grid;
+        grid-template-columns: 0.95fr 1.05fr;
+        gap: 28px;
+        align-items: stretch;
+      }
+
+      .register-side {
+        background: rgba(255, 255, 255, 0.14);
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        backdrop-filter: blur(12px);
+        border-radius: 30px;
+        padding: 40px;
+        color: #fff;
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.16);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .register-side h1 {
+        font-size: clamp(2rem, 4vw, 3rem);
+        font-weight: 800;
+        line-height: 1.3;
+        margin-bottom: 16px;
+      }
+
+      .register-side p {
+        color: rgba(255, 255, 255, 0.92);
+        font-size: 1.05rem;
+        margin-bottom: 20px;
+      }
+
+      .register-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .register-badge {
+        background: rgba(255, 255, 255, 0.16);
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        color: #fff;
+        padding: 10px 16px;
+        border-radius: 999px;
+        font-weight: 700;
+        font-size: 0.95rem;
+        backdrop-filter: blur(8px);
+      }
+
+      .register-card {
+        background: rgba(255, 255, 255, 0.96);
+        border: 1px solid rgba(255, 255, 255, 0.7);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.14);
+        border-radius: 30px;
+        padding: 34px 28px;
+        backdrop-filter: blur(10px);
+      }
+
+      .register-title {
+        font-size: 2rem;
+        font-weight: 800;
+        text-align: center;
+        margin-bottom: 8px;
+        color: var(--text);
+      }
+
+      .register-subtitle {
+        text-align: center;
+        color: var(--text-light);
+        margin-bottom: 24px;
+      }
+
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+
+      .form-group {
+        margin-bottom: 18px;
+      }
+
+      .form-label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 700;
+        color: var(--text);
+      }
+
+      .form-input-wrap {
+        position: relative;
+      }
+
+      .form-input {
+        width: 100%;
+        min-height: 54px;
+        border-radius: 16px;
+        border: 1px solid var(--border);
+        background: #fff;
+        padding: 0 18px;
+        font-size: 1rem;
+        color: var(--text);
+        outline: none;
+        transition: 0.25s ease;
+      }
+
+      .form-input.password-input {
+        padding-left: 52px;
+      }
+
+      .form-input:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 4px rgba(255, 122, 89, 0.12);
+      }
+
+      .toggle-password {
+        position: absolute;
+        left: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        color: var(--text-light);
+        font-size: 1rem;
+      }
+
+      .btn-submit {
+        width: 100%;
+        min-height: 54px;
+        border: none;
+        border-radius: 16px;
+        cursor: pointer;
+        transition: 0.25s ease;
+        font-weight: 800;
+        font-size: 1rem;
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        color: #fff;
+        margin-top: 6px;
+        box-shadow: 0 10px 20px rgba(255, 122, 89, 0.24);
+      }
+
+      .btn-submit:hover {
+        transform: translateY(-2px);
+      }
+
+      .register-footer {
+        margin-top: 22px;
+        text-align: center;
+      }
+
+      .register-footer p {
+        color: var(--text-light);
+      }
+
+      .register-footer a {
+        color: var(--primary);
+        font-weight: 700;
+      }
+
+      .register-footer a:hover {
+        text-decoration: underline;
+      }
+
+      .message-box {
+        border-radius: 14px;
+        padding: 12px 14px;
+        margin-bottom: 18px;
+        font-weight: 700;
+      }
+
+      .message-success {
+        background: #ecfdf5;
+        color: var(--success);
+        border: 1px solid #bbf7d0;
+      }
+
+      .message-error {
+        background: #fef2f2;
+        color: var(--danger);
+        border: 1px solid #fecaca;
+      }
+
+      @media (max-width: 992px) {
+        .nav-menu {
+          display: none;
+        }
+
+        .mobile-menu-btn {
+          display: inline-grid;
+          place-items: center;
+        }
+
+        .register-wrapper {
+          grid-template-columns: 1fr;
+        }
+
+        .register-side {
+          display: none;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .register-section {
+          padding: 40px 14px;
+        }
+
+        .register-card {
+          padding: 26px 18px;
+          border-radius: 24px;
+        }
+
+        .register-title {
+          font-size: 1.7rem;
+        }
+
+        .form-row {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
   </head>
+
   <body>
     <nav class="navbar">
       <div class="container">
         <a href="../index.html" class="logo">
           <img src="../images/logo.png" alt="PalPets" />
         </a>
+
         <div class="nav-menu">
           <a href="../index.html">الرئيسية</a>
           <a href="pets.html">الحيوانات</a>
@@ -27,89 +448,155 @@
           <a href="veterinary.html">الرعاية البيطرية</a>
           <a href="store.html">المتجر</a>
         </div>
+
         <div class="auth-buttons"></div>
         <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
       </div>
+
+      <div class="mobile-menu" id="mobileMenu">
+        <a href="../index.html">الرئيسية</a>
+        <a href="pets.html">الحيوانات</a>
+        <a href="adoption.html">التبني</a>
+        <a href="lost-found.html">مفقود ومعثور</a>
+        <a href="veterinary.html">الرعاية البيطرية</a>
+        <a href="store.html">المتجر</a>
+        <a href="login.html">تسجيل الدخول</a>
+      </div>
     </nav>
 
-    <section class="login-section">
-      <div class="login-card">
-        <h2 class="login-title">إنشاء حساب جديد</h2>
-        <div id="messageContainer"></div>
+    <section class="register-section">
+      <div class="register-wrapper">
+        <div class="register-side">
+          <h1>انضم إلى مجتمع PalPets</h1>
+          <p>
+            أنشئ حسابك الآن لتتمكن من استعراض الحيوانات، التقديم للتبني، إدارة
+            البلاغات، حجز المواعيد، والتسوق بسهولة من داخل المنصة.
+          </p>
 
-        <form id="registerForm" onsubmit="handleRegister(event)">
-          <div class="form-row">
-            <div class="form-group">
-              <label class="form-label">الاسم الأول</label>
-              <input type="text" id="firstName" class="form-input" required />
+          <div class="register-badges">
+            <span class="register-badge">🐾 حساب شخصي متكامل</span>
+            <span class="register-badge">🏠 التبني والمتابعة</span>
+            <span class="register-badge">🛍️ تجربة تسوق سهلة</span>
+            <span class="register-badge">💛 منصة موحدة وآمنة</span>
+          </div>
+        </div>
+
+        <div class="register-card">
+          <h2 class="register-title">إنشاء حساب جديد</h2>
+          <p class="register-subtitle">أدخل بياناتك للانضمام إلى المنصة</p>
+
+          <div id="messageContainer"></div>
+
+          <form id="registerForm" onsubmit="handleRegister(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">الاسم الأول</label>
+                <input type="text" id="firstName" class="form-input" required />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">الاسم الأخير</label>
+                <input type="text" id="lastName" class="form-input" required />
+              </div>
             </div>
+
             <div class="form-group">
-              <label class="form-label">الاسم الأخير</label>
-              <input type="text" id="lastName" class="form-input" required />
+              <label class="form-label">اسم المستخدم</label>
+              <input type="text" id="username" class="form-input" required />
             </div>
+
+            <div class="form-group">
+              <label class="form-label">البريد الإلكتروني</label>
+              <input type="email" id="email" class="form-input" required />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">رقم الهاتف</label>
+              <input type="tel" id="phone" class="form-input" required />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">الموقع</label>
+              <input
+                type="text"
+                id="location"
+                class="form-input"
+                placeholder="المدينة"
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">نوع الحساب</label>
+              <select id="userType" class="form-input">
+                <option value="regular">مستخدم عادي</option>
+                <option value="breeder">مربي</option>
+                <option value="veterinarian">طبيب بيطري</option>
+                <option value="clinic">عيادة</option>
+                <option value="shelter">ملجأ</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">كلمة المرور</label>
+              <div class="form-input-wrap">
+                <input
+                  type="password"
+                  id="password"
+                  class="form-input password-input"
+                  required
+                />
+                <button
+                  type="button"
+                  class="toggle-password"
+                  onclick="togglePassword('password')"
+                  aria-label="إظهار أو إخفاء كلمة المرور"
+                >
+                  👁️
+                </button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">تأكيد كلمة المرور</label>
+              <div class="form-input-wrap">
+                <input
+                  type="password"
+                  id="confirmPassword"
+                  class="form-input password-input"
+                  required
+                />
+                <button
+                  type="button"
+                  class="toggle-password"
+                  onclick="togglePassword('confirmPassword')"
+                  aria-label="إظهار أو إخفاء كلمة المرور"
+                >
+                  👁️
+                </button>
+              </div>
+            </div>
+
+            <button type="submit" class="btn-submit">إنشاء حساب</button>
+          </form>
+
+          <div class="register-footer">
+            <p>لديك حساب بالفعل؟ <a href="login.html">تسجيل الدخول</a></p>
           </div>
-
-          <div class="form-group">
-            <label class="form-label">اسم المستخدم</label>
-            <input type="text" id="username" class="form-input" required />
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">البريد الإلكتروني</label>
-            <input type="email" id="email" class="form-input" required />
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">رقم الهاتف</label>
-            <input type="tel" id="phone" class="form-input" required />
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">الموقع</label>
-            <input
-              type="text"
-              id="location"
-              class="form-input"
-              placeholder="المدينة"
-            />
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">نوع الحساب</label>
-            <select id="userType" class="form-input">
-              <option value="regular">مستخدم عادي</option>
-              <option value="breeder">مربي</option>
-              <option value="veterinarian">طبيب بيطري</option>
-              <option value="clinic">عيادة</option>
-              <option value="shelter">ملجأ</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">كلمة المرور</label>
-            <input type="password" id="password" class="form-input" required />
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">تأكيد كلمة المرور</label>
-            <input
-              type="password"
-              id="confirmPassword"
-              class="form-input"
-              required
-            />
-          </div>
-
-          <button type="submit" class="btn-submit">إنشاء حساب</button>
-        </form>
-
-        <div class="login-footer">
-          <p>لديك حساب بالفعل؟ <a href="login.html">تسجيل الدخول</a></p>
         </div>
       </div>
     </section>
 
     <script src="../js/api.js"></script>
     <script src="../js/auth.js"></script>
+    <script>
+      function toggleMobileMenu() {
+        document.getElementById("mobileMenu").classList.toggle("show");
+      }
+
+      function togglePassword(inputId) {
+        const input = document.getElementById(inputId);
+        input.type = input.type === "password" ? "text" : "password";
+      }
+    </script>
   </body>
 </html>
