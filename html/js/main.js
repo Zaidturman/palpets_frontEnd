@@ -6,6 +6,7 @@ function toggleMobileMenu() {
     menu.classList.toggle('active');
 }
 
+
 // بيانات ابتدائية للحيوانات
 function getPets() {
     return [
@@ -129,7 +130,7 @@ function contactOwner(petId) {
         alert('سيتم فتح نافذة التواصل قريباً');
     } else {
         if (confirm('يجب تسجيل الدخول أولاً. هل تريد الانتقال إلى صفحة تسجيل الدخول؟')) {
-            window.location.href = 'pages/login.html';
+            window.location.href = '/login.html';
         }
     }
 }
@@ -150,7 +151,7 @@ function updateUIForLoggedInUser(user) {
     const authButtons = document.querySelector('.auth-buttons');
     if (authButtons) {
         authButtons.innerHTML = `
-            <a href="pages/profile.html" class="btn-login">
+            <a href="/profile.html" class="btn-login">
                 <img src="https://via.placeholder.com/32" alt="Profile" style="width: 32px; height: 32px; border-radius: 50%; vertical-align: middle; margin-left: 8px;">
                 ${user.name}
             </a>

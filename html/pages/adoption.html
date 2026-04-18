@@ -15,7 +15,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
-
+    <script src="/js/auth-ui.js"></script>
     <style>
       :root {
         --primary: #ff7a59;
@@ -48,8 +48,16 @@
       body {
         font-family: "Tajawal", sans-serif;
         background:
-          radial-gradient(circle at top right, rgba(255, 209, 102, 0.18), transparent 20%),
-          radial-gradient(circle at bottom left, rgba(94, 200, 165, 0.12), transparent 22%),
+          radial-gradient(
+            circle at top right,
+            rgba(255, 209, 102, 0.18),
+            transparent 20%
+          ),
+          radial-gradient(
+            circle at bottom left,
+            rgba(94, 200, 165, 0.12),
+            transparent 22%
+          ),
           linear-gradient(180deg, #fffaf5 0%, #fff7ef 100%);
         color: var(--text);
         line-height: 1.7;
@@ -63,8 +71,7 @@
         inset: 0;
         pointer-events: none;
         opacity: 0.05;
-        background-image:
-          url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='%23ff7a59'%3E%3Ccircle cx='28' cy='30' r='8'/%3E%3Ccircle cx='47' cy='18' r='7'/%3E%3Ccircle cx='66' cy='30' r='8'/%3E%3Ccircle cx='38' cy='48' r='7'/%3E%3Cpath d='M57 52c11 0 18 8 18 17 0 8-7 13-18 13s-18-5-18-13c0-9 7-17 18-17z'/%3E%3C/g%3E%3C/svg%3E");
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='%23ff7a59'%3E%3Ccircle cx='28' cy='30' r='8'/%3E%3Ccircle cx='47' cy='18' r='7'/%3E%3Ccircle cx='66' cy='30' r='8'/%3E%3Ccircle cx='38' cy='48' r='7'/%3E%3Cpath d='M57 52c11 0 18 8 18 17 0 8-7 13-18 13s-18-5-18-13c0-9 7-17 18-17z'/%3E%3C/g%3E%3C/svg%3E");
         background-size: 120px;
         z-index: -1;
       }
@@ -166,6 +173,96 @@
         display: flex;
         align-items: center;
         gap: 10px;
+        position: relative;
+      }
+
+      .login-btn {
+        padding: 10px 18px;
+        border-radius: 14px;
+        border: 2px solid var(--primary);
+        background: transparent;
+        color: var(--primary);
+        font-weight: 700;
+        cursor: pointer;
+        transition: 0.25s ease;
+      }
+
+      .login-btn:hover {
+        background: var(--primary);
+        color: #fff;
+      }
+
+      .profile-menu-wrap {
+        position: relative;
+      }
+
+      .profile-btn {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: #fff;
+        border: 1px solid var(--border);
+        padding: 6px 12px;
+        border-radius: 999px;
+        cursor: pointer;
+        transition: 0.25s ease;
+        box-shadow: var(--shadow);
+      }
+
+      .profile-btn:hover {
+        transform: translateY(-2px);
+      }
+
+      .profile-btn .profile-avatar {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .profile-btn .profile-name {
+        font-weight: 700;
+        color: var(--text);
+        font-size: 0.95rem;
+      }
+
+      .profile-dropdown {
+        position: absolute;
+        top: calc(100% + 10px);
+        left: 0;
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: var(--shadow);
+        border: 1px solid var(--border);
+        width: 220px;
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+        z-index: 2000;
+      }
+
+      .profile-dropdown.show {
+        display: flex;
+      }
+
+      .profile-dropdown a,
+      .profile-dropdown button {
+        padding: 12px 16px;
+        font-weight: 600;
+        color: var(--text-light);
+        background: #fff;
+        border: none;
+        text-align: right;
+        cursor: pointer;
+        transition: 0.2s;
+        font-family: inherit;
+        font-size: 14px;
+      }
+
+      .profile-dropdown a:hover,
+      .profile-dropdown button:hover {
+        background: var(--background-soft);
+        color: var(--primary);
       }
 
       .mobile-menu-btn {
@@ -220,7 +317,8 @@
         padding: 90px 0 70px;
         background:
           linear-gradient(rgba(47, 42, 38, 0.45), rgba(47, 42, 38, 0.45)),
-          url("https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=1600&q=80") center/cover no-repeat;
+          url("https://cdn.shopify.com/s/files/1/0857/8116/files/PetEssencesGroupShot4-1080.jpg?v=1651196596?auto=format&fit=crop&w=1600&q=80")
+            center/cover no-repeat;
       }
 
       .page-hero::before {
@@ -228,8 +326,16 @@
         position: absolute;
         inset: 0;
         background:
-          linear-gradient(135deg, rgba(255, 122, 89, 0.26), rgba(255, 209, 102, 0.12)),
-          radial-gradient(circle at 20% 20%, rgba(94, 200, 165, 0.24), transparent 22%);
+          linear-gradient(
+            135deg,
+            rgba(255, 122, 89, 0.26),
+            rgba(255, 209, 102, 0.12)
+          ),
+          radial-gradient(
+            circle at 20% 20%,
+            rgba(94, 200, 165, 0.24),
+            transparent 22%
+          );
       }
 
       .page-hero::after {
@@ -237,8 +343,10 @@
         position: absolute;
         inset: 0;
         background:
-          url("https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=1000&q=80") left center/28% 100% no-repeat,
-          url("https://images.unsplash.com/photo-1519052537078-e6302a4968d4?auto=format&fit=crop&w=900&q=80") right center/28% 100% no-repeat;
+          url("https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=1000&q=80")
+            left center/28% 100% no-repeat,
+          url("https://images.unsplash.com/photo-1519052537078-e6302a4968d4?auto=format&fit=crop&w=900&q=80")
+            right center/28% 100% no-repeat;
         opacity: 0.18;
         mix-blend-mode: screen;
       }
@@ -295,7 +403,11 @@
         padding: 14px 24px;
         border-radius: 14px;
         font-weight: 700;
-        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-dark)
+        );
         color: #fff;
         box-shadow: 0 10px 20px rgba(255, 122, 89, 0.25);
         transition: 0.25s ease;
@@ -343,7 +455,11 @@
       .step-number {
         width: 68px;
         height: 68px;
-        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-dark)
+        );
         color: white;
         border-radius: 50%;
         display: flex;
@@ -505,7 +621,11 @@
       .btn-primary,
       .btn-submit {
         padding: 14px 22px;
-        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-dark)
+        );
         color: #fff;
       }
 
@@ -715,28 +835,22 @@
         .nav-menu {
           display: none;
         }
-
         .mobile-menu-btn {
           display: inline-grid;
           place-items: center;
         }
-
         .page-hero::after {
           display: none;
         }
-
         .adoption-process {
           grid-template-columns: repeat(2, 1fr);
         }
-
         .search-grid {
           grid-template-columns: repeat(2, 1fr);
         }
-
         .modal-details {
           flex-direction: column;
         }
-
         .modal-details-image {
           width: 100%;
           min-width: 100%;
@@ -749,34 +863,258 @@
           padding: 60px 0;
           background-position: center;
         }
-
         .page-hero-content {
           padding: 28px 20px;
           border-radius: 22px;
         }
-
         .page-hero p {
           font-size: 1rem;
         }
-
         .section-block {
           padding: 55px 0;
         }
-
         .adoption-process {
           grid-template-columns: 1fr;
         }
-
         .search-grid {
           grid-template-columns: 1fr;
         }
-
         .pet-actions {
           flex-direction: column;
         }
-
         .modal-content {
           padding: 20px;
+        }
+        .profile-btn .profile-name {
+          display: none;
+        }
+      }
+      .nav-item {
+        position: relative;
+      }
+
+      .nav-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        background: transparent;
+        border: none;
+        font-size: inherit;
+        font-weight: 700;
+        color: var(--text-light);
+        transition: 0.25s ease;
+        position: relative;
+      }
+
+      .nav-link:hover,
+      .nav-item.dropdown-open .nav-link {
+        color: var(--primary);
+      }
+
+      .nav-link i {
+        font-size: 0.8rem;
+        transition: transform 0.25s ease;
+      }
+
+      .nav-item.dropdown-open .nav-link i {
+        transform: rotate(180deg);
+      }
+
+      .nav-item.dropdown-open .nav-link::after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        right: 0;
+        width: 100%;
+        height: 3px;
+        border-radius: 999px;
+        background: var(--primary);
+      }
+
+      .pet-shop-dropdown {
+        position: absolute;
+        top: calc(100% + 18px);
+        right: 0;
+        width: min(920px, 92vw);
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+        display: none;
+        overflow: hidden;
+        z-index: 2000;
+      }
+
+      .pet-shop-dropdown.open {
+        display: grid;
+        grid-template-columns: 240px 1fr;
+      }
+
+      .pet-shop-sidebar {
+        background: linear-gradient(180deg, #fff7ef, #fffaf5);
+        border-left: 1px solid var(--border);
+        padding: 18px;
+      }
+
+      .pet-shop-sidebar h4 {
+        font-size: 1.05rem;
+        margin-bottom: 12px;
+        color: var(--text);
+      }
+
+      .pet-type-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .pet-type-item {
+        width: 100%;
+        padding: 12px 14px;
+        border-radius: 14px;
+        color: var(--text);
+        font-weight: 700;
+        transition: 0.2s ease;
+        cursor: pointer;
+        background: transparent;
+        border: none;
+        text-align: right;
+      }
+
+      .pet-type-item:hover,
+      .pet-type-item.active {
+        background: #fff;
+        color: var(--primary);
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.05);
+      }
+
+      .pet-shop-content {
+        padding: 22px;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 24px;
+      }
+
+      .dropdown-col h5 {
+        font-size: 1rem;
+        margin-bottom: 12px;
+        color: var(--text);
+      }
+
+      .dropdown-links {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .dropdown-links a {
+        color: var(--text-light);
+        font-weight: 600;
+        transition: 0.2s ease;
+      }
+
+      .dropdown-links a:hover {
+        color: var(--primary);
+      }
+
+      .dropdown-banner {
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-dark)
+        );
+        border-radius: 20px;
+        color: #fff;
+        padding: 20px;
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .dropdown-banner h5 {
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+      }
+
+      .dropdown-banner p {
+        font-size: 0.95rem;
+        opacity: 0.92;
+      }
+
+      .dropdown-banner a {
+        margin-top: 16px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 700;
+        background: rgba(255, 255, 255, 0.16);
+        width: fit-content;
+        padding: 10px 14px;
+        border-radius: 12px;
+      }
+
+      .mobile-shop-block {
+        border-top: 1px solid var(--border);
+        margin-top: 8px;
+        padding-top: 8px;
+      }
+
+      .mobile-shop-title {
+        width: 100%;
+        padding: 12px;
+        font-weight: 800;
+        color: var(--text);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        border-radius: 12px;
+      }
+
+      .mobile-shop-title i {
+        transition: transform 0.25s ease;
+      }
+
+      .mobile-shop-title.open i {
+        transform: rotate(180deg);
+      }
+
+      .mobile-shop-links {
+        display: none;
+        flex-direction: column;
+        gap: 4px;
+        padding-bottom: 8px;
+      }
+
+      .mobile-shop-links.show {
+        display: flex;
+      }
+
+      .mobile-shop-links a {
+        margin-right: 10px;
+      }
+
+      @media (max-width: 1100px) {
+        .pet-shop-dropdown {
+          width: min(760px, 92vw);
+        }
+
+        .pet-shop-content {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .dropdown-banner {
+          grid-column: span 2;
+        }
+      }
+
+      @media (max-width: 992px) {
+        .pet-shop-dropdown {
+          display: none !important;
         }
       }
     </style>
@@ -792,13 +1130,70 @@
         <div class="nav-menu">
           <a href="../index.html">الرئيسية</a>
           <a href="pets.html">الحيوانات</a>
-          <a href="adoption.html" class="active">التبني</a>
+          <a href="adoption.html">التبني</a>
           <a href="lost-found.html">مفقود ومعثور</a>
           <a href="veterinary.html">الرعاية البيطرية</a>
           <a href="store.html">المتجر</a>
+
+          <!-- NEW DROPDOWN -->
+          <div class="nav-item mega-wrapper" id="shopByPetWrapper">
+            <button
+              class="nav-link nav-dropdown-toggle"
+              type="button"
+              id="shopByPetToggle"
+              aria-expanded="false"
+            >
+              <span>تسوق بنوع حيوانك</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+
+            <div class="pet-shop-dropdown" id="petShopDropdown">
+              <div class="pet-shop-sidebar">
+                <h4>أنواع الحيوانات</h4>
+                <div class="pet-type-list" id="petTypeMenuDesktop">
+                  <button type="button" class="pet-type-item active">
+                    جاري التحميل...
+                  </button>
+                </div>
+              </div>
+
+              <div class="pet-shop-content">
+                <div class="dropdown-col">
+                  <h5 id="dropdownTypeTitle">تسوق الآن</h5>
+                  <div class="dropdown-links" id="dropdownTypeLinks">
+                    <a href="store.html">عرض جميع المنتجات</a>
+                  </div>
+                </div>
+
+                <div class="dropdown-col">
+                  <h5>استكشف</h5>
+                  <div class="dropdown-links">
+                    <a href="store.html">كل المنتجات</a>
+                    <a href="pets.html?listing_type=adoption">حيوانات للتبني</a>
+                    <a href="pets.html?listing_type=sale">حيوانات للبيع</a>
+                    <a href="pets.html">الأحدث إضافة</a>
+                  </div>
+                </div>
+
+                <div class="dropdown-banner">
+                  <div>
+                    <h5>اختر حيوانك بسهولة</h5>
+                    <p id="dropdownBannerText">
+                      تصفح المنتجات المناسبة لكل نوع حيوان من مكان واحد.
+                    </p>
+                  </div>
+                  <a id="dropdownBannerBtn" href="store.html">
+                    تصفح الآن
+                    <i class="fas fa-arrow-left"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="auth-buttons"></div>
+        <div class="auth-buttons" id="authContainer"></div>
+
         <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
       </div>
 
@@ -809,6 +1204,19 @@
         <a href="lost-found.html">مفقود ومعثور</a>
         <a href="veterinary.html">الرعاية البيطرية</a>
         <a href="store.html">المتجر</a>
+
+        <!-- MOBILE DROPDOWN -->
+        <div class="mobile-shop-block">
+          <button class="mobile-shop-title" type="button" id="mobileShopToggle">
+            <span>تسوق بنوع حيوانك</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+
+          <div class="mobile-shop-links" id="petTypeMenuMobile">
+            <a href="store.html">جاري التحميل...</a>
+          </div>
+        </div>
+
         <a href="login.html">تسجيل الدخول</a>
       </div>
     </nav>
@@ -821,14 +1229,12 @@
             تصفح الحيوانات المتاحة للتبني، وقدّم طلبك بسهولة، وابدأ رحلة مليئة
             بالحب والرفقة والمسؤولية مع صديقك الجديد.
           </p>
-
           <div class="hero-badges">
             <span class="hero-badge">🐾 تبني آمن</span>
             <span class="hero-badge">🏠 منزل جديد</span>
             <span class="hero-badge">💛 رعاية ومسؤولية</span>
             <span class="hero-badge">🐶 قطط وكلاب وأكثر</span>
           </div>
-
           <a href="#available-pets" class="hero-cta">استعرض الحيوانات</a>
         </div>
       </div>
@@ -837,31 +1243,35 @@
     <section class="section-block">
       <div class="container">
         <h2 class="section-title">كيف تتم عملية التبني؟</h2>
-
         <div class="adoption-process-wrapper">
           <div class="adoption-process">
             <div class="process-step">
               <div class="step-number">1</div>
               <h3>اختر حيوانك</h3>
-              <p>تصفح الحيوانات المتاحة للتبني واختر الحيوان المناسب لك ولأسرتك.</p>
+              <p>
+                تصفح الحيوانات المتاحة للتبني واختر الحيوان المناسب لك ولأسرتك.
+              </p>
             </div>
-
             <div class="process-step">
               <div class="step-number">2</div>
               <h3>قدم طلباً</h3>
-              <p>املأ نموذج التبني وشارك معلوماتك الأساسية بطريقة واضحة وبسيطة.</p>
+              <p>
+                املأ نموذج التبني وشارك معلوماتك الأساسية بطريقة واضحة وبسيطة.
+              </p>
             </div>
-
             <div class="process-step">
               <div class="step-number">3</div>
               <h3>مراجعة ومقابلة</h3>
-              <p>تتم مراجعة الطلب والتواصل معك للتأكد من جاهزية البيئة المناسبة.</p>
+              <p>
+                تتم مراجعة الطلب والتواصل معك للتأكد من جاهزية البيئة المناسبة.
+              </p>
             </div>
-
             <div class="process-step">
               <div class="step-number">4</div>
               <h3>ابدأ حياتكما</h3>
-              <p>بعد الموافقة، استقبل حيوانك الجديد وابدأ معه قصة جميلة طويلة.</p>
+              <p>
+                بعد الموافقة، استقبل حيوانك الجديد وابدأ معه قصة جميلة طويلة.
+              </p>
             </div>
           </div>
         </div>
@@ -880,18 +1290,15 @@
               placeholder="ابحث عن حيوان..."
               class="search-input"
             />
-
             <select id="typeFilter" class="search-input">
               <option value="">جميع الأنواع</option>
             </select>
-
             <select id="ageFilter" class="search-input">
               <option value="">جميع الأعمار</option>
               <option value="young">صغير (أقل من سنة)</option>
               <option value="adult">بالغ (1-7 سنوات)</option>
               <option value="senior">كبير (أكثر من 7 سنوات)</option>
             </select>
-
             <select id="genderFilter" class="search-input">
               <option value="">جميع الأجناس</option>
               <option value="male">ذكر</option>
@@ -901,9 +1308,7 @@
         </div>
 
         <div id="adoptionPetsGrid" class="pets-grid"></div>
-
         <div id="loading" class="spinner" style="display: none"></div>
-
         <div id="emptyState" class="empty-state" style="display: none">
           <p>لا توجد حيوانات متاحة للتبني حالياً</p>
         </div>
@@ -930,7 +1335,7 @@
           onsubmit="submitApplication(event)"
           class="application-form"
         >
-          <input type="hidden" id="listingId" />
+          <input type="hidden" id="selectedAnimalId" />
 
           <div class="form-group">
             <label>هل لديك خبرة سابقة في تربية الحيوانات؟</label>
@@ -1003,7 +1408,6 @@
               المربين، والملاجئ في مكان واحد.
             </p>
           </div>
-
           <div class="footer-section">
             <h3>روابط سريعة</h3>
             <ul class="footer-links">
@@ -1013,7 +1417,6 @@
               <li><a href="lost-found.html">مفقود ومعثور</a></li>
             </ul>
           </div>
-
           <div class="footer-section">
             <h3>الخدمات</h3>
             <ul class="footer-links">
@@ -1023,7 +1426,6 @@
               <li><a href="#">استشارات</a></li>
             </ul>
           </div>
-
           <div class="footer-section">
             <h3>تواصل معنا</h3>
             <ul class="footer-links">
@@ -1033,7 +1435,6 @@
             </ul>
           </div>
         </div>
-
         <div class="footer-bottom">
           <p>© 2026 PalPets - جميع الحقوق محفوظة</p>
         </div>
@@ -1043,23 +1444,28 @@
     <script src="../js/api.js"></script>
     <script>
       let currentPage = 1;
-      let totalPages = 1;
+      let total = 1;
       let petTypes = [];
-      let selectedListingId = null;
+      let selectedAnimalId = null;
 
+      // ✅ تحميل أنواع الحيوانات
       async function loadPetTypes() {
         try {
-          const types = await apiCall("/animals/types/", "GET", null, false);
-          petTypes = types || [];
+          const response = await apiCall("/animals/types/", "GET", null, false);
+          petTypes = response?.results || response || [];
+
           const select = document.getElementById("typeFilter");
           select.innerHTML =
             '<option value="">جميع الأنواع</option>' +
-            petTypes.map((t) => `<option value="${t.id}">${t.name}</option>`).join("");
+            petTypes
+              .map((t) => `<option value="${t.id}">${t.name}</option>`)
+              .join("");
         } catch (error) {
           console.error("Error loading pet types:", error);
         }
       }
 
+      // ✅ تحميل الحيوانات من /animals/ مباشرة
       async function loadAdoptionListings() {
         showLoading();
 
@@ -1069,21 +1475,23 @@
           const gender = document.getElementById("genderFilter").value;
           const age = document.getElementById("ageFilter").value;
 
-          let url = `/listings/?listing_type=adoption&page=${currentPage}`;
+          let url = `/animals/?listing_type=adoption&status=available&page=${currentPage}`;
           if (search) url += `&search=${encodeURIComponent(search)}`;
-          if (type) url += `&animal__animal_type=${encodeURIComponent(type)}`;
-          if (gender) url += `&animal__gender=${encodeURIComponent(gender)}`;
+          if (type) url += `&animal_type=${encodeURIComponent(type)}`;
+          if (gender) url += `&gender=${encodeURIComponent(gender)}`;
           if (age) url += `&age_group=${encodeURIComponent(age)}`;
 
           const response = await apiCall(url, "GET", null, false);
+          const animals = response?.results || response || [];
+          total = Math.max(
+            1,
+            Math.ceil((response?.count || animals.length) / 10),
+          );
 
-          const listings = response.results || response || [];
-          totalPages = Math.max(1, Math.ceil((response.count || listings.length) / 10));
-
-          displayListings(listings);
+          displayAnimals(animals);
           updatePagination();
         } catch (error) {
-          console.error("Error loading listings:", error);
+          console.error("Error loading animals:", error);
           document.getElementById("adoptionPetsGrid").innerHTML =
             '<p class="text-center">حدث خطأ في تحميل البيانات</p>';
         } finally {
@@ -1091,11 +1499,12 @@
         }
       }
 
-      function displayListings(listings) {
+      // ✅ عرض الحيوانات — الحقول مباشرة من Animal model
+      function displayAnimals(animals) {
         const grid = document.getElementById("adoptionPetsGrid");
         const emptyState = document.getElementById("emptyState");
 
-        if (!listings.length) {
+        if (!animals.length) {
           grid.style.display = "none";
           emptyState.style.display = "block";
           return;
@@ -1104,41 +1513,42 @@
         grid.style.display = "grid";
         emptyState.style.display = "none";
 
-        grid.innerHTML = listings
+        grid.innerHTML = animals
           .map(
-            (listing) => `
-              <div class="pet-card">
-                <img
-                  src="${listing.primary_image || "https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=900&q=80"}"
-                  alt="${listing.animal?.name || "حيوان"}"
-                  class="pet-image"
-                />
-                <div class="pet-content">
-                  <div class="pet-header">
-                    <h3 class="pet-name">${listing.animal?.name || "حيوان"}</h3>
-                    <span class="adoption-badge">للتبني</span>
-                  </div>
-                  <div class="pet-details">
-                    <p><strong>النوع:</strong> ${listing.animal?.animal_type_name || "غير معروف"}</p>
-                    <p><strong>السلالة:</strong> ${listing.animal?.breed_name || "غير محدد"}</p>
-                    <p><strong>الجنس:</strong> ${getGenderName(listing.animal?.gender)}</p>
-                    <p><strong>العمر:</strong> ${listing.animal?.age_display || "غير محدد"}</p>
-                    <p><strong>الملجأ:</strong> ${listing.created_by_name || "خاص"}</p>
-                  </div>
-                  <div class="pet-actions">
-                    <button onclick="viewListingDetails(${listing.id})" class="btn-details">تفاصيل</button>
-                    <button onclick="applyForAdoption(${listing.id})" class="btn-contact">قدم طلب</button>
-                  </div>
-                </div>
+            (animal) => `
+          <div class="pet-card">
+            <img
+              src="${animal.primary_image || "https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=900&q=80"}"
+              alt="${animal.name || "حيوان"}"
+              class="pet-image"
+            />
+            <div class="pet-content">
+              <div class="pet-header">
+                <h3 class="pet-name">${animal.name || "حيوان"}</h3>
+                <span class="adoption-badge">للتبني</span>
               </div>
-            `
+              <div class="pet-details">
+                <p><strong>النوع:</strong> ${animal.animal_type_name || "غير معروف"}</p>
+                <p><strong>السلالة:</strong> ${animal.breed_name || "غير محدد"}</p>
+                <p><strong>الجنس:</strong> ${getGenderName(animal.gender)}</p>
+                <p><strong>العمر:</strong> ${animal.age || "غير محدد"}</p>
+                <p><strong>الموقع:</strong> ${animal.location || "غير محدد"}</p>
+              </div>
+              <div class="pet-actions">
+                <button onclick="viewAnimalDetails(${animal.id})" class="btn-details">تفاصيل</button>
+                <button onclick="applyForAdoption(${animal.id})" class="btn-contact">قدم طلب</button>
+              </div>
+            </div>
+          </div>
+        `,
           )
           .join("");
       }
 
-      async function viewListingDetails(id) {
+      // ✅ تفاصيل الحيوان من /animals/{id}/
+      async function viewAnimalDetails(id) {
         try {
-          const listing = await apiCall(`/listings/${id}/`, "GET", null, false);
+          const animal = await apiCall(`/animals/${id}/`, "GET", null, false);
 
           const modal = document.createElement("div");
           modal.className = "modal";
@@ -1146,27 +1556,32 @@
           modal.innerHTML = `
             <div class="modal-content" style="max-width: 900px;">
               <span class="close" onclick="this.parentElement.parentElement.remove()">&times;</span>
-
-              <h2 style="margin-bottom: 18px;">${listing.title || "تفاصيل الإعلان"}</h2>
-
+              <h2 style="margin-bottom: 18px;">${animal.name || "تفاصيل الحيوان"}</h2>
               <div class="modal-details">
                 <img
-                  src="${listing.primary_image || "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=1200&q=80"}"
-                  alt="${listing.animal?.name || "حيوان"}"
+                  src="${animal.primary_image || "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=1200&q=80"}"
+                  alt="${animal.name || "حيوان"}"
                   class="modal-details-image"
                 />
-
                 <div class="modal-details-text">
-                  <p>${listing.description || "لا يوجد وصف متاح حالياً."}</p>
+                  <p>${animal.description || "لا يوجد وصف متاح حالياً."}</p>
                   <h3>معلومات الحيوان</h3>
-                  <p><strong>الاسم:</strong> ${listing.animal?.name || "غير محدد"}</p>
-                  <p><strong>النوع:</strong> ${listing.animal?.animal_type_name || "غير محدد"}</p>
-                  <p><strong>السلالة:</strong> ${listing.animal?.breed_name || "غير محدد"}</p>
-                  <p><strong>العمر:</strong> ${listing.animal?.age_display || "غير محدد"}</p>
-                  <p><strong>الموقع:</strong> ${listing.animal?.location || "غير محدد"}</p>
-                  <p><strong>الجهة الناشرة:</strong> ${listing.created_by_name || "غير محدد"}</p>
-
-                  <button class="btn-primary" style="margin-top: 14px;" onclick="applyForAdoption(${listing.id})">
+                  <p><strong>الاسم:</strong> ${animal.name || "غير محدد"}</p>
+                  <p><strong>النوع:</strong> ${animal.animal_type_name || "غير محدد"}</p>
+                  <p><strong>السلالة:</strong> ${animal.breed_name || "غير محدد"}</p>
+                  <p><strong>الجنس:</strong> ${getGenderName(animal.gender)}</p>
+                  <p><strong>العمر:</strong> ${animal.age || "غير محدد"}</p>
+                  <p><strong>اللون:</strong> ${animal.color || "غير محدد"}</p>
+                  <p><strong>الموقع:</strong> ${animal.location || "غير محدد"}</p>
+                  <p><strong>الحالة الصحية:</strong> ${animal.health_status || "غير محدد"}</p>
+                  <p><strong>مطعم:</strong> ${animal.is_vaccinated ? "✅ نعم" : "❌ لا"}</p>
+                  <p><strong>الناشر:</strong> ${animal.created_by_name || "غير محدد"}</p>
+                  ${animal.story ? `<h3>قصة الحيوان</h3><p>${animal.story}</p>` : ""}
+                  <button
+                    class="btn-primary"
+                    style="margin-top: 14px; width: 100%;"
+                    onclick="this.closest('.modal').remove(); applyForAdoption(${animal.id})"
+                  >
                     قدم طلب تبني
                   </button>
                 </div>
@@ -1175,31 +1590,33 @@
           `;
 
           document.body.appendChild(modal);
-
           modal.addEventListener("click", (e) => {
-            if (e.target === modal) {
-              modal.remove();
-            }
+            if (e.target === modal) modal.remove();
           });
         } catch (error) {
+          console.error("Details error:", error);
           showNotification("حدث خطأ في تحميل التفاصيل", "error");
         }
       }
 
-      function applyForAdoption(listingId) {
+      // ✅ فتح نموذج التبني
+      function applyForAdoption(animalId) {
         if (!requireAuth()) return;
 
-        selectedListingId = listingId;
-        document.getElementById("listingId").value = listingId;
+        selectedAnimalId = animalId;
+        document.getElementById("selectedAnimalId").value = animalId;
         document.getElementById("applicationModal").style.display = "block";
       }
 
+      // ✅ إرسال طلب التبني
       async function submitApplication(event) {
         event.preventDefault();
 
         const formData = {
-          has_experience: document.getElementById("hasExperience").value === "true",
-          has_other_pets: document.getElementById("hasOtherPets").value === "true",
+          has_experience:
+            document.getElementById("hasExperience").value === "true",
+          has_other_pets:
+            document.getElementById("hasOtherPets").value === "true",
           has_children: document.getElementById("hasChildren").value === "true",
           housing_type: document.getElementById("housingType").value,
           has_yard: document.getElementById("hasYard").value === "true",
@@ -1210,7 +1627,7 @@
         showLoading();
 
         try {
-          await apiCall(`/listings/${selectedListingId}/apply/`, "POST", formData);
+          await apiCall(`/animals/${selectedAnimalId}/like/`, "POST", formData);
           showNotification("تم تقديم طلب التبني بنجاح", "success");
           closeApplicationModal();
         } catch (error) {
@@ -1233,16 +1650,17 @@
       }
 
       function nextPage() {
-        if (currentPage < totalPages) {
+        if (currentPage < total) {
           currentPage++;
           loadAdoptionListings();
         }
       }
 
       function updatePagination() {
-        document.getElementById("pageInfo").textContent = `صفحة ${currentPage} من ${totalPages}`;
+        document.getElementById("pageInfo").textContent =
+          `صفحة ${currentPage} من ${total}`;
         document.getElementById("prevBtn").disabled = currentPage === 1;
-        document.getElementById("nextBtn").disabled = currentPage === totalPages;
+        document.getElementById("nextBtn").disabled = currentPage === total;
       }
 
       function getGenderName(gender) {
@@ -1277,14 +1695,154 @@
 
       window.addEventListener("click", (e) => {
         const applicationModal = document.getElementById("applicationModal");
-        if (e.target === applicationModal) {
-          closeApplicationModal();
-        }
+        if (e.target === applicationModal) closeApplicationModal();
       });
 
       document.addEventListener("DOMContentLoaded", () => {
         loadPetTypes();
         loadAdoptionListings();
+        updateAuthUI();
+      });
+    </script>
+    <script>
+      let headerPetTypes = [];
+
+      async function loadHeaderPetTypes() {
+        try {
+          const response = await apiCall("/animals/types/", "GET", null, false);
+          headerPetTypes = response?.results || response || [];
+
+          renderHeaderPetTypes();
+        } catch (error) {
+          console.error("Error loading header pet types:", error);
+        }
+      }
+
+      function renderHeaderPetTypes() {
+        const desktopMenu = document.getElementById("petTypeMenuDesktop");
+        const mobileMenu = document.getElementById("petTypeMenuMobile");
+
+        if (!desktopMenu || !mobileMenu) return;
+
+        if (!headerPetTypes.length) {
+          desktopMenu.innerHTML =
+            '<button type="button" class="pet-type-item active">لا توجد أنواع</button>';
+          mobileMenu.innerHTML = '<a href="store.html">لا توجد أنواع</a>';
+          return;
+        }
+
+        desktopMenu.innerHTML = headerPetTypes
+          .map(
+            (type, index) => `
+          <button
+            type="button"
+            class="pet-type-item ${index === 0 ? "active" : ""}"
+            data-type-name="${type.name}"
+            onclick="setHeaderDropdownType('${encodeURIComponent(type.name)}')"
+          >
+            ${type.name}
+          </button>
+        `,
+          )
+          .join("");
+
+        mobileMenu.innerHTML = headerPetTypes
+          .map(
+            (type) => `
+          <a href="store.html?pet_type=${encodeURIComponent(type.name)}">
+            ${type.name}
+          </a>
+        `,
+          )
+          .join("");
+
+        updateHeaderDropdownContent(headerPetTypes[0]);
+      }
+
+      function setHeaderDropdownType(encodedName) {
+        const typeName = decodeURIComponent(encodedName);
+        const typeObj = headerPetTypes.find((item) => item.name === typeName);
+
+        document.querySelectorAll(".pet-type-item").forEach((item) => {
+          item.classList.remove("active");
+        });
+
+        const activeBtn = document.querySelector(
+          `.pet-type-item[data-type-name="${CSS.escape(typeName)}"]`,
+        );
+        if (activeBtn) activeBtn.classList.add("active");
+
+        if (typeObj) {
+          updateHeaderDropdownContent(typeObj);
+        }
+      }
+
+      function updateHeaderDropdownContent(type) {
+        const title = document.getElementById("dropdownTypeTitle");
+        const links = document.getElementById("dropdownTypeLinks");
+        const bannerText = document.getElementById("dropdownBannerText");
+        const bannerBtn = document.getElementById("dropdownBannerBtn");
+
+        if (!title || !links || !bannerText || !bannerBtn) return;
+
+        title.textContent = type.name;
+
+        links.innerHTML = `
+      <a href="store.html?pet_type=${encodeURIComponent(type.name)}">عرض كل منتجات ${type.name}</a>
+      <a href="store.html?pet_type=${encodeURIComponent(type.name)}&sort=rating">الأعلى تقييماً</a>
+      <a href="store.html?pet_type=${encodeURIComponent(type.name)}&sort=newest">الأحدث</a>
+      <a href="store.html?pet_type=${encodeURIComponent(type.name)}&price=0-50">منتجات اقتصادية</a>
+      <a href="store.html?pet_type=${encodeURIComponent(type.name)}&price=200%2B">منتجات مميزة</a>
+    `;
+
+        bannerText.textContent =
+          type.description?.trim() ||
+          `تصفح المنتجات المخصصة لـ ${type.name} فقط بسهولة وسرعة.`;
+
+        bannerBtn.href = `store.html?pet_type=${encodeURIComponent(type.name)}`;
+      }
+
+      function setupHeaderDropdown() {
+        const wrapper = document.getElementById("shopByPetWrapper");
+        const toggle = document.getElementById("shopByPetToggle");
+        const dropdown = document.getElementById("petShopDropdown");
+        const mobileToggle = document.getElementById("mobileShopToggle");
+        const mobileLinks = document.getElementById("petTypeMenuMobile");
+
+        if (wrapper && toggle && dropdown) {
+          toggle.addEventListener("click", function (e) {
+            e.stopPropagation();
+            const isOpen = dropdown.classList.contains("open");
+
+            dropdown.classList.toggle("open", !isOpen);
+            wrapper.classList.toggle("dropdown-open", !isOpen);
+            toggle.setAttribute("aria-expanded", String(!isOpen));
+          });
+
+          dropdown.addEventListener("click", function (e) {
+            e.stopPropagation();
+          });
+
+          document.addEventListener("click", function (e) {
+            if (!wrapper.contains(e.target)) {
+              dropdown.classList.remove("open");
+              wrapper.classList.remove("dropdown-open");
+              toggle.setAttribute("aria-expanded", "false");
+            }
+          });
+        }
+
+        if (mobileToggle && mobileLinks) {
+          mobileToggle.addEventListener("click", function () {
+            mobileLinks.classList.toggle("show");
+            mobileToggle.classList.toggle("open");
+          });
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        setupHeaderDropdown();
+        loadHeaderPetTypes();
       });
     </script>
   </body>

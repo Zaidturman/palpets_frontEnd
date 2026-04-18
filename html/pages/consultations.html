@@ -1,0 +1,1995 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>الاستشارات - PalPets</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <script src="/js/auth-ui.js"></script>
+
+    <style>
+      :root {
+        --primary: #ff7a59;
+        --primary-dark: #e85f3d;
+        --secondary: #ffd166;
+        --accent: #5ec8a5;
+        --accent-light: #e8fff7;
+        --background: #f6f7fb;
+        --background-soft: #fffaf5;
+        --surface: #ffffff;
+        --text: #2f2a26;
+        --text-light: #6f665f;
+        --border: #ebe6e0;
+        --shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+        --container: 1200px;
+        --success: #16a34a;
+        --danger: #dc2626;
+        --warning: #f59e0b;
+        --info: #2563eb;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "Tajawal", sans-serif;
+        background: var(--background);
+        color: var(--text);
+        line-height: 1.7;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      img {
+        max-width: 100%;
+        display: block;
+      }
+
+      button,
+      input,
+      select,
+      textarea {
+        font-family: inherit;
+      }
+
+      .container {
+        width: min(100% - 28px, var(--container));
+        margin-inline: auto;
+      }
+
+      .navbar {
+        position: sticky;
+        top: 0;
+        z-index: 2000;
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(14px);
+        border-bottom: 1px solid rgba(235, 230, 224, 0.9);
+      }
+
+      .navbar .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        min-height: 82px;
+      }
+
+      .logo img {
+        height: 52px;
+        object-fit: contain;
+      }
+
+      .nav-menu {
+        display: flex;
+        align-items: center;
+        gap: 22px;
+      }
+
+      .nav-menu > a,
+      .nav-item > .nav-link {
+        font-weight: 700;
+        color: var(--text-light);
+        transition: 0.25s ease;
+        position: relative;
+      }
+
+      .nav-menu > a:hover,
+      .nav-menu > a.active,
+      .nav-item > .nav-link:hover,
+      .nav-item.dropdown-open > .nav-link {
+        color: var(--primary);
+      }
+
+      .nav-menu > a.active::after,
+      .nav-item.dropdown-open > .nav-link::after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        right: 0;
+        width: 100%;
+        height: 3px;
+        border-radius: 999px;
+        background: var(--primary);
+      }
+
+      .nav-item {
+        position: relative;
+      }
+
+      .nav-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        background: transparent;
+        border: none;
+        font-size: inherit;
+      }
+
+      .nav-link i {
+        font-size: 0.8rem;
+        transition: transform 0.25s ease;
+      }
+
+      .nav-item.dropdown-open .nav-link i {
+        transform: rotate(180deg);
+      }
+
+      .pet-shop-dropdown {
+        position: absolute;
+        top: calc(100% + 16px);
+        right: 0;
+        width: min(920px, 92vw);
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+        display: none;
+        overflow: hidden;
+        z-index: 3000;
+      }
+
+      .pet-shop-dropdown.open {
+        display: grid;
+        grid-template-columns: 240px 1fr;
+      }
+
+      .pet-shop-sidebar {
+        background: linear-gradient(180deg, #fff7ef, #fffaf5);
+        border-left: 1px solid var(--border);
+        padding: 18px;
+      }
+
+      .pet-shop-sidebar h4 {
+        font-size: 1.05rem;
+        margin-bottom: 12px;
+      }
+
+      .pet-type-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .pet-type-item {
+        width: 100%;
+        padding: 12px 14px;
+        border-radius: 14px;
+        color: var(--text);
+        font-weight: 700;
+        transition: 0.2s ease;
+        cursor: pointer;
+        background: transparent;
+        border: none;
+        text-align: right;
+      }
+
+      .pet-type-item:hover,
+      .pet-type-item.active {
+        background: #fff;
+        color: var(--primary);
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.05);
+      }
+
+      .pet-shop-content {
+        padding: 22px;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 24px;
+      }
+
+      .dropdown-col h5 {
+        font-size: 1rem;
+        margin-bottom: 12px;
+      }
+
+      .dropdown-links {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .dropdown-links a {
+        color: var(--text-light);
+        font-weight: 600;
+        transition: 0.2s ease;
+      }
+
+      .dropdown-links a:hover {
+        color: var(--primary);
+      }
+
+      .dropdown-banner {
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-dark)
+        );
+        border-radius: 20px;
+        color: #fff;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .dropdown-banner h5 {
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+      }
+
+      .dropdown-banner p {
+        font-size: 0.95rem;
+        opacity: 0.92;
+      }
+
+      .dropdown-banner a {
+        margin-top: 16px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 700;
+        background: rgba(255, 255, 255, 0.16);
+        width: fit-content;
+        padding: 10px 14px;
+        border-radius: 12px;
+      }
+
+      .auth-buttons {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        position: relative;
+      }
+
+      .login-btn {
+        padding: 10px 18px;
+        border-radius: 14px;
+        border: 2px solid var(--primary);
+        background: transparent;
+        color: var(--primary);
+        font-weight: 700;
+        cursor: pointer;
+        transition: 0.25s ease;
+      }
+
+      .login-btn:hover {
+        background: var(--primary);
+        color: #fff;
+      }
+
+      .profile-menu-wrap {
+        position: relative;
+      }
+
+      .profile-btn {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: #fff;
+        border: 1px solid var(--border);
+        padding: 6px 12px;
+        border-radius: 999px;
+        cursor: pointer;
+        transition: 0.25s ease;
+        box-shadow: var(--shadow);
+      }
+
+      .profile-btn:hover {
+        transform: translateY(-2px);
+      }
+
+      .profile-avatar {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .profile-name {
+        font-weight: 700;
+        color: var(--text);
+        font-size: 0.95rem;
+      }
+
+      .profile-dropdown {
+        position: absolute;
+        top: calc(100% + 10px);
+        left: 0;
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: var(--shadow);
+        border: 1px solid var(--border);
+        width: 220px;
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+        z-index: 3000;
+      }
+
+      .profile-dropdown.show {
+        display: flex;
+      }
+
+      .profile-dropdown a,
+      .profile-dropdown button {
+        padding: 12px 16px;
+        font-weight: 600;
+        color: var(--text-light);
+        background: #fff;
+        border: none;
+        text-align: right;
+        cursor: pointer;
+        transition: 0.2s;
+        font-family: inherit;
+        font-size: 14px;
+      }
+
+      .profile-dropdown a:hover,
+      .profile-dropdown button:hover {
+        background: var(--background-soft);
+        color: var(--primary);
+      }
+
+      .mobile-menu-btn {
+        display: none;
+        border: none;
+        background: var(--primary);
+        color: #fff;
+        width: 46px;
+        height: 46px;
+        border-radius: 14px;
+        font-size: 1.2rem;
+        cursor: pointer;
+      }
+
+      .mobile-menu {
+        display: none;
+        flex-direction: column;
+        background: #fff;
+        border-top: 1px solid var(--border);
+        padding: 12px 16px;
+      }
+
+      .mobile-menu a {
+        padding: 12px;
+        border-radius: 12px;
+        font-weight: 700;
+        color: var(--text-light);
+      }
+
+      .mobile-menu a:hover,
+      .mobile-menu a.active {
+        background: var(--background-soft);
+        color: var(--primary);
+      }
+
+      .mobile-menu.show {
+        display: flex;
+      }
+
+      .mobile-shop-block {
+        border-top: 1px solid var(--border);
+        margin-top: 8px;
+        padding-top: 8px;
+      }
+
+      .mobile-shop-title {
+        width: 100%;
+        padding: 12px;
+        font-weight: 800;
+        color: var(--text);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        border-radius: 12px;
+      }
+
+      .mobile-shop-title i {
+        transition: transform 0.25s ease;
+      }
+
+      .mobile-shop-title.open i {
+        transform: rotate(180deg);
+      }
+
+      .mobile-shop-links {
+        display: none;
+        flex-direction: column;
+        gap: 4px;
+        padding-bottom: 8px;
+      }
+
+      .mobile-shop-links.show {
+        display: flex;
+      }
+
+      .mobile-shop-links a {
+        margin-right: 10px;
+      }
+
+      .page-hero {
+        padding: 36px 0 24px;
+      }
+
+      .page-hero-card {
+        background: linear-gradient(
+          135deg,
+          rgba(255, 122, 89, 0.12),
+          rgba(94, 200, 165, 0.12)
+        );
+        border: 1px solid var(--border);
+        border-radius: 28px;
+        padding: 28px;
+        box-shadow: var(--shadow);
+      }
+
+      .page-hero-card h1 {
+        font-size: clamp(1.8rem, 4vw, 2.6rem);
+        margin-bottom: 10px;
+      }
+
+      .page-hero-card p {
+        color: var(--text-light);
+        max-width: 760px;
+      }
+
+      .consultations-layout {
+        display: grid;
+        grid-template-columns: 300px minmax(0, 1fr) 280px;
+        gap: 22px;
+        align-items: start;
+        padding-bottom: 40px;
+      }
+
+      .side-card,
+      .create-box,
+      .post-card {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 22px;
+        box-shadow: var(--shadow);
+      }
+
+      .side-card {
+        padding: 18px;
+        position: sticky;
+        top: 100px;
+      }
+
+      .side-card h3 {
+        margin-bottom: 12px;
+        font-size: 1.05rem;
+      }
+
+      .side-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .side-list .item {
+        background: #fafafa;
+        border: 1px solid #f1f1f1;
+        padding: 12px 14px;
+        border-radius: 14px;
+        font-weight: 600;
+        color: var(--text-light);
+      }
+
+      .main-feed {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .create-box {
+        padding: 16px;
+      }
+
+      .create-top {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .create-top img {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .create-input-btn {
+        flex: 1;
+        min-height: 50px;
+        border: none;
+        border-radius: 999px;
+        background: #f3f4f6;
+        color: #6b7280;
+        text-align: right;
+        padding: 0 18px;
+        font-size: 15px;
+        cursor: pointer;
+      }
+
+      .create-actions {
+        margin-top: 14px;
+        padding-top: 14px;
+        border-top: 1px solid #f0f0f0;
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .create-action {
+        flex: 1;
+        min-width: 130px;
+        border: none;
+        background: #fff;
+        border-radius: 14px;
+        min-height: 46px;
+        font-weight: 700;
+        cursor: pointer;
+        color: var(--text-light);
+      }
+
+      .create-action.primary {
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-dark)
+        );
+        color: #fff;
+      }
+
+      .post-card {
+        overflow: hidden;
+      }
+
+      .post-header {
+        padding: 18px 18px 10px;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 14px;
+      }
+
+      .post-user {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      .post-user img {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .post-user h4 {
+        font-size: 1rem;
+        margin-bottom: 2px;
+      }
+
+      .post-meta {
+        font-size: 0.9rem;
+        color: var(--text-light);
+      }
+
+      .post-body {
+        padding: 0 18px 18px;
+      }
+
+      .post-title {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+      }
+
+      .post-text {
+        color: var(--text);
+        white-space: pre-wrap;
+      }
+
+      .post-pet-info {
+        margin-top: 14px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .post-chip {
+        background: #f9fafb;
+        border: 1px solid #edf0f3;
+        color: var(--text-light);
+        padding: 8px 12px;
+        border-radius: 999px;
+        font-size: 0.9rem;
+        font-weight: 700;
+      }
+
+      .urgency-badge,
+      .status-badge,
+      .role-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.82rem;
+        font-weight: 800;
+        padding: 7px 10px;
+        border-radius: 999px;
+      }
+
+      .urgency-normal {
+        background: #ecfdf5;
+        color: #15803d;
+      }
+
+      .urgency-urgent {
+        background: #fff7ed;
+        color: #c2410c;
+      }
+
+      .urgency-emergency {
+        background: #fef2f2;
+        color: #b91c1c;
+      }
+
+      .status-pending {
+        background: #fff7ed;
+        color: #b45309;
+      }
+
+      .status-answered {
+        background: #ecfdf5;
+        color: #166534;
+      }
+
+      .status-closed {
+        background: #f3f4f6;
+        color: #4b5563;
+      }
+
+      .role-badge {
+        background: #eff6ff;
+        color: #1d4ed8;
+      }
+
+      .post-stats {
+        padding: 10px 18px;
+        border-top: 1px solid #f2f2f2;
+        border-bottom: 1px solid #f2f2f2;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: var(--text-light);
+        font-size: 0.92rem;
+      }
+
+      .post-actions {
+        display: flex;
+        gap: 8px;
+        padding: 10px;
+      }
+
+      .post-action-btn {
+        flex: 1;
+        min-height: 44px;
+        border: none;
+        background: #fff;
+        border-radius: 14px;
+        cursor: pointer;
+        font-weight: 700;
+        color: var(--text-light);
+      }
+
+      .post-action-btn:hover {
+        background: #f8fafc;
+      }
+
+      .answers-box,
+      .comments-box {
+        padding: 0 18px 16px;
+      }
+
+      .section-mini-title {
+        margin-bottom: 12px;
+        font-weight: 800;
+      }
+
+      .answer-card,
+      .comment-card {
+        background: #f8fafc;
+        border: 1px solid #edf2f7;
+        border-radius: 16px;
+        padding: 14px;
+      }
+
+      .answer-card + .answer-card,
+      .comment-card + .comment-card {
+        margin-top: 10px;
+      }
+
+      .answer-head,
+      .comment-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 8px;
+      }
+
+      .answer-name,
+      .comment-name {
+        font-weight: 800;
+      }
+
+      .answer-meta,
+      .comment-meta {
+        font-size: 0.85rem;
+        color: var(--text-light);
+      }
+
+      .answer-text,
+      .comment-text {
+        color: var(--text);
+        white-space: pre-wrap;
+      }
+
+      .answer-extra {
+        margin-top: 10px;
+        color: var(--text-light);
+        font-size: 0.95rem;
+      }
+
+      .load-state {
+        text-align: center;
+        padding: 30px 20px;
+        color: var(--text-light);
+      }
+
+      .empty-card {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 22px;
+        box-shadow: var(--shadow);
+        padding: 34px 20px;
+        text-align: center;
+        color: var(--text-light);
+      }
+
+      .modal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 4000;
+        background: rgba(0, 0, 0, 0.45);
+        padding: 22px;
+        overflow-y: auto;
+      }
+
+      .modal.show {
+        display: block;
+      }
+
+      .modal-content {
+        width: min(100%, 760px);
+        margin: 28px auto;
+        background: #fff;
+        border-radius: 28px;
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.22);
+        overflow: hidden;
+      }
+
+      .modal-header {
+        padding: 20px 22px;
+        border-bottom: 1px solid #f0f0f0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .modal-header h2 {
+        font-size: 1.25rem;
+      }
+
+      .close-btn {
+        width: 42px;
+        height: 42px;
+        border: none;
+        border-radius: 50%;
+        background: #f3f4f6;
+        cursor: pointer;
+        font-size: 1.2rem;
+      }
+
+      .modal-body {
+        padding: 22px;
+      }
+
+      .user-preview {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: #fafafa;
+        border: 1px solid #f1f1f1;
+        border-radius: 18px;
+        padding: 12px 14px;
+        margin-bottom: 18px;
+      }
+
+      .user-preview img {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .user-preview h4 {
+        margin-bottom: 2px;
+      }
+
+      .user-preview p {
+        color: var(--text-light);
+        font-size: 0.92rem;
+      }
+
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+
+      .form-group {
+        margin-bottom: 16px;
+      }
+
+      .form-group.full {
+        grid-column: 1 / -1;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 700;
+      }
+
+      .form-input {
+        width: 100%;
+        min-height: 52px;
+        border-radius: 16px;
+        border: 1px solid var(--border);
+        background: #fff;
+        padding: 0 16px;
+        font-size: 1rem;
+        outline: none;
+        transition: 0.2s ease;
+      }
+
+      textarea.form-input {
+        padding: 14px 16px;
+        resize: vertical;
+        min-height: 120px;
+      }
+
+      .form-input:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 4px rgba(255, 122, 89, 0.12);
+      }
+
+      .modal-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 12px;
+      }
+
+      .btn {
+        min-height: 48px;
+        border: none;
+        border-radius: 14px;
+        padding: 0 20px;
+        font-weight: 800;
+        cursor: pointer;
+      }
+
+      .btn-primary {
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-dark)
+        );
+        color: #fff;
+      }
+
+      .btn-secondary {
+        background: #f3f4f6;
+        color: var(--text);
+      }
+
+      .floating-add-btn {
+        position: fixed;
+        bottom: 24px;
+        left: 24px;
+        z-index: 3500;
+        min-height: 56px;
+        padding: 0 22px;
+        border: none;
+        border-radius: 999px;
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-dark)
+        );
+        color: #fff;
+        font-weight: 800;
+        box-shadow: 0 18px 35px rgba(255, 122, 89, 0.3);
+        cursor: pointer;
+      }
+
+      @media (max-width: 1100px) {
+        .consultations-layout {
+          grid-template-columns: 1fr;
+        }
+
+        .side-card {
+          position: static;
+        }
+
+        .pet-shop-content {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .dropdown-banner {
+          grid-column: span 2;
+        }
+      }
+
+      @media (max-width: 992px) {
+        .nav-menu {
+          display: none;
+        }
+
+        .mobile-menu-btn {
+          display: inline-grid;
+          place-items: center;
+        }
+
+        .pet-shop-dropdown {
+          display: none !important;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .profile-name {
+          display: none;
+        }
+
+        .page-hero-card {
+          padding: 22px 18px;
+        }
+
+        .form-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .floating-add-btn {
+          left: 16px;
+          bottom: 16px;
+          padding: 0 18px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav class="navbar">
+      <div class="container">
+        <a href="../index.html" class="logo">
+          <img src="../images/logo.png" alt="PalPets" />
+        </a>
+
+        <div class="nav-menu">
+          <a href="../index.html">الرئيسية</a>
+          <a href="pets.html">الحيوانات</a>
+          <a href="adoption.html">التبني</a>
+          <a href="lost-found.html">مفقود ومعثور</a>
+          <a href="veterinary.html">الرعاية البيطرية</a>
+          <a href="consultations.html" class="active">الاستشارات</a>
+          <a href="store.html">المتجر</a>
+
+          <div class="nav-item mega-wrapper" id="shopByPetWrapper">
+            <button
+              class="nav-link nav-dropdown-toggle"
+              type="button"
+              id="shopByPetToggle"
+              aria-expanded="false"
+            >
+              <span>تسوق بنوع حيوانك</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+
+            <div class="pet-shop-dropdown" id="petShopDropdown">
+              <div class="pet-shop-sidebar">
+                <h4>أنواع الحيوانات</h4>
+                <div class="pet-type-list" id="petTypeMenuDesktop">
+                  <button type="button" class="pet-type-item active">
+                    جاري التحميل...
+                  </button>
+                </div>
+              </div>
+
+              <div class="pet-shop-content">
+                <div class="dropdown-col">
+                  <h5 id="dropdownTypeTitle">تسوق الآن</h5>
+                  <div class="dropdown-links" id="dropdownTypeLinks">
+                    <a href="store.html">عرض جميع المنتجات</a>
+                  </div>
+                </div>
+
+                <div class="dropdown-col">
+                  <h5>استكشف</h5>
+                  <div class="dropdown-links">
+                    <a href="store.html">كل المنتجات</a>
+                    <a href="pets.html?listing_type=adoption">حيوانات للتبني</a>
+                    <a href="pets.html?listing_type=sale">حيوانات للبيع</a>
+                    <a href="pets.html">الأحدث إضافة</a>
+                  </div>
+                </div>
+
+                <div class="dropdown-banner">
+                  <div>
+                    <h5>اختر حيوانك بسهولة</h5>
+                    <p id="dropdownBannerText">
+                      تصفح المنتجات المناسبة لكل نوع حيوان من مكان واحد.
+                    </p>
+                  </div>
+                  <a id="dropdownBannerBtn" href="store.html">
+                    تصفح الآن
+                    <i class="fas fa-arrow-left"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="auth-buttons" id="authContainer"></div>
+
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+      </div>
+
+      <div class="mobile-menu" id="mobileMenu">
+        <a href="../index.html">الرئيسية</a>
+        <a href="pets.html">الحيوانات</a>
+        <a href="adoption.html">التبني</a>
+        <a href="lost-found.html">مفقود ومعثور</a>
+        <a href="veterinary.html">الرعاية البيطرية</a>
+        <a href="consultations.html" class="active">الاستشارات</a>
+        <a href="store.html">المتجر</a>
+
+        <div class="mobile-shop-block">
+          <button class="mobile-shop-title" type="button" id="mobileShopToggle">
+            <span>تسوق بنوع حيوانك</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+
+          <div class="mobile-shop-links" id="petTypeMenuMobile">
+            <a href="store.html">جاري التحميل...</a>
+          </div>
+        </div>
+
+        <a href="login.html">تسجيل الدخول</a>
+      </div>
+    </nav>
+
+    <section class="page-hero">
+      <div class="container">
+        <div class="page-hero-card">
+          <h1>استشارات بيطرية بأسلوب سهل وواضح</h1>
+          <p>
+            اسأل عن حالة حيوانك، وشاهد ردود الأطباء والمربين وأصحاب العيادات
+            بشكل مباشر داخل منشورات مرتبة مثل فيسبوك.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <main class="container">
+      <div class="consultations-layout">
+        <aside class="side-card">
+          <h3>معلومات سريعة</h3>
+          <div class="side-list">
+            <div class="item">🩺 الاستشارة تظهر كبوست واضح</div>
+            <div class="item">👨‍⚕️ الرد يوضح نوع صاحب الرد</div>
+            <div class="item">🐾 مرتبط بنوع الحيوان والسلالة</div>
+            <div class="item">⚠️ تقدر تحدد درجة الاستعجال</div>
+          </div>
+        </aside>
+
+        <section class="main-feed">
+          <div class="create-box">
+            <div class="create-top">
+              <img
+                id="currentUserAvatar"
+                src="https://ui-avatars.com/api/?name=User&background=ff7a59&color=fff"
+                alt="user"
+              />
+              <button
+                class="create-input-btn"
+                type="button"
+                onclick="openConsultationModal()"
+              >
+                اكتب استشارتك الطبية للحيوان...
+              </button>
+            </div>
+
+            <div class="create-actions">
+              <button
+                class="create-action"
+                type="button"
+                onclick="openConsultationModal()"
+              >
+                🐾 نوع الحيوان
+              </button>
+              <button
+                class="create-action"
+                type="button"
+                onclick="openConsultationModal()"
+              >
+                ⚠️ درجة الاستعجال
+              </button>
+              <button
+                class="create-action primary"
+                type="button"
+                onclick="openConsultationModal()"
+              >
+                ➕ إضافة استشارة
+              </button>
+            </div>
+          </div>
+
+          <div id="consultationsFeed">
+            <div class="load-state">جاري تحميل الاستشارات...</div>
+          </div>
+        </section>
+
+        <aside class="side-card">
+          <h3>تصفية سريعة</h3>
+          <div class="side-list">
+            <div
+              class="item"
+              onclick="setFilter('all')"
+              style="cursor: pointer"
+            >
+              كل الاستشارات
+            </div>
+            <div
+              class="item"
+              onclick="setFilter('pending')"
+              style="cursor: pointer"
+            >
+              قيد الانتظار
+            </div>
+            <div
+              class="item"
+              onclick="setFilter('answered')"
+              style="cursor: pointer"
+            >
+              تم الرد
+            </div>
+            <div
+              class="item"
+              onclick="setFilter('urgent')"
+              style="cursor: pointer"
+            >
+              العاجلة
+            </div>
+            <div
+              class="item"
+              onclick="setFilter('emergency')"
+              style="cursor: pointer"
+            >
+              الطارئة
+            </div>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <button
+      class="floating-add-btn"
+      type="button"
+      onclick="openConsultationModal()"
+    >
+      ➕ إضافة استشارة
+    </button>
+
+    <div class="modal" id="consultationModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>إضافة استشارة جديدة</h2>
+          <button
+            class="close-btn"
+            type="button"
+            onclick="closeConsultationModal()"
+          >
+            ×
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <div class="user-preview">
+            <img
+              id="modalUserAvatar"
+              src="https://ui-avatars.com/api/?name=User&background=ff7a59&color=fff"
+              alt="user"
+            />
+            <div>
+              <h4 id="modalUserName">المستخدم</h4>
+              <p>سيتم أخذ بيانات الحساب تلقائياً من تسجيل الدخول</p>
+            </div>
+          </div>
+
+          <form id="consultationForm">
+            <div class="form-grid">
+              <div class="form-group full">
+                <label for="title">عنوان الاستشارة</label>
+                <input type="text" id="title" class="form-input" required />
+              </div>
+
+              <div class="form-group">
+                <label for="pet_name">اسم الحيوان</label>
+                <input type="text" id="pet_name" class="form-input" required />
+              </div>
+
+              <div class="form-group">
+                <label for="pet_type">نوع الحيوان</label>
+                <select id="pet_type" class="form-input" required>
+                  <option value="">اختر النوع</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="pet_breed">السلالة</label>
+                <select id="pet_breed" class="form-input">
+                  <option value="">غير محدد</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="pet_gender">الجنس</label>
+                <select id="pet_gender" class="form-input" required>
+                  <option value="male">ذكر</option>
+                  <option value="female">أنثى</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="pet_age_years">العمر (سنوات)</label>
+                <input
+                  type="number"
+                  id="pet_age_years"
+                  class="form-input"
+                  min="0"
+                  value="0"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="pet_age_months">العمر (أشهر)</label>
+                <input
+                  type="number"
+                  id="pet_age_months"
+                  class="form-input"
+                  min="0"
+                  value="0"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="pet_weight">الوزن (كجم)</label>
+                <input
+                  type="number"
+                  id="pet_weight"
+                  class="form-input"
+                  min="0"
+                  step="0.01"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="urgency">درجة الاستعجال</label>
+                <select id="urgency" class="form-input" required>
+                  <option value="normal">عادي</option>
+                  <option value="urgent">عاجل</option>
+                  <option value="emergency">طارئ</option>
+                </select>
+              </div>
+
+              <div class="form-group full">
+                <label for="description">وصف المشكلة</label>
+                <textarea
+                  id="description"
+                  class="form-input"
+                  required
+                ></textarea>
+              </div>
+
+              <div class="form-group full">
+                <label for="symptoms">الأعراض</label>
+                <textarea id="symptoms" class="form-input" required></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="duration">مدة ظهور الأعراض</label>
+                <input
+                  type="text"
+                  id="duration"
+                  class="form-input"
+                  placeholder="مثال: يومين"
+                />
+              </div>
+
+              <div class="form-group full">
+                <label for="medications_taken">أدوية تم إعطاؤها</label>
+                <textarea id="medications_taken" class="form-input"></textarea>
+              </div>
+            </div>
+
+            <div class="modal-actions">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                onclick="closeConsultationModal()"
+              >
+                إلغاء
+              </button>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                id="submitConsultationBtn"
+              >
+                نشر الاستشارة
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+    <script>
+      let consultationsData = [];
+      let petTypes = [];
+      let breeds = [];
+      let currentFilter = "all";
+      let headerPetTypes = [];
+
+      function toggleMobileMenu() {
+        document.getElementById("mobileMenu").classList.toggle("show");
+      }
+
+      function getCurrentUserSafe() {
+        try {
+          return (
+            getUser?.() || JSON.parse(localStorage.getItem("user") || "{}")
+          );
+        } catch {
+          return {};
+        }
+      }
+
+      function getDisplayName(user) {
+        return (
+          [user.first_name, user.last_name].filter(Boolean).join(" ").trim() ||
+          user.username ||
+          "المستخدم"
+        );
+      }
+
+      function getAvatar(user) {
+        const displayName = getDisplayName(user);
+        return (
+          user.profile_image ||
+          `https://ui-avatars.com/api/?name=${encodeURIComponent(displayName)}&background=ff7a59&color=fff`
+        );
+      }
+
+      function fillCurrentUserPreview() {
+        const user = getCurrentUserSafe();
+        const avatar = getAvatar(user);
+        const name = getDisplayName(user);
+
+        const currentUserAvatar = document.getElementById("currentUserAvatar");
+        const modalUserAvatar = document.getElementById("modalUserAvatar");
+        const modalUserName = document.getElementById("modalUserName");
+
+        if (currentUserAvatar) currentUserAvatar.src = avatar;
+        if (modalUserAvatar) modalUserAvatar.src = avatar;
+        if (modalUserName) modalUserName.textContent = name;
+      }
+
+      function formatDate(dateString) {
+        if (!dateString) return "-";
+        const date = new Date(dateString);
+        return date.toLocaleDateString("ar", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+      }
+
+      function getUrgencyClass(urgency) {
+        if (urgency === "urgent") return "urgency-urgent";
+        if (urgency === "emergency") return "urgency-emergency";
+        return "urgency-normal";
+      }
+
+      function getUrgencyText(urgency) {
+        if (urgency === "urgent") return "عاجل";
+        if (urgency === "emergency") return "طارئ";
+        return "عادي";
+      }
+
+      function getStatusClass(status) {
+        if (status === "answered") return "status-answered";
+        if (status === "closed") return "status-closed";
+        return "status-pending";
+      }
+
+      function getStatusText(status) {
+        if (status === "answered") return "تم الرد";
+        if (status === "closed") return "مغلقة";
+        return "قيد الانتظار";
+      }
+
+      function getRoleLabel(userType) {
+        if (userType === "veterinarian") return "طبيب بيطري";
+        if (userType === "clinic") return "صاحب عيادة";
+        if (userType === "breeder") return "مربي";
+        if (userType === "admin") return "مدير";
+        return "مستخدم";
+      }
+
+      function openConsultationModal() {
+        if (!requireAuth()) return;
+        document.getElementById("consultationModal").classList.add("show");
+      }
+
+      function closeConsultationModal() {
+        document.getElementById("consultationModal").classList.remove("show");
+        document.getElementById("consultationForm").reset();
+        document.getElementById("pet_breed").innerHTML =
+          '<option value="">غير محدد</option>';
+      }
+
+      async function loadPetTypes() {
+        try {
+          const response = await apiCall("/animals/types/", "GET", null, false);
+          petTypes = response?.results || response || [];
+
+          const select = document.getElementById("pet_type");
+          if (!select) return;
+
+          select.innerHTML =
+            '<option value="">اختر النوع</option>' +
+            petTypes
+              .map((item) => `<option value="${item.id}">${item.name}</option>`)
+              .join("");
+        } catch (error) {
+          console.error("Error loading pet types:", error);
+        }
+      }
+
+      async function loadBreedsByType(typeId) {
+        try {
+          const response = await apiCall(
+            `/animals/breeds/?animal_type=${encodeURIComponent(typeId)}`,
+            "GET",
+            null,
+            false,
+          );
+
+          breeds = response?.results || response || [];
+
+          const breedSelect = document.getElementById("pet_breed");
+          breedSelect.innerHTML =
+            '<option value="">غير محدد</option>' +
+            breeds
+              .map((item) => `<option value="${item.id}">${item.name}</option>`)
+              .join("");
+        } catch (error) {
+          console.error("Error loading breeds:", error);
+        }
+      }
+
+      document.addEventListener("change", async (e) => {
+        if (e.target && e.target.id === "pet_type") {
+          const value = e.target.value;
+          if (!value) {
+            document.getElementById("pet_breed").innerHTML =
+              '<option value="">غير محدد</option>';
+            return;
+          }
+          await loadBreedsByType(value);
+        }
+      });
+
+      async function loadConsultations() {
+        const feed = document.getElementById("consultationsFeed");
+        feed.innerHTML =
+          '<div class="load-state">جاري تحميل الاستشارات...</div>';
+
+        try {
+          const response = await apiCall("/consultations/", "GET", null, false);
+          consultationsData = response?.results || response || [];
+          renderConsultations();
+        } catch (error) {
+          console.error("Error loading consultations:", error);
+          feed.innerHTML =
+            '<div class="empty-card">حدث خطأ أثناء تحميل الاستشارات</div>';
+        }
+      }
+
+      function setFilter(filter) {
+        currentFilter = filter;
+        renderConsultations();
+      }
+
+      function getFilteredConsultations() {
+        if (currentFilter === "all") return consultationsData;
+        if (currentFilter === "urgent") {
+          return consultationsData.filter((item) => item.urgency === "urgent");
+        }
+        if (currentFilter === "emergency") {
+          return consultationsData.filter(
+            (item) => item.urgency === "emergency",
+          );
+        }
+        return consultationsData.filter(
+          (item) => item.status === currentFilter,
+        );
+      }
+
+      function createPostCard(post) {
+        const userName = post.user_name || "مستخدم";
+        const userImage =
+          post.user_image ||
+          `https://ui-avatars.com/api/?name=${encodeURIComponent(userName)}&background=ff7a59&color=fff`;
+
+        const answers = Array.isArray(post.answers) ? post.answers : [];
+        const comments = Array.isArray(post.comments) ? post.comments : [];
+
+        return `
+          <article class="post-card">
+            <div class="post-header">
+              <div class="post-user">
+                <img src="${userImage}" alt="${userName}" />
+                <div>
+                  <h4>${userName}</h4>
+                  <div class="post-meta">
+                    ${formatDate(post.created_at)}
+                  </div>
+                </div>
+              </div>
+
+              <div style="display:flex; flex-direction:column; align-items:flex-end; gap:8px;">
+                <span class="urgency-badge ${getUrgencyClass(post.urgency)}">⚠️ ${post.urgency_display || getUrgencyText(post.urgency)}</span>
+                <span class="status-badge ${getStatusClass(post.status)}">${post.status_display || getStatusText(post.status)}</span>
+              </div>
+            </div>
+
+            <div class="post-body">
+              <h3 class="post-title">${post.title || "استشارة"}</h3>
+              <div class="post-text">${post.description || ""}</div>
+
+              ${
+                post.symptoms
+                  ? `<div class="post-text" style="margin-top:12px;"><strong>الأعراض:</strong><br>${post.symptoms}</div>`
+                  : ""
+              }
+
+              <div class="post-pet-info">
+                <span class="post-chip">🐾 ${post.pet_name || "حيوان"}</span>
+                <span class="post-chip">📂 ${post.pet_type_name || "غير محدد"}</span>
+                <span class="post-chip">🧬 ${post.pet_breed_name || "غير محدد"}</span>
+                <span class="post-chip">⚥ ${post.pet_gender === "male" ? "ذكر" : "أنثى"}</span>
+                <span class="post-chip">👁️ ${post.views_count || 0} مشاهدة</span>
+                <span class="post-chip">💬 ${answers.length} رد</span>
+              </div>
+            </div>
+
+            <div class="post-stats">
+              <span>${answers.length} إجابة</span>
+              <span>${comments.length} تعليق</span>
+            </div>
+
+            <div class="post-actions">
+              <button class="post-action-btn" type="button" onclick="toggleAnswers(${post.id})">
+                <i class="fas fa-stethoscope"></i>
+                الردود
+              </button>
+              <button class="post-action-btn" type="button" onclick="toggleComments(${post.id})">
+                <i class="fas fa-comment"></i>
+                التعليقات
+              </button>
+              <button class="post-action-btn" type="button" onclick="markHelpfulFirstAnswer(${post.id})">
+                <i class="fas fa-thumbs-up"></i>
+                مفيد
+              </button>
+            </div>
+
+            <div class="answers-box" id="answersBox-${post.id}" style="display:none;">
+              <div class="section-mini-title">الردود</div>
+              ${
+                answers.length
+                  ? answers
+                      .map(
+                        (answer) => `
+                          <div class="answer-card">
+                            <div class="answer-head">
+                              <div>
+                                <div class="answer-name">${answer.veterinarian_name || "مستخدم"}</div>
+                                <div class="answer-meta">${formatDate(answer.created_at)}</div>
+                              </div>
+                              <span class="role-badge">👤 ${getRoleLabel(answer.veterinarian_type || answer.user_type || "veterinarian")}</span>
+                            </div>
+                            <div class="answer-text">${answer.answer || ""}</div>
+                            ${
+                              answer.recommendations
+                                ? `<div class="answer-extra"><strong>التوصيات:</strong> ${answer.recommendations}</div>`
+                                : ""
+                            }
+                            ${
+                              answer.prescriptions
+                                ? `<div class="answer-extra"><strong>الوصفات:</strong> ${answer.prescriptions}</div>`
+                                : ""
+                            }
+                          </div>
+                        `,
+                      )
+                      .join("")
+                  : `<div class="comment-card">لا يوجد ردود بعد</div>`
+              }
+            </div>
+
+            <div class="comments-box" id="commentsBox-${post.id}" style="display:none;">
+              <div class="section-mini-title">التعليقات</div>
+              ${
+                comments.length
+                  ? comments
+                      .map(
+                        (comment) => `
+                          <div class="comment-card">
+                            <div class="comment-head">
+                              <div class="comment-name">${comment.user_name || "مستخدم"}</div>
+                              <div class="comment-meta">${formatDate(comment.created_at)}</div>
+                            </div>
+                            <div class="comment-text">${comment.comment || ""}</div>
+                          </div>
+                        `,
+                      )
+                      .join("")
+                  : `<div class="comment-card">لا يوجد تعليقات بعد</div>`
+              }
+            </div>
+          </article>
+        `;
+      }
+
+      function renderConsultations() {
+        const feed = document.getElementById("consultationsFeed");
+        const list = getFilteredConsultations();
+
+        if (!list.length) {
+          feed.innerHTML =
+            '<div class="empty-card">لا توجد استشارات حالياً</div>';
+          return;
+        }
+
+        feed.innerHTML = list.map(createPostCard).join("");
+      }
+
+      function toggleAnswers(id) {
+        const box = document.getElementById(`answersBox-${id}`);
+        if (!box) return;
+        box.style.display = box.style.display === "none" ? "block" : "none";
+      }
+
+      function toggleComments(id) {
+        const box = document.getElementById(`commentsBox-${id}`);
+        if (!box) return;
+        box.style.display = box.style.display === "none" ? "block" : "none";
+      }
+
+      async function markHelpfulFirstAnswer(postId) {
+        const post = consultationsData.find((item) => item.id === postId);
+        const firstAnswer = post?.answers?.[0];
+
+        if (!firstAnswer?.id) {
+          showNotification("لا يوجد رد لتحديده كمفيد", "error");
+          return;
+        }
+
+        try {
+          await apiCall(
+            `/consultations/answers/${firstAnswer.id}/helpful/`,
+            "POST",
+            {},
+            false,
+          );
+          showNotification("تم تسجيلها كمفيدة", "success");
+        } catch (error) {
+          showNotification("حدث خطأ أثناء تحديث التقييم", "error");
+        }
+      }
+
+      async function submitConsultation(event) {
+        event.preventDefault();
+
+        if (!requireAuth()) return;
+
+        const submitBtn = document.getElementById("submitConsultationBtn");
+        submitBtn.disabled = true;
+        submitBtn.textContent = "جاري النشر...";
+
+        try {
+          const data = {
+            title: document.getElementById("title").value.trim(),
+            pet_name: document.getElementById("pet_name").value.trim(),
+            pet_type: document.getElementById("pet_type").value,
+            pet_breed: document.getElementById("pet_breed").value || null,
+            pet_age_years: document.getElementById("pet_age_years").value || 0,
+            pet_age_months:
+              document.getElementById("pet_age_months").value || 0,
+            pet_gender: document.getElementById("pet_gender").value,
+            pet_weight: document.getElementById("pet_weight").value || null,
+            description: document.getElementById("description").value.trim(),
+            symptoms: document.getElementById("symptoms").value.trim(),
+            duration: document.getElementById("duration").value.trim(),
+            medications_taken: document
+              .getElementById("medications_taken")
+              .value.trim(),
+            urgency: document.getElementById("urgency").value,
+          };
+
+          if (
+            !data.title ||
+            !data.pet_name ||
+            !data.pet_type ||
+            !data.description ||
+            !data.symptoms
+          ) {
+            showNotification("يرجى تعبئة الحقول المطلوبة", "error");
+            return;
+          }
+
+          await apiCall("/consultations/", "POST", data, true);
+          showNotification("تم نشر الاستشارة بنجاح", "success");
+          closeConsultationModal();
+          await loadConsultations();
+        } catch (error) {
+          console.error("Submit consultation error:", error);
+          showNotification(
+            error.message || "حدث خطأ أثناء نشر الاستشارة",
+            "error",
+          );
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = "نشر الاستشارة";
+        }
+      }
+
+      document
+        .getElementById("consultationForm")
+        .addEventListener("submit", submitConsultation);
+
+      document
+        .getElementById("consultationModal")
+        .addEventListener("click", function (e) {
+          if (e.target.id === "consultationModal") {
+            closeConsultationModal();
+          }
+        });
+
+      function setupHeaderDropdown() {
+        const wrapper = document.getElementById("shopByPetWrapper");
+        const toggle = document.getElementById("shopByPetToggle");
+        const dropdown = document.getElementById("petShopDropdown");
+        const mobileToggle = document.getElementById("mobileShopToggle");
+        const mobileLinks = document.getElementById("petTypeMenuMobile");
+
+        if (wrapper && toggle && dropdown) {
+          toggle.addEventListener("click", function (e) {
+            e.stopPropagation();
+            const isOpen = dropdown.classList.contains("open");
+
+            dropdown.classList.toggle("open", !isOpen);
+            wrapper.classList.toggle("dropdown-open", !isOpen);
+            toggle.setAttribute("aria-expanded", String(!isOpen));
+          });
+
+          dropdown.addEventListener("click", function (e) {
+            e.stopPropagation();
+          });
+
+          document.addEventListener("click", function (e) {
+            if (!wrapper.contains(e.target)) {
+              dropdown.classList.remove("open");
+              wrapper.classList.remove("dropdown-open");
+              toggle.setAttribute("aria-expanded", "false");
+            }
+          });
+        }
+
+        if (mobileToggle && mobileLinks) {
+          mobileToggle.addEventListener("click", function () {
+            mobileLinks.classList.toggle("show");
+            mobileToggle.classList.toggle("open");
+          });
+        }
+      }
+
+      async function loadHeaderPetTypes() {
+        try {
+          const response = await apiCall("/animals/types/", "GET", null, false);
+          headerPetTypes = Array.isArray(response)
+            ? response
+            : Array.isArray(response?.results)
+              ? response.results
+              : [];
+
+          renderHeaderPetTypes();
+        } catch (error) {
+          console.error("Error loading header pet types:", error);
+        }
+      }
+
+      function renderHeaderPetTypes() {
+        const desktopMenu = document.getElementById("petTypeMenuDesktop");
+        const mobileMenu = document.getElementById("petTypeMenuMobile");
+
+        if (!desktopMenu || !mobileMenu) return;
+
+        if (!headerPetTypes.length) {
+          desktopMenu.innerHTML =
+            '<button type="button" class="pet-type-item active">لا توجد أنواع</button>';
+          mobileMenu.innerHTML = '<a href="store.html">لا توجد أنواع</a>';
+          return;
+        }
+
+        desktopMenu.innerHTML = headerPetTypes
+          .map(
+            (type, index) => `
+              <button
+                type="button"
+                class="pet-type-item ${index === 0 ? "active" : ""}"
+                data-type-name="${type.name}"
+                onclick="setHeaderDropdownType('${encodeURIComponent(type.name)}')"
+              >
+                ${type.name}
+              </button>
+            `,
+          )
+          .join("");
+
+        mobileMenu.innerHTML = headerPetTypes
+          .map(
+            (type) => `
+              <a href="store.html?pet_type=${encodeURIComponent(type.name)}">
+                ${type.name}
+              </a>
+            `,
+          )
+          .join("");
+
+        updateHeaderDropdownContent(headerPetTypes[0]);
+      }
+
+      function setHeaderDropdownType(encodedName) {
+        const typeName = decodeURIComponent(encodedName);
+        const typeObj = headerPetTypes.find((item) => item.name === typeName);
+
+        document
+          .querySelectorAll("#petTypeMenuDesktop .pet-type-item")
+          .forEach((item) => {
+            item.classList.remove("active");
+          });
+
+        const activeBtn = document.querySelector(
+          `#petTypeMenuDesktop .pet-type-item[data-type-name="${CSS.escape(typeName)}"]`,
+        );
+
+        if (activeBtn) activeBtn.classList.add("active");
+
+        if (typeObj) {
+          updateHeaderDropdownContent(typeObj);
+          window.location.href = `store.html?pet_type=${encodeURIComponent(typeName)}`;
+        }
+      }
+
+      function updateHeaderDropdownContent(type) {
+        const title = document.getElementById("dropdownTypeTitle");
+        const links = document.getElementById("dropdownTypeLinks");
+        const bannerText = document.getElementById("dropdownBannerText");
+        const bannerBtn = document.getElementById("dropdownBannerBtn");
+
+        if (!title || !links || !bannerText || !bannerBtn || !type) return;
+
+        title.textContent = type.name;
+
+        links.innerHTML = `
+          <a href="store.html?pet_type=${encodeURIComponent(type.name)}">عرض كل منتجات ${type.name}</a>
+          <a href="store.html?pet_type=${encodeURIComponent(type.name)}&sort=rating">الأعلى تقييماً</a>
+          <a href="store.html?pet_type=${encodeURIComponent(type.name)}&sort=newest">الأحدث</a>
+          <a href="store.html?pet_type=${encodeURIComponent(type.name)}&price=0-50">منتجات اقتصادية</a>
+          <a href="store.html?pet_type=${encodeURIComponent(type.name)}&price=200%2B">منتجات مميزة</a>
+        `;
+
+        bannerText.textContent =
+          type.description?.trim() ||
+          `تصفح المنتجات المخصصة لـ ${type.name} فقط بسهولة وسرعة.`;
+
+        bannerBtn.href = `store.html?pet_type=${encodeURIComponent(type.name)}`;
+      }
+
+      document.addEventListener("DOMContentLoaded", async () => {
+        updateAuthUI?.();
+        fillCurrentUserPreview();
+        setupHeaderDropdown();
+        await loadHeaderPetTypes();
+        await loadPetTypes();
+        await loadConsultations();
+      });
+    </script>
+  </body>
+</html>

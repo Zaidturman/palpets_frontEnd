@@ -15,7 +15,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
-
+    <script src="/js/auth-ui.js"></script>
     <style>
       :root {
         --primary: #ff7a59;
@@ -53,8 +53,16 @@
       body {
         font-family: "Tajawal", sans-serif;
         background:
-          radial-gradient(circle at top right, rgba(255, 209, 102, 0.18), transparent 20%),
-          radial-gradient(circle at bottom left, rgba(94, 200, 165, 0.12), transparent 22%),
+          radial-gradient(
+            circle at top right,
+            rgba(255, 209, 102, 0.18),
+            transparent 20%
+          ),
+          radial-gradient(
+            circle at bottom left,
+            rgba(94, 200, 165, 0.12),
+            transparent 22%
+          ),
           linear-gradient(180deg, #fffaf5 0%, #fff7ef 100%);
         color: var(--text);
         line-height: 1.7;
@@ -68,8 +76,7 @@
         inset: 0;
         pointer-events: none;
         opacity: 0.05;
-        background-image:
-          url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='%23ff7a59'%3E%3Ccircle cx='28' cy='30' r='8'/%3E%3Ccircle cx='47' cy='18' r='7'/%3E%3Ccircle cx='66' cy='30' r='8'/%3E%3Ccircle cx='38' cy='48' r='7'/%3E%3Cpath d='M57 52c11 0 18 8 18 17 0 8-7 13-18 13s-18-5-18-13c0-9 7-17 18-17z'/%3E%3C/g%3E%3C/svg%3E");
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='%23ff7a59'%3E%3Ccircle cx='28' cy='30' r='8'/%3E%3Ccircle cx='47' cy='18' r='7'/%3E%3Ccircle cx='66' cy='30' r='8'/%3E%3Ccircle cx='38' cy='48' r='7'/%3E%3Cpath d='M57 52c11 0 18 8 18 17 0 8-7 13-18 13s-18-5-18-13c0-9 7-17 18-17z'/%3E%3C/g%3E%3C/svg%3E");
         background-size: 120px;
         z-index: -1;
       }
@@ -172,7 +179,107 @@
         align-items: center;
         gap: 10px;
       }
+      .auth-buttons {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        position: relative;
+      }
 
+      .login-btn {
+        padding: 10px 18px;
+        border-radius: 14px;
+        border: 2px solid var(--primary);
+        background: transparent;
+        color: var(--primary);
+        font-weight: 700;
+        cursor: pointer;
+        transition: 0.25s ease;
+      }
+
+      .login-btn:hover {
+        background: var(--primary);
+        color: #fff;
+      }
+
+      .profile-menu-wrap {
+        position: relative;
+      }
+
+      .profile-btn {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: #fff;
+        border: 1px solid var(--border);
+        padding: 6px 12px;
+        border-radius: 999px;
+        cursor: pointer;
+        transition: 0.25s ease;
+        box-shadow: var(--shadow);
+      }
+
+      .profile-btn:hover {
+        transform: translateY(-2px);
+      }
+
+      .profile-btn .profile-avatar {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .profile-btn .profile-name {
+        font-weight: 700;
+        color: var(--text);
+        font-size: 0.95rem;
+      }
+
+      .profile-dropdown {
+        position: absolute;
+        top: calc(100% + 10px);
+        left: 0;
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: var(--shadow);
+        border: 1px solid var(--border);
+        width: 220px;
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+        z-index: 2000;
+      }
+
+      .profile-dropdown.show {
+        display: flex;
+      }
+
+      .profile-dropdown a,
+      .profile-dropdown button {
+        padding: 12px 16px;
+        font-weight: 600;
+        color: var(--text-light);
+        background: #fff;
+        border: none;
+        text-align: right;
+        cursor: pointer;
+        transition: 0.2s;
+        font-family: inherit;
+        font-size: 14px;
+      }
+
+      .profile-dropdown a:hover,
+      .profile-dropdown button:hover {
+        background: var(--background-soft);
+        color: var(--primary);
+      }
+
+      @media (max-width: 768px) {
+        .profile-btn .profile-name {
+          display: none;
+        }
+      }
       .mobile-menu-btn {
         display: none;
         border: none;
@@ -225,7 +332,8 @@
         padding: 90px 0 70px;
         background:
           linear-gradient(rgba(47, 42, 38, 0.5), rgba(47, 42, 38, 0.5)),
-          url("https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=1600&q=80") center/cover no-repeat;
+          url("https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=1600&q=80")
+            center/cover no-repeat;
       }
 
       .page-hero::before {
@@ -233,8 +341,16 @@
         position: absolute;
         inset: 0;
         background:
-          linear-gradient(135deg, rgba(225, 29, 72, 0.28), rgba(255, 122, 89, 0.14)),
-          radial-gradient(circle at 18% 20%, rgba(94, 200, 165, 0.2), transparent 24%);
+          linear-gradient(
+            135deg,
+            rgba(225, 29, 72, 0.28),
+            rgba(255, 122, 89, 0.14)
+          ),
+          radial-gradient(
+            circle at 18% 20%,
+            rgba(94, 200, 165, 0.2),
+            transparent 24%
+          );
       }
 
       .page-hero::after {
@@ -242,8 +358,10 @@
         position: absolute;
         inset: 0;
         background:
-          url("https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=1000&q=80") left center/28% 100% no-repeat,
-          url("https://images.unsplash.com/photo-1519052537078-e6302a4968d4?auto=format&fit=crop&w=900&q=80") right center/28% 100% no-repeat;
+          url("https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=1000&q=80")
+            left center/28% 100% no-repeat,
+          url("https://images.unsplash.com/photo-1519052537078-e6302a4968d4?auto=format&fit=crop&w=900&q=80")
+            right center/28% 100% no-repeat;
         opacity: 0.16;
         mix-blend-mode: screen;
       }
@@ -417,7 +535,11 @@
 
       .tab-button.active {
         color: #fff;
-        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-dark)
+        );
         border-color: transparent;
       }
 
@@ -537,7 +659,11 @@
       .btn-primary,
       .btn-submit {
         padding: 14px 22px;
-        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-dark)
+        );
         color: #fff;
       }
 
@@ -774,6 +900,234 @@
           padding: 20px;
         }
       }
+      .nav-item {
+        position: relative;
+      }
+
+      .nav-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        background: transparent;
+        border: none;
+        font-size: inherit;
+        font-weight: 700;
+        color: var(--text-light);
+        transition: 0.25s ease;
+        position: relative;
+      }
+
+      .nav-link:hover,
+      .nav-item.dropdown-open .nav-link {
+        color: var(--primary);
+      }
+
+      .nav-link i {
+        font-size: 0.8rem;
+        transition: transform 0.25s ease;
+      }
+
+      .nav-item.dropdown-open .nav-link i {
+        transform: rotate(180deg);
+      }
+
+      .nav-item.dropdown-open .nav-link::after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        right: 0;
+        width: 100%;
+        height: 3px;
+        border-radius: 999px;
+        background: var(--primary);
+      }
+
+      .pet-shop-dropdown {
+        position: absolute;
+        top: calc(100% + 18px);
+        right: 0;
+        width: min(920px, 92vw);
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+        display: none;
+        overflow: hidden;
+        z-index: 2000;
+      }
+
+      .pet-shop-dropdown.open {
+        display: grid;
+        grid-template-columns: 240px 1fr;
+      }
+
+      .pet-shop-sidebar {
+        background: linear-gradient(180deg, #fff7ef, #fffaf5);
+        border-left: 1px solid var(--border);
+        padding: 18px;
+      }
+
+      .pet-shop-sidebar h4 {
+        font-size: 1.05rem;
+        margin-bottom: 12px;
+        color: var(--text);
+      }
+
+      .pet-type-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .pet-type-item {
+        width: 100%;
+        padding: 12px 14px;
+        border-radius: 14px;
+        color: var(--text);
+        font-weight: 700;
+        transition: 0.2s ease;
+        cursor: pointer;
+        background: transparent;
+        border: none;
+        text-align: right;
+      }
+
+      .pet-type-item:hover,
+      .pet-type-item.active {
+        background: #fff;
+        color: var(--primary);
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.05);
+      }
+
+      .pet-shop-content {
+        padding: 22px;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 24px;
+      }
+
+      .dropdown-col h5 {
+        font-size: 1rem;
+        margin-bottom: 12px;
+        color: var(--text);
+      }
+
+      .dropdown-links {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .dropdown-links a {
+        color: var(--text-light);
+        font-weight: 600;
+        transition: 0.2s ease;
+      }
+
+      .dropdown-links a:hover {
+        color: var(--primary);
+      }
+
+      .dropdown-banner {
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-dark)
+        );
+        border-radius: 20px;
+        color: #fff;
+        padding: 20px;
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .dropdown-banner h5 {
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+      }
+
+      .dropdown-banner p {
+        font-size: 0.95rem;
+        opacity: 0.92;
+      }
+
+      .dropdown-banner a {
+        margin-top: 16px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 700;
+        background: rgba(255, 255, 255, 0.16);
+        width: fit-content;
+        padding: 10px 14px;
+        border-radius: 12px;
+      }
+
+      .mobile-shop-block {
+        border-top: 1px solid var(--border);
+        margin-top: 8px;
+        padding-top: 8px;
+      }
+
+      .mobile-shop-title {
+        width: 100%;
+        padding: 12px;
+        font-weight: 800;
+        color: var(--text);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        border-radius: 12px;
+      }
+
+      .mobile-shop-title i {
+        transition: transform 0.25s ease;
+      }
+
+      .mobile-shop-title.open i {
+        transform: rotate(180deg);
+      }
+
+      .mobile-shop-links {
+        display: none;
+        flex-direction: column;
+        gap: 4px;
+        padding-bottom: 8px;
+      }
+
+      .mobile-shop-links.show {
+        display: flex;
+      }
+
+      .mobile-shop-links a {
+        margin-right: 10px;
+      }
+
+      @media (max-width: 1100px) {
+        .pet-shop-dropdown {
+          width: min(760px, 92vw);
+        }
+
+        .pet-shop-content {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .dropdown-banner {
+          grid-column: span 2;
+        }
+      }
+
+      @media (max-width: 992px) {
+        .pet-shop-dropdown {
+          display: none !important;
+        }
+      }
     </style>
   </head>
 
@@ -788,12 +1142,69 @@
           <a href="../index.html">الرئيسية</a>
           <a href="pets.html">الحيوانات</a>
           <a href="adoption.html">التبني</a>
-          <a href="lost-found.html" class="active">مفقود ومعثور</a>
+          <a href="lost-found.html">مفقود ومعثور</a>
           <a href="veterinary.html">الرعاية البيطرية</a>
           <a href="store.html">المتجر</a>
+
+          <!-- NEW DROPDOWN -->
+          <div class="nav-item mega-wrapper" id="shopByPetWrapper">
+            <button
+              class="nav-link nav-dropdown-toggle"
+              type="button"
+              id="shopByPetToggle"
+              aria-expanded="false"
+            >
+              <span>تسوق بنوع حيوانك</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+
+            <div class="pet-shop-dropdown" id="petShopDropdown">
+              <div class="pet-shop-sidebar">
+                <h4>أنواع الحيوانات</h4>
+                <div class="pet-type-list" id="petTypeMenuDesktop">
+                  <button type="button" class="pet-type-item active">
+                    جاري التحميل...
+                  </button>
+                </div>
+              </div>
+
+              <div class="pet-shop-content">
+                <div class="dropdown-col">
+                  <h5 id="dropdownTypeTitle">تسوق الآن</h5>
+                  <div class="dropdown-links" id="dropdownTypeLinks">
+                    <a href="store.html">عرض جميع المنتجات</a>
+                  </div>
+                </div>
+
+                <div class="dropdown-col">
+                  <h5>استكشف</h5>
+                  <div class="dropdown-links">
+                    <a href="store.html">كل المنتجات</a>
+                    <a href="pets.html?listing_type=adoption">حيوانات للتبني</a>
+                    <a href="pets.html?listing_type=sale">حيوانات للبيع</a>
+                    <a href="pets.html">الأحدث إضافة</a>
+                  </div>
+                </div>
+
+                <div class="dropdown-banner">
+                  <div>
+                    <h5>اختر حيوانك بسهولة</h5>
+                    <p id="dropdownBannerText">
+                      تصفح المنتجات المناسبة لكل نوع حيوان من مكان واحد.
+                    </p>
+                  </div>
+                  <a id="dropdownBannerBtn" href="store.html">
+                    تصفح الآن
+                    <i class="fas fa-arrow-left"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="auth-buttons"></div>
+        <div class="auth-buttons" id="authContainer"></div>
+
         <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
       </div>
 
@@ -804,6 +1215,19 @@
         <a href="lost-found.html">مفقود ومعثور</a>
         <a href="veterinary.html">الرعاية البيطرية</a>
         <a href="store.html">المتجر</a>
+
+        <!-- MOBILE DROPDOWN -->
+        <div class="mobile-shop-block">
+          <button class="mobile-shop-title" type="button" id="mobileShopToggle">
+            <span>تسوق بنوع حيوانك</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+
+          <div class="mobile-shop-links" id="petTypeMenuMobile">
+            <a href="store.html">جاري التحميل...</a>
+          </div>
+        </div>
+
         <a href="login.html">تسجيل الدخول</a>
       </div>
     </nav>
@@ -856,15 +1280,25 @@
           <div class="report-card lost-card">
             <div class="service-icon">🔍</div>
             <h3>الإبلاغ عن حيوان مفقود</h3>
-            <p>إذا فقدت حيوانك الأليف، أنشئ بلاغًا فورًا لزيادة فرص العثور عليه بسرعة.</p>
-            <button onclick="reportLost()" class="btn-details">إبلاغ الآن</button>
+            <p>
+              إذا فقدت حيوانك الأليف، أنشئ بلاغًا فورًا لزيادة فرص العثور عليه
+              بسرعة.
+            </p>
+            <button onclick="reportLost()" class="btn-details">
+              إبلاغ الآن
+            </button>
           </div>
 
           <div class="report-card found-card">
             <div class="service-icon">📢</div>
             <h3>الإبلاغ عن حيوان معثور عليه</h3>
-            <p>عثرت على حيوان أليف؟ ساعد في إعادته لأصحابه من خلال إضافة بلاغ واضح.</p>
-            <button onclick="reportFound()" class="btn-details">إبلاغ الآن</button>
+            <p>
+              عثرت على حيوان أليف؟ ساعد في إعادته لأصحابه من خلال إضافة بلاغ
+              واضح.
+            </p>
+            <button onclick="reportFound()" class="btn-details">
+              إبلاغ الآن
+            </button>
           </div>
         </div>
       </div>
@@ -943,10 +1377,28 @@
               <input type="text" id="color" class="form-input" required />
             </div>
           </div>
-
+          <div class="form-group">
+            <label>المدينة</label>
+            <input type="text" id="city" class="form-input" required />
+          </div>
           <div class="form-group">
             <label>الموقع</label>
             <input type="text" id="location" class="form-input" required />
+          </div>
+          <div class="form-group">
+            <label>اسم التواصل</label>
+            <input type="text" id="contactName" class="form-input" required />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>رقم الهاتف</label>
+              <input type="tel" id="contactPhone" class="form-input" required />
+            </div>
+            <div class="form-group">
+              <label>البريد الإلكتروني</label>
+              <input type="email" id="contactEmail" class="form-input" />
+            </div>
           </div>
 
           <div class="form-group">
@@ -1040,17 +1492,70 @@
       let petTypes = [];
       let breeds = [];
 
+      function extractResults(response) {
+        if (Array.isArray(response)) return response;
+        if (Array.isArray(response?.results)) return response.results;
+        return [];
+      }
+
+      function getCount(response) {
+        if (typeof response?.count === "number") return response.count;
+        if (Array.isArray(response)) return response.length;
+        if (Array.isArray(response?.results)) return response.results.length;
+        return 0;
+      }
+
+      function formatDate(dateString) {
+        if (!dateString) return "-";
+        const date = new Date(dateString);
+        return date.toLocaleDateString("ar", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        });
+      }
+
+      function setMaxEventDate() {
+        const input = document.getElementById("eventDate");
+        if (!input) return;
+
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        const mm = String(today.getMonth() + 1).padStart(2, "0");
+        const dd = String(today.getDate()).padStart(2, "0");
+
+        input.max = `${yyyy}-${mm}-${dd}`;
+      }
+
       async function loadStats() {
         try {
-          const lost = await apiCall("/lostfound/?report_type=lost", "GET", null, false);
-          const found = await apiCall("/lostfound/?report_type=found", "GET", null, false);
-          const resolved = await apiCall("/lostfound/?status=resolved", "GET", null, false);
-          const urgent = await apiCall("/lostfound/?urgency=urgent,critical", "GET", null, false);
+          const [lost, found, resolved, urgent] = await Promise.all([
+            apiCall(
+              "/lostfound/?report_type=lost&status=active",
+              "GET",
+              null,
+              false,
+            ),
+            apiCall(
+              "/lostfound/?report_type=found&status=active",
+              "GET",
+              null,
+              false,
+            ),
+            apiCall("/lostfound/?status=resolved", "GET", null, false),
+            apiCall(
+              "/lostfound/?urgency=urgent,critical&status=active",
+              "GET",
+              null,
+              false,
+            ),
+          ]);
 
-          document.getElementById("lostCount").textContent = lost?.count || lost?.length || 0;
-          document.getElementById("foundCount").textContent = found?.count || found?.length || 0;
-          document.getElementById("resolvedCount").textContent = resolved?.count || resolved?.length || 0;
-          document.getElementById("urgentCount").textContent = urgent?.count || urgent?.length || 0;
+          document.getElementById("lostCount").textContent = getCount(lost);
+          document.getElementById("foundCount").textContent = getCount(found);
+          document.getElementById("resolvedCount").textContent =
+            getCount(resolved);
+          document.getElementById("urgentCount").textContent = getCount(urgent);
         } catch (error) {
           console.error("Error loading stats:", error);
         }
@@ -1058,53 +1563,65 @@
 
       async function loadPetTypes() {
         try {
-          const types = await apiCall("/animals/types/", "GET", null, false);
-          petTypes = types || [];
+          const response = await apiCall("/animals/types/", "GET", null, false);
+          petTypes = extractResults(response);
 
           const select = document.getElementById("petType");
           select.innerHTML =
             '<option value="">اختر النوع</option>' +
-            petTypes.map((t) => `<option value="${t.id}">${t.name}</option>`).join("");
+            petTypes
+              .map((t) => `<option value="${t.id}">${t.name}</option>`)
+              .join("");
         } catch (error) {
           console.error("Error loading pet types:", error);
         }
       }
 
-      document.getElementById("petType")?.addEventListener("change", async function (e) {
-        if (e.target.value) {
-          try {
-            const response = await apiCall(
-              `/animals/breeds/?animal_type=${encodeURIComponent(e.target.value)}`,
-              "GET",
-              null,
-              false
-            );
-            breeds = response?.results || response || [];
+      async function loadBreedsByType(typeId) {
+        const breedSelect = document.getElementById("breed");
+        if (!breedSelect) return;
 
-            const select = document.getElementById("breed");
-            select.innerHTML =
-              '<option value="">غير محدد</option>' +
-              breeds.map((b) => `<option value="${b.id}">${b.name}</option>`).join("");
-          } catch (error) {
-            console.error("Error loading breeds:", error);
-          }
+        if (!typeId) {
+          breedSelect.innerHTML = '<option value="">غير محدد</option>';
+          return;
         }
-      });
+
+        try {
+          const response = await apiCall(
+            `/animals/breeds/?animal_type=${encodeURIComponent(typeId)}`,
+            "GET",
+            null,
+            false,
+          );
+
+          breeds = extractResults(response);
+
+          breedSelect.innerHTML =
+            '<option value="">غير محدد</option>' +
+            breeds
+              .map((b) => `<option value="${b.id}">${b.name}</option>`)
+              .join("");
+        } catch (error) {
+          console.error("Error loading breeds:", error);
+          breedSelect.innerHTML = '<option value="">غير محدد</option>';
+        }
+      }
 
       async function loadReports() {
         showLoading();
 
         try {
           const response = await apiCall(
-            `/lostfound/?report_type=${encodeURIComponent(currentTab)}`,
+            `/lostfound/?report_type=${encodeURIComponent(currentTab)}&status=active`,
             "GET",
             null,
-            false
+            false,
           );
-          const reports = response.results || response || [];
+          const reports = extractResults(response);
           displayReports(reports);
         } catch (error) {
           console.error("Error loading reports:", error);
+          displayReports([]);
         } finally {
           hideLoading();
         }
@@ -1126,50 +1643,53 @@
         grid.innerHTML = reports
           .map(
             (report) => `
-              <div class="pet-card">
-                <img
-                  src="${report.primary_image || "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=1200&q=80"}"
-                  alt="${report.pet_name || "حيوان"}"
-                  class="pet-image"
-                />
-                <div class="pet-content">
-                  <div class="pet-header">
-                    <h3 class="pet-name">${report.pet_name || "حيوان"}</h3>
-                    <span class="${report.report_type === "lost" ? "lost-badge" : "found-badge"}">
-                      ${report.report_type === "lost" ? "مفقود" : "معثور عليه"}
-                    </span>
-                  </div>
-
-                  <div class="pet-details">
-                    <p><strong>النوع:</strong> ${report.pet_type_name || "غير محدد"}</p>
-                    <p><strong>السلالة:</strong> ${report.breed_name || "غير محدد"}</p>
-                    <p><strong>الموقع:</strong> ${report.location || "غير محدد"}</p>
-                    <p><strong>التاريخ:</strong> ${formatDate(report.event_date)}</p>
-                    ${
-                      report.urgency !== "normal"
-                        ? '<p><span class="urgent-badge">⚠️ عاجل</span></p>'
-                        : ""
-                    }
-                  </div>
-
-                  <div class="pet-actions">
-                    <button onclick="viewReportDetails(${report.id})" class="btn-details">تفاصيل</button>
-                    ${
-                      report.report_type === "lost"
-                        ? `<button onclick="reportSighting(${report.id})" class="btn-contact">الإبلاغ عن مشاهدة</button>`
-                        : `<button onclick="claimPet(${report.id})" class="btn-contact">الإبلاغ كحيواني</button>`
-                    }
-                  </div>
-                </div>
+          <div class="pet-card">
+            <img
+              src="${report.primary_image || "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=1200&q=80"}"
+              alt="${report.pet_name || "حيوان"}"
+              class="pet-image"
+            />
+            <div class="pet-content">
+              <div class="pet-header">
+                <h3 class="pet-name">${report.pet_name || "حيوان"}</h3>
+                <span class="${report.report_type === "lost" ? "lost-badge" : "found-badge"}">
+                  ${report.report_type === "lost" ? "مفقود" : "معثور عليه"}
+                </span>
               </div>
-            `
+
+              <div class="pet-details">
+                <p><strong>النوع:</strong> ${report.pet_type_name || "غير محدد"}</p>
+                <p><strong>السلالة:</strong> ${report.breed_name || "غير محدد"}</p>
+                <p><strong>الموقع:</strong> ${report.location || "غير محدد"}</p>
+                <p><strong>المدينة:</strong> ${report.city || "غير محدد"}</p>
+                <p><strong>التاريخ:</strong> ${formatDate(report.event_date)}</p>
+                ${
+                  report.urgency !== "normal"
+                    ? '<p><span class="urgent-badge">⚠️ عاجل</span></p>'
+                    : ""
+                }
+              </div>
+
+              <div class="pet-actions">
+                <button onclick="viewReportDetails(${report.id})" class="btn-details">تفاصيل</button>
+                ${
+                  report.report_type === "lost"
+                    ? `<button onclick="reportSighting(${report.id})" class="btn-contact">الإبلاغ عن مشاهدة</button>`
+                    : `<button onclick="claimPet(${report.id})" class="btn-contact">هذا حيواني</button>`
+                }
+              </div>
+            </div>
+          </div>
+        `,
           )
           .join("");
       }
 
       function switchTab(tab) {
         currentTab = tab;
-        document.querySelectorAll(".tab-button").forEach((btn) => btn.classList.remove("active"));
+        document
+          .querySelectorAll(".tab-button")
+          .forEach((btn) => btn.classList.remove("active"));
         document
           .getElementById(`tab${tab === "lost" ? "Lost" : "Found"}Btn`)
           .classList.add("active");
@@ -1177,15 +1697,15 @@
       }
 
       function reportLost() {
-        if (!requireAuth()) return;
-        document.getElementById("modalTitle").textContent = "الإبلاغ عن حيوان مفقود";
+        document.getElementById("modalTitle").textContent =
+          "الإبلاغ عن حيوان مفقود";
         document.getElementById("reportType").value = "lost";
         document.getElementById("reportModal").style.display = "block";
       }
 
       function reportFound() {
-        if (!requireAuth()) return;
-        document.getElementById("modalTitle").textContent = "الإبلاغ عن حيوان معثور عليه";
+        document.getElementById("modalTitle").textContent =
+          "الإبلاغ عن حيوان معثور عليه";
         document.getElementById("reportType").value = "found";
         document.getElementById("reportModal").style.display = "block";
       }
@@ -1193,17 +1713,54 @@
       async function submitReport(event) {
         event.preventDefault();
 
+        const eventDate = document.getElementById("eventDate").value;
+        const today = new Date().toISOString().split("T")[0];
+
+        if (eventDate > today) {
+          showNotification("لا يمكن اختيار تاريخ أكبر من اليوم", "error");
+          document.getElementById("eventDate").focus();
+          return;
+        }
+
         const formData = new FormData();
-        formData.append("report_type", document.getElementById("reportType").value);
-        formData.append("pet_name", document.getElementById("petName").value);
+        formData.append(
+          "report_type",
+          document.getElementById("reportType").value,
+        );
+        formData.append(
+          "pet_name",
+          document.getElementById("petName").value.trim(),
+        );
         formData.append("pet_type", document.getElementById("petType").value);
         formData.append("gender", document.getElementById("gender").value);
-        formData.append("color", document.getElementById("color").value);
-        formData.append("location", document.getElementById("location").value);
-        formData.append("event_date", document.getElementById("eventDate").value);
-        formData.append("description", document.getElementById("description").value);
-        formData.append("special_features", document.getElementById("specialFeatures").value);
+        formData.append("color", document.getElementById("color").value.trim());
+        formData.append("city", document.getElementById("city").value.trim());
+        formData.append(
+          "location",
+          document.getElementById("location").value.trim(),
+        );
+        formData.append("event_date", eventDate);
+        formData.append(
+          "description",
+          document.getElementById("description").value.trim(),
+        );
+        formData.append(
+          "special_features",
+          document.getElementById("specialFeatures").value.trim(),
+        );
         formData.append("urgency", document.getElementById("urgency").value);
+        formData.append(
+          "contact_name",
+          document.getElementById("contactName").value.trim(),
+        );
+        formData.append(
+          "contact_phone",
+          document.getElementById("contactPhone").value.trim(),
+        );
+        formData.append(
+          "contact_email",
+          document.getElementById("contactEmail").value.trim(),
+        );
 
         const breed = document.getElementById("breed").value;
         if (breed) formData.append("breed", breed);
@@ -1211,7 +1768,7 @@
         showLoading();
 
         try {
-          await apiCall("/lostfound/", "POST", formData);
+          await apiCall("/lostfound/", "POST", formData, false);
           showNotification("تم إرسال البلاغ بنجاح", "success");
           closeReportModal();
           loadReports();
@@ -1226,6 +1783,9 @@
       function closeReportModal() {
         document.getElementById("reportModal").style.display = "none";
         document.getElementById("reportForm").reset();
+        document.getElementById("breed").innerHTML =
+          '<option value="">غير محدد</option>';
+        setMaxEventDate();
       }
 
       async function viewReportDetails(id) {
@@ -1236,38 +1796,40 @@
           modal.className = "modal";
           modal.style.display = "block";
           modal.innerHTML = `
-            <div class="modal-content" style="max-width: 850px;">
-              <span class="close" onclick="this.parentElement.parentElement.remove()">&times;</span>
-              <h2 style="margin-bottom: 18px;">${report.pet_name || "تفاصيل البلاغ"}</h2>
+        <div class="modal-content" style="max-width: 850px;">
+          <span class="close" onclick="this.parentElement.parentElement.remove()">&times;</span>
+          <h2 style="margin-bottom: 18px;">${report.pet_name || "تفاصيل البلاغ"}</h2>
 
-              <div style="display:flex; gap:20px; align-items:flex-start; flex-wrap:wrap;">
-                <img
-                  src="${report.primary_image || "https://images.unsplash.com/photo-1519052537078-e6302a4968d4?auto=format&fit=crop&w=1200&q=80"}"
-                  alt="${report.pet_name || "حيوان"}"
-                  style="width:300px; max-width:100%; border-radius:18px; object-fit:cover;"
-                />
+          <div style="display:flex; gap:20px; align-items:flex-start; flex-wrap:wrap;">
+            <img
+              src="${report.primary_image || "https://images.unsplash.com/photo-1519052537078-e6302a4968d4?auto=format&fit=crop&w=1200&q=80"}"
+              alt="${report.pet_name || "حيوان"}"
+              style="width:300px; max-width:100%; border-radius:18px; object-fit:cover;"
+            />
 
-                <div style="flex:1; min-width:260px;">
-                  <p><strong>الحالة:</strong> ${report.report_type === "lost" ? "مفقود" : "معثور عليه"}</p>
-                  <p><strong>النوع:</strong> ${report.pet_type_name || "غير محدد"}</p>
-                  <p><strong>السلالة:</strong> ${report.breed_name || "غير محدد"}</p>
-                  <p><strong>الجنس:</strong> ${getGenderName(report.gender)}</p>
-                  <p><strong>اللون:</strong> ${report.color || "غير محدد"}</p>
-                  <p><strong>الموقع:</strong> ${report.location || "غير محدد"}</p>
-                  <p><strong>التاريخ:</strong> ${formatDate(report.event_date)}</p>
-                  <p><strong>الوصف:</strong> ${report.description || "لا يوجد وصف"}</p>
-                  <p><strong>صفات مميزة:</strong> ${report.special_features || "لا يوجد"}</p>
-                  ${
-                    report.urgency !== "normal"
-                      ? `<p><span class="urgent-badge">⚠️ ${
-                          report.urgency === "critical" ? "خطير" : "عاجل"
-                        }</span></p>`
-                      : ""
-                  }
-                </div>
-              </div>
+            <div style="flex:1; min-width:260px;">
+              <p><strong>الحالة:</strong> ${report.report_type_display || "-"}</p>
+              <p><strong>النوع:</strong> ${report.pet_type_name || "غير محدد"}</p>
+              <p><strong>السلالة:</strong> ${report.breed_name || "غير محدد"}</p>
+              <p><strong>الجنس:</strong> ${getGenderName(report.gender)}</p>
+              <p><strong>اللون:</strong> ${report.color || "غير محدد"}</p>
+              <p><strong>الموقع:</strong> ${report.location || "غير محدد"}</p>
+              <p><strong>المدينة:</strong> ${report.city || "غير محدد"}</p>
+              <p><strong>التاريخ:</strong> ${formatDate(report.event_date)}</p>
+              <p><strong>الوصف:</strong> ${report.description || "لا يوجد وصف"}</p>
+              <p><strong>صفات مميزة:</strong> ${report.special_features || "لا يوجد"}</p>
+              <p><strong>المبلغ:</strong> ${report.contact_name || "-"}</p>
+              <p><strong>الهاتف:</strong> ${report.contact_phone || "-"}</p>
+              <p><strong>البريد:</strong> ${report.contact_email || "-"}</p>
+              ${
+                report.urgency !== "normal"
+                  ? `<p><span class="urgent-badge">⚠️ ${report.urgency_display || "عاجل"}</span></p>`
+                  : ""
+              }
             </div>
-          `;
+          </div>
+        </div>
+      `;
 
           document.body.appendChild(modal);
 
@@ -1279,14 +1841,46 @@
         }
       }
 
-      function reportSighting(id) {
-        if (!requireAuth()) return;
-        showNotification("يمكنك لاحقاً ربط هذه الزر بنموذج بلاغ مشاهدة.", "success");
+      async function reportSighting(id) {
+        const sightingLocation = prompt("أدخل مكان المشاهدة:");
+        if (!sightingLocation) return;
+
+        const description = prompt("أدخل وصف المشاهدة:");
+        if (!description) return;
+
+        const reporterName = prompt("اسمك:");
+        if (!reporterName) return;
+
+        const reporterPhone = prompt("رقم الهاتف:");
+        if (!reporterPhone) return;
+
+        try {
+          const now = new Date().toISOString();
+          const formData = new FormData();
+          formData.append("sighting_date", now);
+          formData.append("sighting_location", sightingLocation);
+          formData.append("description", description);
+          formData.append("reporter_name", reporterName);
+          formData.append("reporter_phone", reporterPhone);
+          formData.append("reporter_email", "");
+
+          await apiCall(
+            `/lostfound/${id}/sightings/add/`,
+            "POST",
+            formData,
+            false,
+          );
+          showNotification("تم إرسال بلاغ المشاهدة بنجاح", "success");
+        } catch (error) {
+          showNotification(error.message || "فشل إرسال بلاغ المشاهدة", "error");
+        }
       }
 
       function claimPet(id) {
-        if (!requireAuth()) return;
-        showNotification("يمكنك لاحقاً ربط هذه الزر بنموذج إثبات الملكية.", "success");
+        showNotification(
+          "سيتم إضافة نموذج إثبات الملكية في المرحلة التالية",
+          "success",
+        );
       }
 
       function getGenderName(gender) {
@@ -1301,15 +1895,21 @@
 
       window.addEventListener("click", (e) => {
         const reportModal = document.getElementById("reportModal");
-        if (e.target === reportModal) {
-          closeReportModal();
-        }
+        if (e.target === reportModal) closeReportModal();
       });
 
       document.addEventListener("DOMContentLoaded", () => {
+        setMaxEventDate();
         loadStats();
         loadPetTypes();
         loadReports();
+
+        const petTypeSelect = document.getElementById("petType");
+        if (petTypeSelect) {
+          petTypeSelect.addEventListener("change", function () {
+            loadBreedsByType(this.value);
+          });
+        }
       });
     </script>
   </body>

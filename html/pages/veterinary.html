@@ -15,7 +15,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
-
+    <script src="/js/auth-ui.js"></script>
     <style>
       :root {
         --primary: #ff7a59;
@@ -52,8 +52,16 @@
       body {
         font-family: "Tajawal", sans-serif;
         background:
-          radial-gradient(circle at top right, rgba(255, 209, 102, 0.18), transparent 20%),
-          radial-gradient(circle at bottom left, rgba(94, 200, 165, 0.12), transparent 22%),
+          radial-gradient(
+            circle at top right,
+            rgba(255, 209, 102, 0.18),
+            transparent 20%
+          ),
+          radial-gradient(
+            circle at bottom left,
+            rgba(94, 200, 165, 0.12),
+            transparent 22%
+          ),
           linear-gradient(180deg, #fffaf5 0%, #fff7ef 100%);
         color: var(--text);
         line-height: 1.7;
@@ -67,8 +75,7 @@
         inset: 0;
         pointer-events: none;
         opacity: 0.05;
-        background-image:
-          url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='%23ff7a59'%3E%3Ccircle cx='28' cy='30' r='8'/%3E%3Ccircle cx='47' cy='18' r='7'/%3E%3Ccircle cx='66' cy='30' r='8'/%3E%3Ccircle cx='38' cy='48' r='7'/%3E%3Cpath d='M57 52c11 0 18 8 18 17 0 8-7 13-18 13s-18-5-18-13c0-9 7-17 18-17z'/%3E%3C/g%3E%3C/svg%3E");
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='%23ff7a59'%3E%3Ccircle cx='28' cy='30' r='8'/%3E%3Ccircle cx='47' cy='18' r='7'/%3E%3Ccircle cx='66' cy='30' r='8'/%3E%3Ccircle cx='38' cy='48' r='7'/%3E%3Cpath d='M57 52c11 0 18 8 18 17 0 8-7 13-18 13s-18-5-18-13c0-9 7-17 18-17z'/%3E%3C/g%3E%3C/svg%3E");
         background-size: 120px;
         z-index: -1;
       }
@@ -224,16 +231,111 @@
         padding: 90px 0 70px;
         background:
           linear-gradient(rgba(47, 42, 38, 0.48), rgba(47, 42, 38, 0.48)),
-          url("https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=1600&q=80") center/cover no-repeat;
+          url("https://th.bing.com/th/id/R.bbb99b23b6d9b94c67882b757b9cf7ce?rik=JkqNBcFFU0Ynzg&riu=http%3a%2f%2fwww.psyeta.org%2fwp-content%2fuploads%2f2022%2f02%2fAdobeStock_481854656-1-scaled.jpeg&ehk=peXjFkviqt%2fHhrT3ZnqkWB04p%2bxV3G4F75oNX4G5zeU%3d&risl=&pid=ImgRaw&r=0")
+            center/cover no-repeat;
+      }
+      /* Auth Buttons */
+      .auth-buttons {
+        display: flex;
+        align-items: center;
+        gap: 10px;
       }
 
+      /* Login Button */
+      .login-btn {
+        padding: 10px 18px;
+        border-radius: 14px;
+        border: 2px solid var(--primary);
+        background: transparent;
+        color: var(--primary);
+        font-weight: 700;
+        cursor: pointer;
+        transition: 0.25s ease;
+      }
+
+      .login-btn:hover {
+        background: var(--primary);
+        color: #fff;
+      }
+
+      /* Profile Button */
+      .profile-btn {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: #fff;
+        border: 1px solid var(--border);
+        padding: 6px 12px;
+        border-radius: 999px;
+        cursor: pointer;
+        transition: 0.25s ease;
+        box-shadow: var(--shadow);
+      }
+
+      .profile-btn:hover {
+        transform: translateY(-2px);
+      }
+
+      /* Avatar */
+      .profile-avatar {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      /* Username */
+      .profile-name {
+        font-weight: 700;
+        color: var(--text);
+        font-size: 0.95rem;
+      }
+
+      /* Dropdown */
+      .profile-dropdown {
+        position: absolute;
+        top: 70px;
+        left: 0;
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: var(--shadow);
+        border: 1px solid var(--border);
+        width: 200px;
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .profile-dropdown.show {
+        display: flex;
+      }
+
+      .profile-dropdown a {
+        padding: 12px 16px;
+        font-weight: 600;
+        color: var(--text-light);
+        transition: 0.2s;
+      }
+
+      .profile-dropdown a:hover {
+        background: var(--background-soft);
+        color: var(--primary);
+      }
       .page-hero::before {
         content: "";
         position: absolute;
         inset: 0;
         background:
-          linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(5, 150, 105, 0.18)),
-          radial-gradient(circle at 20% 20%, rgba(255, 209, 102, 0.18), transparent 24%);
+          linear-gradient(
+            135deg,
+            rgba(16, 185, 129, 0.3),
+            rgba(5, 150, 105, 0.18)
+          ),
+          radial-gradient(
+            circle at 20% 20%,
+            rgba(255, 209, 102, 0.18),
+            transparent 24%
+          );
       }
 
       .page-hero::after {
@@ -241,8 +343,10 @@
         position: absolute;
         inset: 0;
         background:
-          url("https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=1000&q=80") left center/28% 100% no-repeat,
-          url("https://images.unsplash.com/photo-1519052537078-e6302a4968d4?auto=format&fit=crop&w=900&q=80") right center/28% 100% no-repeat;
+          url("https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=1000&q=80")
+            left center/28% 100% no-repeat,
+          url("https://images.unsplash.com/photo-1519052537078-e6302a4968d4?auto=format&fit=crop&w=900&q=80")
+            right center/28% 100% no-repeat;
         opacity: 0.15;
         mix-blend-mode: screen;
       }
@@ -355,7 +459,11 @@
 
       .tab.active {
         color: #fff;
-        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-dark)
+        );
         border-color: transparent;
       }
 
@@ -442,7 +550,11 @@
 
       .btn-primary,
       .btn-submit {
-        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-dark)
+        );
         color: #fff;
       }
 
@@ -560,7 +672,11 @@
       }
 
       .schedule-table th {
-        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-dark)
+        );
         color: white;
         padding: 1rem;
         text-align: center;
@@ -708,6 +824,234 @@
           white-space: nowrap;
         }
       }
+      .nav-item {
+        position: relative;
+      }
+
+      .nav-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        background: transparent;
+        border: none;
+        font-size: inherit;
+        font-weight: 700;
+        color: var(--text-light);
+        transition: 0.25s ease;
+        position: relative;
+      }
+
+      .nav-link:hover,
+      .nav-item.dropdown-open .nav-link {
+        color: var(--primary);
+      }
+
+      .nav-link i {
+        font-size: 0.8rem;
+        transition: transform 0.25s ease;
+      }
+
+      .nav-item.dropdown-open .nav-link i {
+        transform: rotate(180deg);
+      }
+
+      .nav-item.dropdown-open .nav-link::after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        right: 0;
+        width: 100%;
+        height: 3px;
+        border-radius: 999px;
+        background: var(--primary);
+      }
+
+      .pet-shop-dropdown {
+        position: absolute;
+        top: calc(100% + 18px);
+        right: 0;
+        width: min(920px, 92vw);
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+        display: none;
+        overflow: hidden;
+        z-index: 2000;
+      }
+
+      .pet-shop-dropdown.open {
+        display: grid;
+        grid-template-columns: 240px 1fr;
+      }
+
+      .pet-shop-sidebar {
+        background: linear-gradient(180deg, #fff7ef, #fffaf5);
+        border-left: 1px solid var(--border);
+        padding: 18px;
+      }
+
+      .pet-shop-sidebar h4 {
+        font-size: 1.05rem;
+        margin-bottom: 12px;
+        color: var(--text);
+      }
+
+      .pet-type-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .pet-type-item {
+        width: 100%;
+        padding: 12px 14px;
+        border-radius: 14px;
+        color: var(--text);
+        font-weight: 700;
+        transition: 0.2s ease;
+        cursor: pointer;
+        background: transparent;
+        border: none;
+        text-align: right;
+      }
+
+      .pet-type-item:hover,
+      .pet-type-item.active {
+        background: #fff;
+        color: var(--primary);
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.05);
+      }
+
+      .pet-shop-content {
+        padding: 22px;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 24px;
+      }
+
+      .dropdown-col h5 {
+        font-size: 1rem;
+        margin-bottom: 12px;
+        color: var(--text);
+      }
+
+      .dropdown-links {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .dropdown-links a {
+        color: var(--text-light);
+        font-weight: 600;
+        transition: 0.2s ease;
+      }
+
+      .dropdown-links a:hover {
+        color: var(--primary);
+      }
+
+      .dropdown-banner {
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-dark)
+        );
+        border-radius: 20px;
+        color: #fff;
+        padding: 20px;
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .dropdown-banner h5 {
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+      }
+
+      .dropdown-banner p {
+        font-size: 0.95rem;
+        opacity: 0.92;
+      }
+
+      .dropdown-banner a {
+        margin-top: 16px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 700;
+        background: rgba(255, 255, 255, 0.16);
+        width: fit-content;
+        padding: 10px 14px;
+        border-radius: 12px;
+      }
+
+      .mobile-shop-block {
+        border-top: 1px solid var(--border);
+        margin-top: 8px;
+        padding-top: 8px;
+      }
+
+      .mobile-shop-title {
+        width: 100%;
+        padding: 12px;
+        font-weight: 800;
+        color: var(--text);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        border-radius: 12px;
+      }
+
+      .mobile-shop-title i {
+        transition: transform 0.25s ease;
+      }
+
+      .mobile-shop-title.open i {
+        transform: rotate(180deg);
+      }
+
+      .mobile-shop-links {
+        display: none;
+        flex-direction: column;
+        gap: 4px;
+        padding-bottom: 8px;
+      }
+
+      .mobile-shop-links.show {
+        display: flex;
+      }
+
+      .mobile-shop-links a {
+        margin-right: 10px;
+      }
+
+      @media (max-width: 1100px) {
+        .pet-shop-dropdown {
+          width: min(760px, 92vw);
+        }
+
+        .pet-shop-content {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .dropdown-banner {
+          grid-column: span 2;
+        }
+      }
+
+      @media (max-width: 992px) {
+        .pet-shop-dropdown {
+          display: none !important;
+        }
+      }
     </style>
   </head>
 
@@ -723,11 +1067,68 @@
           <a href="pets.html">الحيوانات</a>
           <a href="adoption.html">التبني</a>
           <a href="lost-found.html">مفقود ومعثور</a>
-          <a href="veterinary.html" class="active">الرعاية البيطرية</a>
+          <a href="veterinary.html">الرعاية البيطرية</a>
           <a href="store.html">المتجر</a>
+
+          <!-- NEW DROPDOWN -->
+          <div class="nav-item mega-wrapper" id="shopByPetWrapper">
+            <button
+              class="nav-link nav-dropdown-toggle"
+              type="button"
+              id="shopByPetToggle"
+              aria-expanded="false"
+            >
+              <span>تسوق بنوع حيوانك</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+
+            <div class="pet-shop-dropdown" id="petShopDropdown">
+              <div class="pet-shop-sidebar">
+                <h4>أنواع الحيوانات</h4>
+                <div class="pet-type-list" id="petTypeMenuDesktop">
+                  <button type="button" class="pet-type-item active">
+                    جاري التحميل...
+                  </button>
+                </div>
+              </div>
+
+              <div class="pet-shop-content">
+                <div class="dropdown-col">
+                  <h5 id="dropdownTypeTitle">تسوق الآن</h5>
+                  <div class="dropdown-links" id="dropdownTypeLinks">
+                    <a href="store.html">عرض جميع المنتجات</a>
+                  </div>
+                </div>
+
+                <div class="dropdown-col">
+                  <h5>استكشف</h5>
+                  <div class="dropdown-links">
+                    <a href="store.html">كل المنتجات</a>
+                    <a href="pets.html?listing_type=adoption">حيوانات للتبني</a>
+                    <a href="pets.html?listing_type=sale">حيوانات للبيع</a>
+                    <a href="pets.html">الأحدث إضافة</a>
+                  </div>
+                </div>
+
+                <div class="dropdown-banner">
+                  <div>
+                    <h5>اختر حيوانك بسهولة</h5>
+                    <p id="dropdownBannerText">
+                      تصفح المنتجات المناسبة لكل نوع حيوان من مكان واحد.
+                    </p>
+                  </div>
+                  <a id="dropdownBannerBtn" href="store.html">
+                    تصفح الآن
+                    <i class="fas fa-arrow-left"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="auth-buttons"></div>
+        <div class="auth-buttons" id="authContainer"></div>
+
         <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
       </div>
 
@@ -736,8 +1137,21 @@
         <a href="pets.html">الحيوانات</a>
         <a href="adoption.html">التبني</a>
         <a href="lost-found.html">مفقود ومعثور</a>
-        <a href="veterinary.html">الرعاية البيطرية</a>
+        <a href="veterinary.html" class="active">الرعاية البيطرية</a>
         <a href="store.html">المتجر</a>
+
+        <!-- MOBILE DROPDOWN -->
+        <div class="mobile-shop-block">
+          <button class="mobile-shop-title" type="button" id="mobileShopToggle">
+            <span>تسوق بنوع حيوانك</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+
+          <div class="mobile-shop-links" id="petTypeMenuMobile">
+            <a href="store.html">جاري التحميل...</a>
+          </div>
+        </div>
+
         <a href="login.html">تسجيل الدخول</a>
       </div>
     </nav>
@@ -761,7 +1175,7 @@
       </div>
     </section>
 
-    <section class="section-block" style="padding-bottom: 30px;">
+    <section class="section-block" style="padding-bottom: 30px">
       <div class="container">
         <div class="emergency-banner">
           <div>
@@ -773,7 +1187,7 @@
       </div>
     </section>
 
-    <section class="section-block" style="padding-top: 0;">
+    <section class="section-block" style="padding-top: 0">
       <div class="container">
         <div class="tabs-wrapper">
           <div class="tabs">
@@ -792,7 +1206,7 @@
     </section>
 
     <div id="clinicsTab" class="tab-content active">
-      <section class="section-block" style="padding-top: 0;">
+      <section class="section-block" style="padding-top: 0">
         <div class="container">
           <div class="search-card">
             <div class="search-grid">
@@ -818,7 +1232,7 @@
     </div>
 
     <div id="doctorsTab" class="tab-content">
-      <section class="section-block" style="padding-top: 0;">
+      <section class="section-block" style="padding-top: 0">
         <div class="container">
           <div id="doctorsGrid" class="services-grid"></div>
         </div>
@@ -826,10 +1240,10 @@
     </div>
 
     <div id="appointmentsTab" class="tab-content">
-      <section class="section-block" style="padding-top: 0;">
+      <section class="section-block" style="padding-top: 0">
         <div class="container">
           <div class="form-card">
-            <h3 style="margin-bottom: 18px;">حجز موعد</h3>
+            <h3 style="margin-bottom: 18px">حجز موعد</h3>
 
             <form id="appointmentForm" onsubmit="bookAppointment(event)">
               <div class="form-row">
@@ -971,8 +1385,12 @@
       function showTab(tab, el) {
         currentTab = tab;
 
-        document.querySelectorAll(".tab").forEach((t) => t.classList.remove("active"));
-        document.querySelectorAll(".tab-content").forEach((c) => c.classList.remove("active"));
+        document
+          .querySelectorAll(".tab")
+          .forEach((t) => t.classList.remove("active"));
+        document
+          .querySelectorAll(".tab-content")
+          .forEach((c) => c.classList.remove("active"));
 
         if (el) el.classList.add("active");
         document.getElementById(tab + "Tab").classList.add("active");
@@ -991,7 +1409,8 @@
         try {
           const search = document.getElementById("clinicSearch")?.value || "";
           const city = document.getElementById("cityFilter")?.value || "";
-          const specialty = document.getElementById("specialtyFilter")?.value || "";
+          const specialty =
+            document.getElementById("specialtyFilter")?.value || "";
 
           let url = "/veterinary/clinics/";
           const params = new URLSearchParams();
@@ -1019,7 +1438,8 @@
         const grid = document.getElementById("clinicsGrid");
 
         if (!clinics.length) {
-          grid.innerHTML = '<div class="empty-state">لا توجد عيادات متاحة حالياً</div>';
+          grid.innerHTML =
+            '<div class="empty-state">لا توجد عيادات متاحة حالياً</div>';
           return;
         }
 
@@ -1037,11 +1457,7 @@
                   <p><span class="badge badge-rating">⭐ ${clinic.rating || 0} (${clinic.reviews_count || 0} تقييم)</span></p>
                   <p>📍 ${clinic.city || "غير محدد"} - ${clinic.address || "غير محدد"}</p>
                   <p>📞 ${clinic.phone || "غير متوفر"}</p>
-                  ${
-                    clinic.specialty
-                      ? `<p>🩺 ${clinic.specialty}</p>`
-                      : ""
-                  }
+                  ${clinic.specialty ? `<p>🩺 ${clinic.specialty}</p>` : ""}
                   ${
                     clinic.emergency_service
                       ? `<p><span class="badge badge-emergency">🚑 خدمة طوارئ 24/7</span></p>`
@@ -1050,7 +1466,7 @@
                   <button class="btn-details" onclick="viewClinic(${clinic.id})">عرض التفاصيل</button>
                 </div>
               </div>
-            `
+            `,
           )
           .join("");
       }
@@ -1070,7 +1486,9 @@
       }
 
       function extractSpecialties(clinics) {
-        const specialties = [...new Set(clinics.map((c) => c.specialty).filter(Boolean))];
+        const specialties = [
+          ...new Set(clinics.map((c) => c.specialty).filter(Boolean)),
+        ];
         const select = document.getElementById("specialtyFilter");
         const currentValue = select.value;
 
@@ -1087,7 +1505,12 @@
         showLoading();
 
         try {
-          const response = await apiCall("/veterinary/doctors/", "GET", null, false);
+          const response = await apiCall(
+            "/veterinary/doctors/",
+            "GET",
+            null,
+            false,
+          );
           const doctors = response.results || response || [];
           displayDoctors(doctors);
         } catch (error) {
@@ -1103,7 +1526,8 @@
         const grid = document.getElementById("doctorsGrid");
 
         if (!doctors.length) {
-          grid.innerHTML = '<div class="empty-state">لا يوجد أطباء متاحون حالياً</div>';
+          grid.innerHTML =
+            '<div class="empty-state">لا يوجد أطباء متاحون حالياً</div>';
           return;
         }
 
@@ -1122,58 +1546,65 @@
                   <p><span class="badge badge-rating">⭐ ${doc.rating || 0} (${doc.reviews_count || 0} تقييم)</span></p>
                   <p>📞 ${doc.phone || "غير متوفر"}</p>
                   <p>🧪 ${doc.experience_years || 0} سنوات خبرة</p>
-                  ${
-                    doc.clinic_name
-                      ? `<p>🏥 ${doc.clinic_name}</p>`
-                      : ""
-                  }
+                  ${doc.clinic_name ? `<p>🏥 ${doc.clinic_name}</p>` : ""}
                   <button class="btn-details" onclick="viewDoctor(${doc.id})">عرض التفاصيل</button>
                 </div>
               </div>
-            `
+            `,
           )
           .join("");
       }
 
       async function loadClinicsForAppointment() {
         try {
-          const response = await apiCall("/veterinary/clinics/", "GET", null, false);
+          const response = await apiCall(
+            "/veterinary/clinics/",
+            "GET",
+            null,
+            false,
+          );
           const clinics = response.results || response || [];
 
           const select = document.getElementById("appClinic");
           select.innerHTML =
             '<option value="">اختر العيادة</option>' +
-            clinics.map((c) => `<option value="${c.id}">${c.name}</option>`).join("");
+            clinics
+              .map((c) => `<option value="${c.id}">${c.name}</option>`)
+              .join("");
         } catch (error) {
           console.error("Error loading clinics:", error);
         }
       }
 
-      document.getElementById("appClinic")?.addEventListener("change", async function (e) {
-        const clinicId = e.target.value;
-        const doctorSelect = document.getElementById("appDoctor");
+      document
+        .getElementById("appClinic")
+        ?.addEventListener("change", async function (e) {
+          const clinicId = e.target.value;
+          const doctorSelect = document.getElementById("appDoctor");
 
-        if (!clinicId) {
-          doctorSelect.innerHTML = '<option value="">اختر الطبيب</option>';
-          return;
-        }
+          if (!clinicId) {
+            doctorSelect.innerHTML = '<option value="">اختر الطبيب</option>';
+            return;
+          }
 
-        try {
-          const response = await apiCall(
-            `/veterinary/doctors/?clinic=${encodeURIComponent(clinicId)}`,
-            "GET",
-            null,
-            false
-          );
-          const doctors = response.results || response || [];
+          try {
+            const response = await apiCall(
+              `/veterinary/doctors/?clinic=${encodeURIComponent(clinicId)}`,
+              "GET",
+              null,
+              false,
+            );
+            const doctors = response.results || response || [];
 
-          doctorSelect.innerHTML =
-            '<option value="">اختر الطبيب</option>' +
-            doctors.map((d) => `<option value="${d.id}">د. ${d.name}</option>`).join("");
-        } catch (error) {
-          console.error("Error loading doctors:", error);
-        }
-      });
+            doctorSelect.innerHTML =
+              '<option value="">اختر الطبيب</option>' +
+              doctors
+                .map((d) => `<option value="${d.id}">د. ${d.name}</option>`)
+                .join("");
+          } catch (error) {
+            console.error("Error loading doctors:", error);
+          }
+        });
 
       async function bookAppointment(event) {
         event.preventDefault();
@@ -1204,7 +1635,12 @@
 
       async function loadUserAppointments() {
         try {
-          const response = await apiCall("/veterinary/appointments/", "GET", null, false);
+          const response = await apiCall(
+            "/veterinary/appointments/",
+            "GET",
+            null,
+            false,
+          );
           const appointments = response.results || response || [];
           displayUserAppointments(appointments);
         } catch (error) {
@@ -1238,7 +1674,7 @@
                         : ""
                     }
                   </div>
-                `
+                `,
               )
               .join("")}
           </div>
@@ -1278,11 +1714,17 @@
       }
 
       function viewClinic(id) {
-        showNotification("يمكنك لاحقاً ربط الزر بصفحة تفاصيل العيادة.", "success");
+        showNotification(
+          "يمكنك لاحقاً ربط الزر بصفحة تفاصيل العيادة.",
+          "success",
+        );
       }
 
       function viewDoctor(id) {
-        showNotification("يمكنك لاحقاً ربط الزر بصفحة تفاصيل الطبيب.", "success");
+        showNotification(
+          "يمكنك لاحقاً ربط الزر بصفحة تفاصيل الطبيب.",
+          "success",
+        );
       }
 
       function populateVaccinationTable() {
@@ -1317,7 +1759,7 @@
                 <td>${row.dogs}</td>
                 <td>${row.cats}</td>
               </tr>
-            `
+            `,
           )
           .join("");
       }
@@ -1330,13 +1772,161 @@
         loadClinics();
       });
 
-      document.getElementById("specialtyFilter")?.addEventListener("change", () => {
-        loadClinics();
-      });
+      document
+        .getElementById("specialtyFilter")
+        ?.addEventListener("change", () => {
+          loadClinics();
+        });
 
       document.addEventListener("DOMContentLoaded", () => {
         loadClinics();
         populateVaccinationTable();
+      });
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        updateAuthUI();
+      });
+    </script>
+    <script>
+      let headerPetTypes = [];
+
+      async function loadHeaderPetTypes() {
+        try {
+          const response = await apiCall("/animals/types/", "GET", null, false);
+          headerPetTypes = response?.results || response || [];
+
+          renderHeaderPetTypes();
+        } catch (error) {
+          console.error("Error loading header pet types:", error);
+        }
+      }
+
+      function renderHeaderPetTypes() {
+        const desktopMenu = document.getElementById("petTypeMenuDesktop");
+        const mobileMenu = document.getElementById("petTypeMenuMobile");
+
+        if (!desktopMenu || !mobileMenu) return;
+
+        if (!headerPetTypes.length) {
+          desktopMenu.innerHTML =
+            '<button type="button" class="pet-type-item active">لا توجد أنواع</button>';
+          mobileMenu.innerHTML = '<a href="store.html">لا توجد أنواع</a>';
+          return;
+        }
+
+        desktopMenu.innerHTML = headerPetTypes
+          .map(
+            (type, index) => `
+          <button
+            type="button"
+            class="pet-type-item ${index === 0 ? "active" : ""}"
+            data-type-name="${type.name}"
+            onclick="setHeaderDropdownType('${encodeURIComponent(type.name)}')"
+          >
+            ${type.name}
+          </button>
+        `,
+          )
+          .join("");
+
+        mobileMenu.innerHTML = headerPetTypes
+          .map(
+            (type) => `
+          <a href="store.html?pet_type=${encodeURIComponent(type.name)}">
+            ${type.name}
+          </a>
+        `,
+          )
+          .join("");
+
+        updateHeaderDropdownContent(headerPetTypes[0]);
+      }
+
+      function setHeaderDropdownType(encodedName) {
+        const typeName = decodeURIComponent(encodedName);
+        const typeObj = headerPetTypes.find((item) => item.name === typeName);
+
+        document.querySelectorAll(".pet-type-item").forEach((item) => {
+          item.classList.remove("active");
+        });
+
+        const activeBtn = document.querySelector(
+          `.pet-type-item[data-type-name="${CSS.escape(typeName)}"]`,
+        );
+        if (activeBtn) activeBtn.classList.add("active");
+
+        if (typeObj) {
+          updateHeaderDropdownContent(typeObj);
+        }
+      }
+
+      function updateHeaderDropdownContent(type) {
+        const title = document.getElementById("dropdownTypeTitle");
+        const links = document.getElementById("dropdownTypeLinks");
+        const bannerText = document.getElementById("dropdownBannerText");
+        const bannerBtn = document.getElementById("dropdownBannerBtn");
+
+        if (!title || !links || !bannerText || !bannerBtn) return;
+
+        title.textContent = type.name;
+
+        links.innerHTML = `
+      <a href="store.html?pet_type=${encodeURIComponent(type.name)}">عرض كل منتجات ${type.name}</a>
+      <a href="store.html?pet_type=${encodeURIComponent(type.name)}&sort=rating">الأعلى تقييماً</a>
+      <a href="store.html?pet_type=${encodeURIComponent(type.name)}&sort=newest">الأحدث</a>
+      <a href="store.html?pet_type=${encodeURIComponent(type.name)}&price=0-50">منتجات اقتصادية</a>
+      <a href="store.html?pet_type=${encodeURIComponent(type.name)}&price=200%2B">منتجات مميزة</a>
+    `;
+
+        bannerText.textContent =
+          type.description?.trim() ||
+          `تصفح المنتجات المخصصة لـ ${type.name} فقط بسهولة وسرعة.`;
+
+        bannerBtn.href = `store.html?pet_type=${encodeURIComponent(type.name)}`;
+      }
+
+      function setupHeaderDropdown() {
+        const wrapper = document.getElementById("shopByPetWrapper");
+        const toggle = document.getElementById("shopByPetToggle");
+        const dropdown = document.getElementById("petShopDropdown");
+        const mobileToggle = document.getElementById("mobileShopToggle");
+        const mobileLinks = document.getElementById("petTypeMenuMobile");
+
+        if (wrapper && toggle && dropdown) {
+          toggle.addEventListener("click", function (e) {
+            e.stopPropagation();
+            const isOpen = dropdown.classList.contains("open");
+
+            dropdown.classList.toggle("open", !isOpen);
+            wrapper.classList.toggle("dropdown-open", !isOpen);
+            toggle.setAttribute("aria-expanded", String(!isOpen));
+          });
+
+          dropdown.addEventListener("click", function (e) {
+            e.stopPropagation();
+          });
+
+          document.addEventListener("click", function (e) {
+            if (!wrapper.contains(e.target)) {
+              dropdown.classList.remove("open");
+              wrapper.classList.remove("dropdown-open");
+              toggle.setAttribute("aria-expanded", "false");
+            }
+          });
+        }
+
+        if (mobileToggle && mobileLinks) {
+          mobileToggle.addEventListener("click", function () {
+            mobileLinks.classList.toggle("show");
+            mobileToggle.classList.toggle("open");
+          });
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        setupHeaderDropdown();
+        loadHeaderPetTypes();
       });
     </script>
   </body>
